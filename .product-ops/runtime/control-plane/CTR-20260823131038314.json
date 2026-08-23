@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "CTR-20260823131038314",
+  "kind": "control_plane",
+  "dryRun": false,
+  "actions": [
+    {
+      "type": "promote_task",
+      "taskId": "BR-0005",
+      "status": "ready"
+    },
+    {
+      "type": "request_human_approval",
+      "taskId": "BR-0005",
+      "gate": "product_direction_or_priority"
+    }
+  ],
+  "advanced": 2,
+  "awaitingPerformer": 0,
+  "createdAt": "2026-08-23T13:10:38.314Z"
+}
