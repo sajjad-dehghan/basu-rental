@@ -1,0 +1,461 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "ENGPLAN-EVT-20260823-001",
+  "workstream": {
+    "id": "WS-02",
+    "ownerRole": "ENG-02",
+    "domain": "solution_architecture",
+    "title": "Solution Architecture: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+    "dependencies": [
+      "WS-01"
+    ],
+    "deliverables": [
+      "System impact analysis",
+      "Architecture decision records",
+      "Traceability to DEVREQ-EVT-20260823-001",
+      "Implementation or review notes",
+      "Known risks and limitations"
+    ],
+    "requiredEvidence": [
+      "canonical revision",
+      "commands and environment",
+      "machine-readable or inspectable result"
+    ],
+    "status": "ready"
+  },
+  "request": {
+    "schemaVersion": "1.0.0",
+    "requestId": "DEVREQ-EVT-20260823-001",
+    "productTaskId": "BR-0010",
+    "deliveryTicketReference": ".product-ops/runtime/autopilot/product-runs/BR-0007-result.json",
+    "title": "ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+    "problem": "تبدیل فرایند فعلی مبتنی بر اکسل به یک سایت فارسی مینیمال و مدرن برای انتخاب تجهیزات، تاریخ، ساعت، تعداد، محاسبه قیمت عمومی یا بوعلی، رزرو، هماهنگی تحویل و پرداخت کامل؛ همراه با پنل ادمین برای مدیریت موجودی، قیمت‌ها، تعطیلات، رزروها، پرداخت‌ها و ده قابلیت متمایز و کاربردی برای مشتری و مدیر.",
+    "desiredOutcome": "مهندسی دامنه را به معماری، رابط، API، داده، امنیت، کیفیت، قابلیت اطمینان، SEO و مستندات تقسیم کند اما همه workstreamها را زیر یک قرارداد و یک ماتریس ردیابی نگه دارد.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-01",
+        "statement": "AC-01 کاتالوگ کامل اقلام، تصاویر، ظرفیت، ویژگی‌ها و قیمت آزاد/بوعلی را مطابق شیت قیمت نمایش دهد و قواعد لباس برای همه بازه‌ها قطعی و آزموده باشد.",
+        "verification": "fixture منبع و آزمون واحد تمام ردیف‌های قیمت و مرزهای ۱، ۲–۳، ۴–۶، ۶–۱۰، ۱۰–۲۰ و ۲۰–۳۰ را مقایسه کند."
+      },
+      {
+        "id": "AC-02",
+        "statement": "AC-02 مشتری بتواند بازهٔ زمانی، اقلام و تعداد را انتخاب کند، موجودی زنده و جمع قیمت را ببیند و یک رزرو اتمیک بدون overbooking بسازد.",
+        "verification": "آزمون integration رزرو موفق، ظرفیت ناکافی و دو درخواست همزمان برای آخرین ظرفیت را اجرا کند."
+      },
+      {
+        "id": "AC-03",
+        "statement": "AC-03 هویت کاربر، نقش عمومی/بوعلی و نقش مدیر در سمت سرور اعمال شود و قیمت بوعلی فقط پس از احراز معتبر فعال باشد.",
+        "verification": "آزمون مجوز برای مهمان، مشتری مالک، مشتری دیگر، عضو بوعلی و مدیر روی APIها و صفحات محافظت‌شده عبور کند."
+      },
+      {
+        "id": "AC-04",
+        "statement": "AC-04 پرداخت مستقل از وضعیت رزرو، idempotent، قابل ممیزی و دارای adapter آزمون‌پذیر باشد؛ callback تکراری یا دستکاری‌شده دوباره مبلغ/رزرو را تغییر ندهد.",
+        "verification": "آزمون webhook امضاشده، تکرار، خطا، timeout و reconciliation مدیر اجرا شود؛ فعال‌سازی provider واقعی فقط با راز معتبر گزارش شود."
+      },
+      {
+        "id": "AC-05",
+        "statement": "AC-05 مشتری از حساب خود وضعیت رزرو را پیگیری، در محدوده سیاست تغییر/لغو کند، رسید و رویدادهای تحویل/بازگشت را ببیند و تاریخچهٔ تغییرات حفظ شود.",
+        "verification": "E2E مسیر ثبت تا پرداخت، تغییر، لغو مجاز/نامجاز و مشاهده تاریخچه را اجرا کند."
+      },
+      {
+        "id": "AC-06",
+        "statement": "AC-06 مدیر کاتالوگ، قیمت، ظرفیت، تقویم تعارض، رزرو، پرداخت، مشتری، تحویل، بازگشت، خسارت، ودیعه و گزارش را با RBAC و audit log مدیریت کند.",
+        "verification": "E2E عملیات مدیر و آزمون جلوگیری از دسترسی مشتری، همراه read-back رویداد ممیزی اجرا شود."
+      },
+      {
+        "id": "AC-07",
+        "statement": "AC-07 زمان‌بندی ارسال/دریافت و تحویل/بازگشت با slot ظرفیت‌دار، مسئول، نشانی، یادداشت و وضعیت مستقل کار کند.",
+        "verification": "آزمون ظرفیت slot، هم‌پوشانی، تغییر زمان و تکمیل handoff اجرا شود."
+      },
+      {
+        "id": "AC-08",
+        "statement": "AC-08 چک‌لیست دیجیتال تحویل و بازگشت شامل عکس، وضعیت کالا، امضا/تأیید، خسارت و دسترسی امن فایل‌ها باشد.",
+        "verification": "آزمون upload نوع/اندازه، مالکیت فایل، URL امن، ثبت دو چک‌لیست و محاسبه خسارت اجرا شود."
+      },
+      {
+        "id": "AC-09",
+        "statement": "AC-09 هر ده قابلیت متمایز ارائه شود: موجودی بازه‌ای زنده، قیمت دوگانه شفاف، بسته‌ساز رویداد، waitlist خودکار، scheduler، سلف‌سرویس تغییر، یادآور/تقویم، handoff دیجیتال، تقویم تعارض مدیر و تحلیل تقاضا/درآمد.",
+        "verification": "برای هر قابلیت حداقل یک سناریوی E2E یا integration مستقل و یک شاهد UI/API ثبت شود."
+      },
+      {
+        "id": "AC-10",
+        "statement": "AC-10 یادآورها و اعلان‌ها برای رویدادهای رزرو، پرداخت، تحویل و بازگشت قابل صف‌بندی، retry و لغو باشند و خروجی تقویم تولید شود.",
+        "verification": "آزمون زمان‌بندی، deduplication، retry، opt-out و فایل تقویم معتبر اجرا شود."
+      },
+      {
+        "id": "AC-11",
+        "statement": "AC-11 تحلیل مدیر فقط از دادهٔ مجاز و پایدار، با بازه زمانی، تفکیک درآمد/تقاضا/بهره‌برداری و حالت دادهٔ خالی تولید شود.",
+        "verification": "آزمون aggregate روی dataset قطعی و مقایسه با محاسبه مرجع اجرا شود."
+      },
+      {
+        "id": "AC-12",
+        "statement": "AC-12 داده در D1 با migration نسخه‌شده، قیود، ایندکس و rollback/بازیابی مستند نگهداری و فایل‌ها در R2 با سیاست retention و مالکیت ذخیره شوند.",
+        "verification": "migration روی پایگاه خالی و ارتقای نسخه اجرا، schema read-back و سناریوی بازیابی/حذف فایل اثبات شود."
+      },
+      {
+        "id": "AC-13",
+        "statement": "AC-13 رابط فارسی RTL روی موبایل و دسکتاپ، دسترس‌پذیر با صفحه‌کلید و screen reader، و دارای حالت‌های loading/empty/error/success باشد.",
+        "verification": "آزمون خودکار accessibility، مرور صفحه‌کلید، کنتراست و screenshot در viewportهای اصلی ثبت شود."
+      },
+      {
+        "id": "AC-14",
+        "statement": "AC-14 امنیت شامل validation ورودی، CSRF/authorization، rate limit، مدیریت راز، محافظت XSS/SQL، privacy/retention و secret/dependency scan باشد.",
+        "verification": "threat model و regressionهای امنیتی، scan راز و dependency audit با disposition مستند اجرا شود."
+      },
+      {
+        "id": "AC-15",
+        "statement": "AC-15 سامانه metadata، sitemap/robots، داده ساختاریافته معتبر، لاگ ساختاریافته، شناسه همبستگی، health/error telemetry و بودجه عملکرد داشته باشد.",
+        "verification": "SEO audit، structured-data validation، health/readiness و تست performance budget اجرا شود."
+      },
+      {
+        "id": "AC-16",
+        "statement": "AC-16 build تولیدی تکرارپذیر، تست‌های unit/integration/E2E سبز، مستندات راه‌اندازی/عملیات/rollback کامل و deployment خصوصی قابل health-check باشد.",
+        "verification": "فرمان‌های نصب قفل‌شده، lint، typecheck، test، build، migration، deploy و smoke با digest و disposition مستقل ثبت شوند."
+      }
+    ],
+    "impacts": [
+      "architecture",
+      "frontend",
+      "accessibility",
+      "backend",
+      "api",
+      "integration",
+      "database",
+      "storage",
+      "analytics",
+      "security",
+      "privacy",
+      "identity",
+      "observability",
+      "performance",
+      "resilience",
+      "cost",
+      "seo",
+      "documentation"
+    ],
+    "constraints": [
+      "Owner condition on development export: نسخه نهایی، نه MVP، توسعه داده شود.",
+      "Owner condition on development export: دامنه کامل صفر تا صد تا نقطه انتهایی پیش برود.",
+      "رابط اصلی فارسی، راست‌به‌چپ، مینیمال و مدرن باشد.",
+      "مالک محصول اختیار نهایی دامنه، اولویت، پذیرش ریسک و تأیید تجربهٔ کاربر را حفظ می‌کند.",
+      "تا زمان دسترسی به منبع اکسل، قیمت‌ها، اقلام، ظرفیت‌ها و قواعد عملیاتی فرض نشوند.",
+      "هیچ اقدام تولیدی، پرداخت واقعی یا استفاده از دادهٔ شخصی در این مرحله مجاز نیست.",
+      "منابع اکتشاف فعلی به رکوردهای معتبر همین مخزن محدودند.",
+      "نبود فایل اکسل، نبود قاعده را اثبات نمی‌کند و فقط یک شکاف شواهد است.",
+      "هیچ دادهٔ واقعی مشتری، قیمت واقعی یا نتیجهٔ پژوهش کاربر در این مرحله ثبت نشده است.",
+      "تصمیم دامنه و اولویت فقط با مالک محصول است.",
+      "هیچ گزینه‌ای بدون پاسخ صریح و ثبت‌شدهٔ مالک محصول تصویب نیست.",
+      "منبع اکسل در محیط فعلی موجود نیست و هر داده یا قاعدهٔ جایگزین باید مصنوعی و موقت برچسب بخورد.",
+      "پرداخت واقعی، انتشار عمومی، تولید و دادهٔ شخصی خارج از مجوز این تصمیم‌اند.",
+      "ده قابلیت متمایز هنوز تعریف و اولویت‌بندی نشده‌اند.",
+      "تصمیم مالک محصول دامنهٔ کامل را الزام می‌کند و کوچک‌سازی به MVP مجاز نیست.",
+      "پرداخت واقعی به درگاه دارای قرارداد و راز معتبر نیاز دارد؛ هیچ کلید یا رسید تولیدی نباید در مخزن ذخیره شود.",
+      "تاریخ‌های اکسل بدون سال و ساعت به‌عنوان واقعیت تقویم زنده وارد نمی‌شوند.",
+      "D1 منبع حقیقت دادهٔ ساختاری و R2 محل فایل و تصویر است؛ browser storage منبع حقیقت رزرو نیست.",
+      "ورود ChatGPT هویت را اثبات می‌کند اما مجوز مدیر را اثبات نمی‌کند؛ نقش مدیر باید سمت‌سرور و صریح باشد.",
+      "انتشار تولیدی و دسترسی عمومی همچنان دروازهٔ جداگانهٔ انسانی دارند.",
+      "دامنهٔ کامل و ادامه تا نقطهٔ انتهایی شرط صریح مالک محصول است.",
+      "تکمیل فقط با شواهد runtime، آزمون و verification مستقل قابل ثبت است.",
+      "پرداخت تولیدی، رازها و انتشار عمومی مجوزهای جداگانه می‌خواهند.",
+      "تاریخ‌های تاریخی فاقد سال/ساعت، تقویم زنده محسوب نمی‌شوند.",
+      "سیاست زنجیرهٔ تأمین وابستگی‌ها قابل دورزدن نیست.",
+      "این تحویل نسخهٔ نهایی است و کوچک‌سازی آن به MVP یا حذف هر یک از ده قابلیت مجاز نیست.",
+      "ادعای تکمیل فقط با شواهد اجرا و verification مستقل پذیرفته می‌شود.",
+      "وابستگی‌ها باید policy حداقل سن انتشار را رعایت کنند و نسخه یا تنظیمات برای دورزدن آن تغییر نکند.",
+      "راز، حساب provider پرداخت و مجوز انتشار عمومی خارج از مخزن هستند و هیچ مقدار ساختگی یا hard-coded مجاز نیست.",
+      "رکوردهای تاریخی اکسل دادهٔ مرجع تقویم زنده نیستند و فقط برای درک فرایند/fixture ناشناس استفاده می‌شوند.",
+      "نسخهٔ نهایی و هر ده قابلیت باید در دامنهٔ اجرا بمانند.",
+      "داده آزمون synthetic است و داده تاریخی شناسایی‌پذیر وارد محیط تست نمی‌شود.",
+      "درگاه واقعی فقط با credentials معتبر آزموده می‌شود؛ adapter محلی می‌تواند منطق را اثبات کند اما فعال‌سازی provider را ثابت نمی‌کند.",
+      "policy حداقل سن وابستگی قابل دورزدن نیست و فعلاً entry criterion نصب را مسدود کرده است.",
+      "ممیزی دامنهٔ کامل را کاهش نمی‌دهد و حذف قابلیت را به‌عنوان کنترل ریسک پیشنهاد نمی‌کند.",
+      "artifactهای قرارداد/اعتبارسنجی فقط از مسیر مالک و اصلاح کنترل‌شده تغییر می‌کنند.",
+      "verification باید توسط actor مستقل انجام شود.",
+      "No production credentials or production-derived customer data",
+      "Database and infrastructure changes must be reversible"
+    ],
+    "nonFunctionalRequirements": [
+      {
+        "domain": "دسترس‌پذیری و زبان",
+        "requirement": "مسیرهای اصلی رزرو و مدیریت با چیدمان راست‌به‌چپ، متن فارسی خوانا و کنترل‌های قابل‌استفاده با صفحه‌کلید طراحی شوند.",
+        "verification": "در طرح اعتبارسنجی، بررسی RTL، ترتیب فوکوس، برچسب کنترل‌ها و کنتراست برای مسیرهای اصلی وجود داشته باشد."
+      },
+      {
+        "domain": "امنیت و حریم خصوصی",
+        "requirement": "دسترسی مدیر از مشتری جدا باشد و تنها حداقل دادهٔ لازم برای رزرو و پرداخت نگهداری شود.",
+        "verification": "قرارداد تحویل، نقش‌ها، فیلدهای حساس و آزمون‌های منع دسترسی غیرمجاز را مشخص کند."
+      },
+      {
+        "domain": "یکپارچگی رزرو",
+        "requirement": "سامانه از ثبت رزرو ناسازگار با ظرفیت و بازهٔ زمانی جلوگیری کند.",
+        "verification": "طرح اعتبارسنجی شامل رقابت هم‌زمان، تعداد بیش از ظرفیت، تعطیلی و هم‌پوشانی زمانی باشد."
+      },
+      {
+        "domain": "یکپارچگی و هم‌زمانی",
+        "requirement": "اعتبار رزرو باید با زمان، تعداد، تعطیلی و ظرفیت به‌صورت سازگار بررسی شود و ثبت‌های هم‌زمان نتوانند ظرفیت واحد را دوبار مصرف کنند.",
+        "verification": "طرح اعتبارسنجی سناریوهای هم‌پوشانی، رقابت هم‌زمان، تعطیلی و تعداد بیش از ظرفیت را پوشش دهد."
+      },
+      {
+        "domain": "دسترس‌پذیری و بومی‌سازی",
+        "requirement": "تجربهٔ فارسی راست‌به‌چپ در موبایل و دسکتاپ، مسیر رزرو قابل‌استفاده با صفحه‌کلید و پیام‌های خطای قابل‌فهم داشته باشد.",
+        "verification": "بازبینی RTL، واکنش‌گرایی، فوکوس، برچسب‌ها، کنتراست و پیام خطا در سناریوهای پذیرش ثبت شود."
+      },
+      {
+        "domain": "امنیت و حریم خصوصی",
+        "requirement": "مرز دسترسی مشتری و مدیر صریح باشد و اطلاعات رزرو و پرداخت با حداقل‌گرایی داده و ثبت رویدادهای مدیریتی محافظت شوند.",
+        "verification": "آزمون مجوزهای نقش، دسترسی مستقیم غیرمجاز، نشت داده و ثبت تغییرات حساس اجرا شود."
+      },
+      {
+        "domain": "کارایی",
+        "requirement": "نمایش فهرست تجهیزات و بازخورد محاسبهٔ قیمت در اتصال موبایل معمولی بدون تأخیر آزاردهنده انجام شود.",
+        "verification": "بودجهٔ عددی کارایی پس از انتخاب معماری تعیین و در محیط staging اندازه‌گیری شود."
+      },
+      {
+        "domain": "برگشت‌پذیری",
+        "requirement": "مدل و دادهٔ نمونهٔ MVP باید بتوانند پس از دریافت قواعد اکسل بدون مهاجرت مخرب اصلاح شوند.",
+        "verification": "قرارداد تحویل، فرض‌های موقت، مرز دادهٔ مصنوعی و برنامهٔ جایگزینی آن‌ها را مشخص کند."
+      },
+      {
+        "domain": "شفافیت قیمت",
+        "requirement": "کاربر نوع قیمت و اجزای محاسبه را پیش از ثبت رزرو ببیند و قیمت موقت با قیمت واقعی اشتباه نشود.",
+        "verification": "سناریوهای پذیرش برای هر نوع قیمت، برچسب دادهٔ موقت و تغییر قواعد بدون ناسازگاری وجود داشته باشد."
+      },
+      {
+        "domain": "دسترس‌پذیری و موبایل",
+        "requirement": "مسیر کامل رزرو فارسی راست‌به‌چپ روی موبایل و با صفحه‌کلید قابل تکمیل باشد.",
+        "verification": "طرح اعتبارسنجی شامل RTL، اندازه‌های موبایل، ترتیب فوکوس، نام دسترس‌پذیر و کنتراست باشد."
+      },
+      {
+        "domain": "یکپارچگی رزرو",
+        "requirement": "بررسی و مصرف ظرفیت در یک عملیات اتمیک انجام شود و idempotency از ثبت تکراری رزرو یا پرداخت جلوگیری کند.",
+        "verification": "آزمون هم‌زمانی و replay با یک کلید یکسان، یک رزرو/پرداخت و ظرفیت غیرمنفی ایجاد کند."
+      },
+      {
+        "domain": "امنیت",
+        "requirement": "همهٔ عملیات نوشتن، مالکیت یا نقش را سمت‌سرور بررسی کنند؛ ورودی‌ها اعتبارسنجی و رخدادهای حساس ممیزی شوند.",
+        "verification": "آزمون IDOR، ارتقای نقش، ورودی مخرب، CSRF/درخواست تکراری و دسترسی ناشناس رد قابل‌مشاهده تولید کند."
+      },
+      {
+        "domain": "حریم خصوصی",
+        "requirement": "فقط حداقل اطلاعات تماس و عملیاتی نگهداری و دادهٔ پرداخت خام یا مدرک حساس در لاگ ثبت نشود.",
+        "verification": "بازبینی schema و لاگ‌ها نبود دادهٔ کارت، راز، مدرک خام و PII غیرضروری را اثبات کند."
+      },
+      {
+        "domain": "کارایی",
+        "requirement": "فهرست تجهیزات و محاسبهٔ قیمت با شاخص‌های متناسب و پاسخ سمت‌سرور سریع باقی بمانند.",
+        "verification": "طرح query با EXPLAIN استفاده از شاخص‌های رزرو/تجهیز/بازه را نشان دهد و بودجهٔ کارایی در staging اندازه‌گیری شود."
+      },
+      {
+        "domain": "بازیابی",
+        "requirement": "خطای پرداخت یا تحویل نباید رزرو و سابقهٔ مالی را ناسازگار کند و عملیات قابل retry باشد.",
+        "verification": "آزمون شکست میانی، بازپخش امن و وضعیت قابل‌پیگیری بدون از دست‌دادن رکورد را اثبات کند."
+      },
+      {
+        "domain": "ردیابی",
+        "requirement": "هر معیار قرارداد تحویل به مسئله، تصمیم، شیت منبع و شاهد آزمون متصل باشد.",
+        "verification": "lineage نهایی برای هر AC حداقل یک شاهد و یک disposition مستقل داشته باشد."
+      },
+      {
+        "domain": "امنیت",
+        "requirement": "هیچ ادعای آماده‌بودن بدون آزمون سمت‌سرور مجوز، مالکیت، idempotency و حفاظت داده پذیرفته نشود.",
+        "verification": "گیت امنیت و validation نتایج بازتولیدپذیر داشته باشند."
+      },
+      {
+        "domain": "کیفیت تحویل",
+        "requirement": "تمام مسیرهای مشتری و مدیر و هر ده قابلیت در build منتشرشدنی و پایگاه‌دادهٔ migration‌شده وجود داشته باشند.",
+        "verification": "build نهایی، migration بازرسی‌شده و مجموعه سناریوهای انتهابه‌انتها عبور کنند."
+      },
+      {
+        "domain": "کارایی و قابلیت اطمینان",
+        "requirement": "رزرو اتمیک، عملیات idempotent، retry محدود و صفحات اصلی در بودجه عملکرد تعریف‌شده کار کنند.",
+        "verification": "آزمون رقابت، retry و گزارش web-vitals/build budget ثبت شود."
+      },
+      {
+        "domain": "امنیت و حریم خصوصی",
+        "requirement": "کمینه‌سازی داده، RBAC سمت سرور، نگهداری محدود، audit و دسترسی فایل بر اساس مالکیت اعمال شود.",
+        "verification": "threat model، آزمون authorization و privacy review مستقل عبور کند."
+      },
+      {
+        "domain": "دسترس‌پذیری",
+        "requirement": "مسیرهای اصلی با WCAG 2.2 AA، RTL و صفحه‌کلید سازگار باشند.",
+        "verification": "axe، مرور صفحه‌کلید و بازبینی انسانی فارسی ثبت شود."
+      },
+      {
+        "domain": "عملیات",
+        "requirement": "لاگ ساختاریافته، health check، migration/rollback، backup و runbook انتشار وجود داشته باشد.",
+        "verification": "smoke deployment و تمرین rollback/restore با شاهد قابل بازتولید اجرا شود."
+      },
+      {
+        "domain": "تکرارپذیری",
+        "requirement": "هر شاهد به SHA، محیط، dataset، فرمان، زمان و digest خروجی متصل باشد.",
+        "verification": "manifest شواهد با read-back مستقل تطبیق داده شود."
+      },
+      {
+        "domain": "ایمنی",
+        "requirement": "تست‌ها روی داده synthetic و محیط خصوصی اجرا، رازها redact و cleanup اثبات شود.",
+        "verification": "secret scan و cleanup_state در هر run بررسی شود."
+      },
+      {
+        "domain": "استقلال",
+        "requirement": "تهیه‌کننده اجرا نمی‌تواند همان ادعا را مستقل verify کند.",
+        "verification": "actor اجرا و verifier متفاوت و disposition جدا ثبت شود."
+      },
+      {
+        "domain": "سازگاری",
+        "requirement": "هر transition، محاسبه قیمت و metric deterministic، نسخه‌شده و audit‌پذیر باشد.",
+        "verification": "property/unit tests و event read-back اجرا شود."
+      },
+      {
+        "domain": "امنیت",
+        "requirement": "identity، payment، file و admin boundaries fail-closed و server-enforced باشند.",
+        "verification": "negative authorization، tamper، replay و upload tests عبور کند."
+      },
+      {
+        "domain": "قابلیت بازیابی",
+        "requirement": "عملیات چندمرحله‌ای idempotent و قابل reconciliation/rollback باشند.",
+        "verification": "partial failure و retry scenarios بدون double effect اجرا شود."
+      },
+      {
+        "domain": "security",
+        "requirement": "Apply least privilege, secure defaults, and secret-free source control.",
+        "verification": "Run security and secret scans and record evidence."
+      },
+      {
+        "domain": "database",
+        "requirement": "Any persistent-data change is reversible and has backup, restore, and rollback evidence.",
+        "verification": "Exercise migration and recovery outside production."
+      }
+    ],
+    "writeBoundary": {
+      "repositories": [
+        "basu-rental-app"
+      ],
+      "allowedPaths": [
+        "src",
+        "app",
+        "apps",
+        "packages",
+        "services",
+        "tests",
+        "docs",
+        "database",
+        "migrations",
+        "infrastructure",
+        ".github",
+        "package.json",
+        "package-lock.json"
+      ],
+      "prohibitedPaths": [
+        ".git",
+        "node_modules",
+        ".env",
+        "secrets",
+        "production-data"
+      ]
+    },
+    "validation": {
+      "commands": [
+        "npm run lint"
+      ],
+      "evidenceRequired": [
+        "implementation diff",
+        "automated tests",
+        "security review",
+        "independent verification",
+        "database and SEO evidence when applicable"
+      ]
+    },
+    "approval": {
+      "status": "approved",
+      "actorId": "human-product-owner",
+      "decidedAt": "2026-08-23T14:05:50.435Z",
+      "reference": "APR-9215786D8B99"
+    },
+    "source": {
+      "productOperationsRevision": "7bb52f9af7235d7c4214898ae3eae7e36170da51",
+      "applicationBaseRevision": "b10dd43db615a3412e701588f7ed778e7ac88b5a",
+      "exportedAt": "2026-08-23T14:06:15.350Z"
+    }
+  },
+  "writeBoundary": {
+    "repositories": [
+      "basu-rental-app"
+    ],
+    "allowedPaths": [
+      "src",
+      "app",
+      "apps",
+      "packages",
+      "services",
+      "tests",
+      "docs",
+      "database",
+      "migrations",
+      "infrastructure",
+      ".github",
+      "package.json",
+      "package-lock.json"
+    ],
+    "prohibitedPaths": [
+      ".git",
+      "node_modules",
+      ".env",
+      "secrets",
+      "production-data"
+    ]
+  },
+  "policy": {
+    "prohibitedPaths": [
+      ".git",
+      "node_modules",
+      ".env",
+      "secrets",
+      "production-data"
+    ],
+    "productionRequiresHumanApproval": true,
+    "independentVerificationRequired": true,
+    "proportionalEngineering": {
+      "stopCondition": "The approved acceptance criteria are met with the smallest complete reversible change.",
+      "reproduceBeforeEdit": true,
+      "understandAffectedFlowFirst": true,
+      "solutionLadder": [
+        "no build",
+        "repository reuse",
+        "standard library or native platform",
+        "installed capability",
+        "minimum local implementation"
+      ],
+      "defectRule": "Inspect every caller and fix the shared root cause once.",
+      "prefer": [
+        "deletion over addition",
+        "boring over clever",
+        "fewest affected files"
+      ],
+      "speculativeComplexityProhibited": true,
+      "complexityJustification": [
+        "present requirement or observed risk",
+        "simpler alternative and why it is insufficient now",
+        "ongoing maintenance or operational cost",
+        "removal or expansion trigger"
+      ],
+      "deliberateShortcutRecord": [
+        "known ceiling",
+        "observable upgrade trigger"
+      ],
+      "minimumRunnableCheck": "one focused runnable check for non-trivial changed logic; no new framework for a trivial change",
+      "qualityFloor": [
+        "trust-boundary validation",
+        "data-loss handling",
+        "security",
+        "accessibility",
+        "explicit acceptance criteria"
+      ],
+      "assuranceDepth": "focused for low-risk reversible work; integration and rollback proof for cross-boundary work; full specialist, independent, and human gates for sensitive, production, high-risk, or irreversible work"
+    },
+    "isolation": "host-delegated"
+  },
+  "returnContract": {
+    "schema": "engineering-workstream-run.schema.json",
+    "transport": "stdout-json"
+  }
+}
