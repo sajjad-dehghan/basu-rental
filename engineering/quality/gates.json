@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "1.0.0",
+  "gates": [
+    {
+      "id": "GATE-ARCHITECTURE",
+      "domain": "architecture",
+      "ownerRole": "ENG-02",
+      "required": true,
+      "evidence": [
+        "architecture decision records",
+        "system-boundary review"
+      ]
+    },
+    {
+      "id": "GATE-CODE-REVIEW",
+      "domain": "code",
+      "ownerRole": "ENG-01",
+      "required": true,
+      "evidence": [
+        "review reference",
+        "changed-component inventory"
+      ]
+    },
+    {
+      "id": "GATE-AUTOMATED-TESTS",
+      "domain": "testing",
+      "ownerRole": "ENG-10",
+      "required": true,
+      "evidence": [
+        "test commands",
+        "machine-readable results"
+      ]
+    },
+    {
+      "id": "GATE-SECURITY",
+      "domain": "security",
+      "ownerRole": "ENG-09",
+      "required": true,
+      "evidence": [
+        "threat review",
+        "secret and vulnerability scan"
+      ]
+    },
+    {
+      "id": "GATE-SUPPLY-CHAIN",
+      "domain": "supply_chain",
+      "ownerRole": "ENG-09",
+      "required": true,
+      "evidence": [
+        "dependency audit",
+        "software bill of materials"
+      ]
+    },
+    {
+      "id": "GATE-DATABASE",
+      "domain": "database",
+      "ownerRole": "ENG-06",
+      "required": false,
+      "evidence": [
+        "migration plan",
+        "backup and rollback proof",
+        "query or index evidence"
+      ]
+    },
+    {
+      "id": "GATE-API-COMPATIBILITY",
+      "domain": "api",
+      "ownerRole": "ENG-04",
+      "required": false,
+      "evidence": [
+        "contract diff",
+        "consumer compatibility evidence"
+      ]
+    },
+    {
+      "id": "GATE-INFRA-NETWORK",
+      "domain": "infrastructure",
+      "ownerRole": "ENG-08",
+      "required": false,
+      "evidence": [
+        "infrastructure plan",
+        "network and cost review"
+      ]
+    },
+    {
+      "id": "GATE-PRIVACY-COMPLIANCE",
+      "domain": "privacy",
+      "ownerRole": "ENG-09",
+      "required": false,
+      "evidence": [
+        "data classification",
+        "retention and compliance review"
+      ]
+    },
+    {
+      "id": "GATE-ACCESSIBILITY",
+      "domain": "accessibility",
+      "ownerRole": "ENG-03",
+      "required": false,
+      "evidence": [
+        "automated accessibility results",
+        "keyboard and screen-reader evidence"
+      ]
+    },
+    {
+      "id": "GATE-PERFORMANCE",
+      "domain": "performance",
+      "ownerRole": "ENG-11",
+      "required": false,
+      "evidence": [
+        "budget and load results",
+        "regression comparison"
+      ]
+    },
+    {
+      "id": "GATE-RELIABILITY",
+      "domain": "reliability",
+      "ownerRole": "ENG-11",
+      "required": false,
+      "evidence": [
+        "service objectives",
+        "telemetry and recovery evidence"
+      ]
+    },
+    {
+      "id": "GATE-SEO",
+      "domain": "seo",
+      "ownerRole": "ENG-13",
+      "required": false,
+      "evidence": [
+        "crawl and metadata audit",
+        "structured-data and web-vitals evidence"
+      ]
+    },
+    {
+      "id": "GATE-DOCUMENTATION",
+      "domain": "documentation",
+      "ownerRole": "ENG-14",
+      "required": true,
+      "evidence": [
+        "updated operating documentation",
+        "runbook or migration notes"
+      ]
+    },
+    {
+      "id": "GATE-INDEPENDENT-VERIFICATION",
+      "domain": "verification",
+      "ownerRole": "ENG-15",
+      "required": true,
+      "evidence": [
+        "reproduction record",
+        "independent disposition"
+      ]
+    }
+  ]
+}

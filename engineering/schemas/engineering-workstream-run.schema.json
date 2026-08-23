@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Engineering Workstream Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "planId", "workstreamId", "ownerRole", "producerActorId", "status", "implementationRevision", "changedComponents", "commands", "evidence", "knownRisks", "completedAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "planId": { "type": "string", "pattern": "^ENGPLAN-[A-Za-z0-9._-]+$" },
+    "workstreamId": { "type": "string", "pattern": "^WS-[0-9]{2}$" },
+    "ownerRole": { "type": "string", "pattern": "^ENG-[0-9]{2}$" },
+    "producerActorId": { "type": "string", "minLength": 2 },
+    "status": { "enum": ["completed", "blocked", "failed"] },
+    "verificationDisposition": { "enum": ["passed", "failed", "blocked", "not_applicable"] },
+    "implementationRevision": { "type": "string", "minLength": 7 },
+    "changedComponents": { "$ref": "#/$defs/strings" },
+    "commands": { "$ref": "#/$defs/strings" },
+    "evidence": { "$ref": "#/$defs/strings" },
+    "knownRisks": { "$ref": "#/$defs/strings" },
+    "securityAssessment": { "$ref": "#/$defs/securityAssessment" },
+    "completedAt": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "strings": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "commands", "evidence", "limitations"],
+      "properties": {
+        "status": { "enum": ["executed", "blocked", "not_applicable"] },
+        "commands": { "$ref": "#/$defs/strings" },
+        "evidence": { "$ref": "#/$defs/strings" },
+        "limitations": { "$ref": "#/$defs/strings" }
+      }
+    },
+    "securityFinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fingerprint", "title", "status", "severity", "weakness", "locations", "evidence", "impact", "remediation", "remainingRisk"],
+      "properties": {
+        "fingerprint": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{8,128}$" },
+        "title": { "type": "string", "minLength": 3 },
+        "status": { "enum": ["candidate", "validated", "rejected", "blocked"] },
+        "severity": { "enum": ["unscored", "info", "low", "medium", "high", "critical"] },
+        "weakness": { "type": "string", "minLength": 1 },
+        "locations": { "$ref": "#/$defs/strings" },
+        "evidence": { "$ref": "#/$defs/strings" },
+        "impact": { "$ref": "#/$defs/strings" },
+        "remediation": { "$ref": "#/$defs/strings" },
+        "remainingRisk": { "$ref": "#/$defs/strings" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "validated" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "severity": { "enum": ["info", "low", "medium", "high", "critical"] },
+              "evidence": { "type": "array", "minItems": 1 },
+              "impact": { "type": "array", "minItems": 1 },
+              "remediation": { "type": "array", "minItems": 1 }
+            }
+          },
+          "else": { "properties": { "severity": { "const": "unscored" } } }
+        }
+      ]
+    },
+    "securityAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "authorization", "attackSurfaces", "trustBoundaries", "checks", "findings", "unresolvedCoverage", "conclusion"],
+      "properties": {
+        "mode": { "enum": ["quick", "standard", "deep"] },
+        "authorization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scopeSource", "localTesting", "externalActiveTesting"],
+          "properties": {
+            "scopeSource": { "const": "sealed_development_request" },
+            "localTesting": { "enum": ["not_required", "authorized_non_destructive", "blocked"] },
+            "externalActiveTesting": { "const": "not_authorized_by_development_request" }
+          }
+        },
+        "attackSurfaces": { "$ref": "#/$defs/strings" },
+        "trustBoundaries": { "$ref": "#/$defs/strings" },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["staticAnalysis", "structuralAnalysis", "secretScan", "dependencyAndMisconfiguration", "dynamicValidation"],
+          "properties": {
+            "staticAnalysis": { "$ref": "#/$defs/check" },
+            "structuralAnalysis": { "$ref": "#/$defs/check" },
+            "secretScan": { "$ref": "#/$defs/check" },
+            "dependencyAndMisconfiguration": { "$ref": "#/$defs/check" },
+            "dynamicValidation": { "$ref": "#/$defs/check" }
+          }
+        },
+        "findings": { "type": "array", "items": { "$ref": "#/$defs/securityFinding" } },
+        "unresolvedCoverage": { "$ref": "#/$defs/strings" },
+        "conclusion": { "enum": ["no_validated_findings", "validated_findings", "blocked", "incomplete"] }
+      }
+    }
+  }
+}

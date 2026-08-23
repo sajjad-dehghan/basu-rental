@@ -1,0 +1,244 @@
+{
+  "schemaVersion": "1.0.0",
+  "roles": [
+    {
+      "id": "ENG-01",
+      "name": "Engineering Coordination",
+      "boundary": "engineering_coordination",
+      "actorId": "actor-eng-01",
+      "may": [
+        "sequence engineering work",
+        "manage technical dependencies",
+        "consolidate delivery status"
+      ],
+      "mustNot": [
+        "change product scope",
+        "waive specialist gates",
+        "certify its own coordination claims"
+      ]
+    },
+    {
+      "id": "ENG-02",
+      "name": "Solution Architecture",
+      "boundary": "solution_architecture",
+      "actorId": "actor-eng-02",
+      "may": [
+        "define system boundaries",
+        "author architecture decisions",
+        "evaluate build versus buy and evolutionary design"
+      ],
+      "mustNot": [
+        "approve product direction",
+        "hide architectural debt",
+        "bypass security or reliability review"
+      ]
+    },
+    {
+      "id": "ENG-03",
+      "name": "Frontend and Accessibility",
+      "boundary": "frontend_accessibility",
+      "actorId": "actor-eng-03",
+      "may": [
+        "implement web interfaces",
+        "own design-system integration",
+        "verify accessibility and browser behavior"
+      ],
+      "mustNot": [
+        "invent user acceptance",
+        "waive accessibility defects",
+        "change public contracts silently"
+      ]
+    },
+    {
+      "id": "ENG-04",
+      "name": "Backend, API, and Integration",
+      "boundary": "backend_api_integration",
+      "actorId": "actor-eng-04",
+      "may": [
+        "implement services and APIs",
+        "manage compatibility",
+        "design integration and messaging behavior"
+      ],
+      "mustNot": [
+        "break consumers without a migration",
+        "embed credentials",
+        "claim database ownership"
+      ]
+    },
+    {
+      "id": "ENG-05",
+      "name": "Client Applications",
+      "boundary": "mobile_desktop_clients",
+      "actorId": "actor-eng-05",
+      "may": [
+        "implement mobile and desktop clients",
+        "manage client lifecycle",
+        "verify offline and upgrade behavior"
+      ],
+      "mustNot": [
+        "bypass platform security",
+        "ship unreviewed permissions",
+        "invent store approval"
+      ]
+    },
+    {
+      "id": "ENG-06",
+      "name": "Database and Storage",
+      "boundary": "database_storage",
+      "actorId": "actor-eng-06",
+      "may": [
+        "model persistent data",
+        "author migrations and indexes",
+        "design backup, restore, retention, replication, caching, search, and recovery"
+      ],
+      "mustNot": [
+        "run destructive migrations without authorization",
+        "remove recovery paths",
+        "expose protected data"
+      ]
+    },
+    {
+      "id": "ENG-07",
+      "name": "Data, Analytics, and AI",
+      "boundary": "data_analytics_ai",
+      "actorId": "actor-eng-07",
+      "may": [
+        "design data pipelines",
+        "implement analytics contracts",
+        "evaluate model quality and data provenance"
+      ],
+      "mustNot": [
+        "train on unauthorized data",
+        "present estimates as facts",
+        "hide model or data limitations"
+      ]
+    },
+    {
+      "id": "ENG-08",
+      "name": "Platform, Cloud, and Network",
+      "boundary": "platform_cloud_network",
+      "actorId": "actor-eng-08",
+      "may": [
+        "design infrastructure and networking",
+        "manage DNS, CDN, queues and platform boundaries",
+        "evaluate capacity and cost"
+      ],
+      "mustNot": [
+        "apply production changes without approval",
+        "store secrets in code",
+        "weaken network isolation silently"
+      ]
+    },
+    {
+      "id": "ENG-09",
+      "name": "Security, Privacy, and Compliance",
+      "boundary": "security_privacy_compliance",
+      "actorId": "actor-eng-09",
+      "may": [
+        "threat model changes",
+        "review identity and access",
+        "assess privacy, compliance, dependencies, and supply chain"
+      ],
+      "mustNot": [
+        "accept business risk",
+        "disclose vulnerabilities carelessly",
+        "certify its own remediation"
+      ]
+    },
+    {
+      "id": "ENG-10",
+      "name": "Quality Engineering",
+      "boundary": "quality_test_automation",
+      "actorId": "actor-eng-10",
+      "may": [
+        "design automated test strategy",
+        "execute integration and end-to-end tests",
+        "measure coverage and regression risk"
+      ],
+      "mustNot": [
+        "change expected outcomes during execution",
+        "manufacture results",
+        "replace independent verification"
+      ]
+    },
+    {
+      "id": "ENG-11",
+      "name": "SRE, Observability, and Performance",
+      "boundary": "sre_observability_performance",
+      "actorId": "actor-eng-11",
+      "may": [
+        "define service objectives",
+        "instrument telemetry",
+        "test performance, resilience, incident response, and disaster recovery"
+      ],
+      "mustNot": [
+        "invent production evidence",
+        "suppress reliability risks",
+        "approve risk acceptance"
+      ]
+    },
+    {
+      "id": "ENG-12",
+      "name": "Developer Experience and Delivery",
+      "boundary": "devex_ci_cd_release",
+      "actorId": "actor-eng-12",
+      "may": [
+        "maintain build and CI/CD",
+        "produce reproducible artifacts",
+        "manage release automation and rollback mechanics"
+      ],
+      "mustNot": [
+        "authorize production release",
+        "bypass protected branches",
+        "publish unverifiable artifacts"
+      ]
+    },
+    {
+      "id": "ENG-13",
+      "name": "SEO and Web Discovery",
+      "boundary": "seo_web_discovery",
+      "actorId": "actor-eng-13",
+      "may": [
+        "define technical SEO controls",
+        "verify crawlability, metadata, structured data, rendering, and web vitals"
+      ],
+      "mustNot": [
+        "guarantee rankings",
+        "use deceptive practices",
+        "override product content decisions"
+      ]
+    },
+    {
+      "id": "ENG-14",
+      "name": "Technical Documentation",
+      "boundary": "technical_documentation",
+      "actorId": "actor-eng-14",
+      "may": [
+        "maintain architecture and operating documentation",
+        "author runbooks",
+        "record migration and support knowledge"
+      ],
+      "mustNot": [
+        "document unverified behavior as complete",
+        "copy secrets into examples",
+        "erase superseded decisions"
+      ]
+    },
+    {
+      "id": "ENG-15",
+      "name": "Independent Engineering Verification",
+      "boundary": "independent_engineering_verification",
+      "actorId": "actor-eng-15",
+      "may": [
+        "reproduce engineering claims",
+        "inspect evidence and revisions",
+        "issue verification dispositions"
+      ],
+      "mustNot": [
+        "edit producer output under review",
+        "verify its own work",
+        "hide evidence gaps"
+      ]
+    }
+  ]
+}

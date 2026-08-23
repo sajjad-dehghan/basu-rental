@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Engineering Delivery Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "resultId", "requestId", "productTaskId", "planId", "planDigest", "sourceDigest", "implementationRevision", "status", "implementationReferences", "changedComponents", "workstreamRuns", "gateResults", "evidence", "knownRisks", "producerActorId", "verification", "completedAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "resultId": { "type": "string", "pattern": "^ENGRESULT-[A-Za-z0-9._-]+$" },
+    "requestId": { "type": "string", "pattern": "^DEVREQ-[A-Za-z0-9._-]+$" },
+    "productTaskId": { "type": "string", "minLength": 3 },
+    "planId": { "type": "string", "pattern": "^ENGPLAN-[A-Za-z0-9._-]+$" },
+    "planDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sourceDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "implementationRevision": { "type": "string", "pattern": "^[a-f0-9]{7,64}$" },
+    "status": { "enum": ["implementation_complete", "blocked", "failed"] },
+    "implementationReferences": { "$ref": "#/$defs/strings" },
+    "changedComponents": { "$ref": "#/$defs/strings" },
+    "workstreamRuns": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["workstreamId", "runDigest"],
+        "properties": {
+          "workstreamId": { "type": "string", "pattern": "^WS-[0-9]{2}$" },
+          "runDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    },
+    "gateResults": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gateId", "status", "evidenceReferences"],
+        "properties": {
+          "gateId": { "type": "string", "pattern": "^GATE-[A-Z0-9-]+$" },
+          "status": { "enum": ["passed", "failed", "blocked", "not_applicable"] },
+          "evidenceReferences": { "$ref": "#/$defs/nonEmptyStrings" }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "kind", "sha256", "sourceRevision"],
+        "properties": {
+          "path": { "type": "string", "pattern": "^\\.development-os/evidence/(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" },
+          "kind": { "enum": ["architecture", "review", "test", "security", "database", "api", "infrastructure", "privacy", "accessibility", "performance", "reliability", "seo", "documentation", "verification", "other"] },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "sourceRevision": { "type": "string", "pattern": "^[a-f0-9]{7,64}$" },
+          "relevantWorkstreamIds": { "$ref": "#/$defs/nonEmptyStrings" }
+        }
+      }
+    },
+    "deploymentReferences": { "$ref": "#/$defs/strings" },
+    "knownRisks": { "$ref": "#/$defs/strings" },
+    "producerActorId": { "type": "string", "minLength": 2 },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verifierActorId", "disposition", "verifiedAt", "evidenceReferences"],
+      "properties": {
+        "verifierActorId": { "type": "string", "minLength": 2 },
+        "disposition": { "enum": ["verified", "changes_requested", "blocked"] },
+        "verifiedAt": { "type": "string", "format": "date-time" },
+        "evidenceReferences": { "$ref": "#/$defs/nonEmptyStrings" }
+      }
+    },
+    "completedAt": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "strings": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "nonEmptyStrings": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+  }
+}
