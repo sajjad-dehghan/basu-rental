@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "ENGPLAN-EVT-20260823-001",
+  "workstreamId": "WS-01",
+  "ownerRole": "ENG-01",
+  "producerActorId": "actor-eng-01",
+  "status": "completed",
+  "verificationDisposition": "not_applicable",
+  "implementationRevision": "53908c1af6813b2e6bc60b655265ea2485b9ebee",
+  "changedComponents": [
+    "docs/engineering-delivery-plan.md",
+    ".development-os/inbox/DEVREQ-EVT-20260823-001.json",
+    ".development-os/plans/ENGPLAN-EVT-20260823-001.json",
+    ".development-os/receipts/SYNC-IN-EVT-20260823-001.json",
+    "engineering/taskboard/workstreams.csv"
+  ],
+  "commands": [
+    "git diff --check",
+    "development-cli validate .",
+    "git commit -m Plan final BASU rental delivery"
+  ],
+  "evidence": [
+    "docs/engineering-delivery-plan.md",
+    ".development-os/plans/ENGPLAN-EVT-20260823-001.json",
+    "Development OS validation passed for 22 managed files",
+    "Git revision 53908c1af6813b2e6bc60b655265ea2485b9ebee"
+  ],
+  "knownRisks": [
+    "Pinned dependency minimum-release-age blocks the first runnable preview until fast-uri@3.1.6 becomes eligible.",
+    "Production payment activation and public release remain separately gated.",
+    "Ticket validation-plan reference VAL differs from canonical VPL and remains visible for controlled correction."
+  ],
+  "completedAt": "2026-08-23T14:09:20.949Z"
+}
