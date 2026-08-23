@@ -4,7 +4,7 @@
 - Coordinator: `RB-01 / actor-rb-01`
 - Discovery owner: `RB-03 / actor-rb-03`
 - Independent verifier: `RB-12 / actor-rb-12`
-- Project: `Basu Rental`
+- Project: `پلتفرم عمومی اجاره تجهیزات`
 
 ## Question
 

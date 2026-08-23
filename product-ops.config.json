@@ -4,14 +4,14 @@
   "catalogAuthority": "templates/config/operating-model.yaml",
   "project": {
     "id": "basu-rental",
-    "name": "Basu Rental",
-    "vision": "Describe the product outcome this operating system should support.",
+    "name": "پلتفرم عمومی اجاره تجهیزات",
+    "vision": "پلتفرم عمومی اجاره انواع تجهیزات",
     "targetUsers": [
-      "Describe the primary user group."
+      "دانشجوها و انجمن‌های دانشگاهی، با تمرکز بر نسل دههٔ ۸۰ به بعد",
+      "عموم افرادی که برای رویدادها و مناسبت‌ها به تجهیزات اجاره‌ای نیاز دارند"
     ],
     "environments": [
       "local",
-      "test",
       "staging",
       "production"
     ],

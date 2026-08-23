@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "CTR-20260823124813857",
+  "kind": "control_plane",
+  "dryRun": false,
+  "actions": [
+    {
+      "type": "create_task",
+      "taskId": "BR-0002",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-02"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0003",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-03"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0004",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-02"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0005",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-04"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0006",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-05"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0007",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-06"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0008",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-07"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0009",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-08"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0010",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-13"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0011",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-09"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0012",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-10"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0013",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-12"
+    },
+    {
+      "type": "create_task",
+      "taskId": "BR-0014",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-11"
+    },
+    {
+      "type": "record_lineage",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-01"
+    },
+    {
+      "type": "route_intake",
+      "intakeId": "INT-20260823-96EC199D",
+      "eventId": "EVT-20260823-001",
+      "ownerRole": "RB-02",
+      "output": "idea_inbox"
+    },
+    {
+      "type": "dispatch_task",
+      "taskId": "BR-0002",
+      "ownerRole": "RB-02",
+      "ownerActorId": "actor-rb-02",
+      "developmentExecution": false
+    }
+  ],
+  "advanced": 15,
+  "awaitingPerformer": 1,
+  "createdAt": "2026-08-23T12:48:13.857Z"
+}
