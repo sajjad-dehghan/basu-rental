@@ -21,11 +21,17 @@
       },
       "evidenceRefs": [],
       "risks": [],
-      "status": "pending",
+      "status": "approved",
       "requestedAt": "2026-08-23T13:10:38.314Z",
-      "decidedAt": null,
-      "decidedByActorId": null,
-      "rationale": null
+      "decidedAt": "2026-08-23T13:18:22.852Z",
+      "decidedByActorId": "human-product-owner",
+      "rationale": "نسخه نهایی رو شروع کنی به توسعه دادن، نه MVP، و صفر تا صدش رو کامل پیش برو تا به نقطه انتهایی برسی.",
+      "selectedOption": "شروع دامنه کامل شامل ده قابلیت متمایز",
+      "conditions": [
+        "نسخه نهایی رو شروع کنی به توسعه دادن، نه MVP",
+        "صفر تا صدش رو کامل پیش برو تا به نقطه انتهایی برسی"
+      ],
+      "attribution": "model_relayed"
     }
   ]
 }
