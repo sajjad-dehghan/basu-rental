@@ -1,0 +1,141 @@
+@import 'tailwindcss';
+
+:root {
+  --ink: #183a34;
+  --muted: #60736e;
+  --paper: #f7f2e8;
+  --cream: #fffaf0;
+  --green: #0f6a58;
+  --green-dark: #0b4f43;
+  --coral: #e66f51;
+  --line: rgba(24, 58, 52, 0.13);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Vazirmatn, Tahoma, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; }
+
+.site-header {
+  width: min(1220px, calc(100% - 40px));
+  height: 82px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 900; justify-self: start; }
+.brand-mark { width: 38px; height: 38px; border-radius: 13px 13px 6px 13px; display: grid; place-items: center; background: var(--green); color: white; box-shadow: 0 8px 24px rgba(15,106,88,.22); }
+.main-nav { display: flex; gap: 34px; color: #425c56; font-size: 14px; font-weight: 700; }
+.main-nav a:hover { color: var(--green); }
+.header-action { justify-self: end; border: 1px solid var(--line); background: rgba(255,255,255,.55); border-radius: 14px; padding: 11px 18px; font-size: 13px; font-weight: 800; }
+
+.hero-shell {
+  width: min(1220px, calc(100% - 40px));
+  min-height: 610px;
+  margin: 0 auto;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 34px;
+  padding: 68px 72px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(380px, .72fr);
+  gap: 64px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 12% 88%, rgba(230,111,81,.16), transparent 28%),
+    radial-gradient(circle at 82% 10%, rgba(15,106,88,.13), transparent 30%),
+    var(--cream);
+  box-shadow: 0 26px 80px rgba(52,63,57,.09);
+}
+.eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--green); font-size: 13px; font-weight: 900; }
+.eyebrow i, .availability i { width: 8px; height: 8px; border-radius: 50%; background: #35b47e; box-shadow: 0 0 0 5px rgba(53,180,126,.12); }
+.hero-copy h1 { margin: 22px 0 20px; font-size: clamp(44px, 5vw, 72px); line-height: 1.2; letter-spacing: -2.5px; font-weight: 950; }
+.hero-copy h1 em { color: var(--coral); font-style: normal; position: relative; }
+.hero-copy h1 em::after { content: ''; position: absolute; right: 0; bottom: -7px; width: 100%; height: 7px; border-radius: 50%; border-top: 3px solid var(--coral); transform: rotate(-2deg); opacity: .65; }
+.hero-copy > p { max-width: 600px; margin: 0; color: var(--muted); font-size: 17px; line-height: 2; }
+.hero-proof { margin-top: 42px; display: flex; gap: 32px; }
+.hero-proof div { display: flex; flex-direction: column; gap: 6px; padding-left: 28px; border-left: 1px solid var(--line); }
+.hero-proof div:last-child { border-left: 0; }
+.hero-proof strong { font-size: 14px; }
+.hero-proof span { color: #71827e; font-size: 11px; }
+
+.booking-card { border: 1px solid var(--line); border-radius: 25px; padding: 26px; background: rgba(255,255,255,.92); box-shadow: 0 24px 70px rgba(30,69,60,.12); }
+.booking-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
+.booking-head span:first-child { color: var(--coral); font-size: 11px; font-weight: 900; }
+.booking-head h2 { margin: 5px 0 0; font-size: 22px; }
+.availability { display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 10px; color: var(--green); background: #edf8f3; font-size: 10px; font-weight: 800; }
+.booking-card label > span, .price-type legend { display: block; margin-bottom: 8px; color: #526762; font-size: 11px; font-weight: 800; }
+.booking-card select, .booking-card input[type='date'], .booking-card input[type='number'] { width: 100%; height: 48px; border: 1px solid var(--line); border-radius: 12px; padding: 0 13px; color: var(--ink); background: #fffdf8; outline: none; }
+.booking-card select:focus, .booking-card input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(15,106,88,.1); }
+.form-grid { display: grid; grid-template-columns: 1.4fr .6fr; gap: 12px; margin-top: 15px; }
+.price-type { border: 0; padding: 0; margin: 17px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.price-type legend { grid-column: 1 / -1; }
+.price-type label { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 10px; cursor: pointer; }
+.price-type label:has(input:checked) { border-color: var(--green); background: #edf8f3; }
+.price-type input { accent-color: var(--green); }
+.price-type span { margin: 0 !important; }
+.price-type b, .price-type small { display: block; }
+.price-type b { font-size: 11px; }
+.price-type small { margin-top: 3px; color: #80908c; font-size: 9px; }
+.booking-card button { width: 100%; height: 50px; display: flex; align-items: center; justify-content: center; gap: 12px; border: 0; border-radius: 13px; color: white; background: var(--green); font-weight: 900; cursor: pointer; box-shadow: 0 12px 24px rgba(15,106,88,.2); }
+.booking-card button:hover { background: var(--green-dark); }
+.secure-note { margin: 13px 0 0; color: #7a8985; font-size: 9px; text-align: center; }
+
+.equipment-section { width: min(1220px, calc(100% - 40px)); margin: 76px auto 100px; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 28px; }
+.section-heading span { color: var(--coral); font-size: 11px; font-weight: 900; }
+.section-heading h2 { margin: 7px 0 0; font-size: 30px; }
+.section-heading > a { color: var(--green); font-size: 12px; font-weight: 900; }
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.product-card { overflow: hidden; border: 1px solid var(--line); border-radius: 23px; background: #fffaf0; transition: transform .2s ease, box-shadow .2s ease; }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 18px 46px rgba(42,59,53,.1); }
+.product-art { min-height: 180px; display: grid; place-items: center; border-bottom: 1px solid var(--line); }
+.product-art span { font: 900 38px/1 Arial, sans-serif; letter-spacing: 4px; color: rgba(24,58,52,.82); text-shadow: 0 5px 0 rgba(255,255,255,.7); }
+.product-art.mint { background: radial-gradient(circle, #d9f0e5, #bad9cc); }
+.product-art.sun { background: radial-gradient(circle, #f7e5ac, #e9cc76); }
+.product-art.rose { background: radial-gradient(circle, #f9d9cf, #e8ae9c); }
+.product-info { padding: 20px; }
+.product-info h3 { margin: 0 0 17px; font-size: 15px; }
+.prices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.prices > span { padding-left: 12px; border-left: 1px solid var(--line); }
+.prices > span:last-child { border-left: 0; }
+.prices small { display: block; margin-bottom: 3px; color: #7d8d89; font-size: 9px; }
+.prices strong, .prices b { font-size: 20px; color: var(--green); }
+.prices b { color: #677b76; font-weight: 800; }
+.prices i { margin-right: 4px; color: #86938f; font-size: 8px; font-style: normal; }
+
+@media (max-width: 900px) {
+  .hero-shell { grid-template-columns: 1fr; padding: 50px 34px; }
+  .hero-copy { text-align: center; }
+  .hero-copy > p { margin-inline: auto; }
+  .hero-proof { justify-content: center; }
+  .booking-card { width: min(100%, 560px); margin-inline: auto; }
+  .product-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header { height: 70px; grid-template-columns: 1fr 1fr; }
+  .main-nav { display: none; }
+  .hero-shell { width: min(100% - 20px, 1220px); padding: 40px 19px; border-radius: 25px; }
+  .hero-copy h1 { font-size: 42px; letter-spacing: -1.5px; }
+  .hero-copy > p { font-size: 14px; }
+  .hero-proof { gap: 14px; }
+  .hero-proof div { padding-left: 12px; }
+  .form-grid, .price-type { grid-template-columns: 1fr; }
+  .price-type legend { grid-column: auto; }
+  .equipment-section { width: calc(100% - 28px); }
+  .section-heading { align-items: flex-start; gap: 20px; }
+  .section-heading h2 { font-size: 24px; }
+  .section-heading > a { display: none; }
+  .product-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
