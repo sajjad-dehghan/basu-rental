@@ -1,0 +1,5 @@
+import Link from 'next/link';
+import { formatTomanFromThousands, type CatalogItem } from '../lib/catalog';
+export function EquipmentCard({ item, available }: { item: CatalogItem; available?: number }) {
+  return <article className="equipment-card"><Link href={`/equipment/${item.slug}`} className={`equipment-art accent-${item.accent}`}><span>{item.art}</span><i>{item.category === 'gown' ? 'قیمت پلکانی' : `ظرفیت پایه ${new Intl.NumberFormat('fa-IR').format(item.capacity)}`}</i></Link><div className="equipment-card-body"><div className="equipment-title-row"><div><small>{item.shortName}</small><h3>{item.name}</h3></div>{available !== undefined && <span className={available > 0 ? 'live' : 'sold'}>{available > 0 ? `${available.toLocaleString('fa-IR')} موجود` : 'تکمیل'}</span>}</div><p>{item.description}</p><div className="dual-price"><div><span>بوعلی</span><strong>{formatTomanFromThousands(item.basuThousands)}</strong></div><div><span>آزاد</span><strong>{formatTomanFromThousands(item.publicThousands)}</strong></div></div><Link className="card-action" href={`/book?item=${item.id}`}>افزودن به رزرو <span>←</span></Link></div></article>;
+}

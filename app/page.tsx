@@ -1,92 +1,19 @@
-const products = [
-  { icon: 'GRAD', title: 'استند حروف GRAD', publicPrice: '۹۹۹', basuPrice: '۷۹۹', tone: 'mint' },
-  { icon: '۱۴۰۰', title: 'استند اعداد ۱۴۰۰', publicPrice: '۹۹۹', basuPrice: '۷۹۹', tone: 'sun' },
-  { icon: '✿', title: 'دسته‌گل', publicPrice: '۲۹۹', basuPrice: '۱۹۹', tone: 'rose' },
+import Link from 'next/link';
+import { SiteFooter, SiteHeader } from './components/site-header';
+import { EquipmentCard } from './components/equipment-card';
+import { CATALOG } from './lib/catalog';
+
+const differentiators = [
+  ['۰۱','موجودی واقعی هر بازه','ظرفیت همان تاریخ و ساعت محاسبه می‌شود؛ نه یک برچسب تقریبی.'],
+  ['۰۲','بسته‌ساز رویداد','چند قلم را کنار هم بچین و جمع قیمت آزاد یا بوعلی را همان لحظه ببین.'],
+  ['۰۳','صف انتظار خودکار','اگر ظرفیت تکمیل شد، نوبتت ثبت می‌شود و با آزادشدن موجودی پیشنهاد می‌گیری.'],
+  ['۰۴','تحویل دیجیتال','زمان‌بندی، چک‌لیست، تصویر وضعیت و بازگشت در یک تاریخچه قابل پیگیری.'],
 ];
 
 export default function Home() {
-  return (
-    <main dir="rtl">
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="باسو، صفحه اصلی">
-          <span className="brand-mark" aria-hidden="true">ب</span>
-          <span>باسو</span>
-        </a>
-        <nav className="main-nav" aria-label="پیمایش اصلی">
-          <a href="#equipment">تجهیزات</a>
-          <a href="#how">روش رزرو</a>
-          <a href="#support">پشتیبانی</a>
-        </nav>
-        <a className="header-action" href="#reserve">پیگیری رزرو</a>
-      </header>
-
-      <section id="top" className="hero-shell">
-        <div className="hero-copy">
-          <span className="eyebrow"><i /> رزرو ساده برای روزهای مهم</span>
-          <h1>تجهیزات مراسمت،<br /><em>سرِ وقت</em> و بی‌دردسر.</h1>
-          <p>
-            از لباس فارغ‌التحصیلی تا استند و دسته‌گل؛ موجودی واقعی را ببین،
-            قیمتت را همان لحظه حساب کن و همه‌چیز را یک‌جا رزرو کن.
-          </p>
-          <div className="hero-proof">
-            <div><strong>۲ دقیقه</strong><span>تا ثبت درخواست</span></div>
-            <div><strong>قیمت شفاف</strong><span>آزاد و بوعلی</span></div>
-            <div><strong>تحویل هماهنگ</strong><span>با یادآوری هوشمند</span></div>
-          </div>
-        </div>
-
-        <form id="reserve" className="booking-card">
-          <div className="booking-head">
-            <div>
-              <span>شروع رزرو</span>
-              <h2>چه چیزی لازم داری؟</h2>
-            </div>
-            <span className="availability"><i /> موجودی زنده</span>
-          </div>
-          <label>
-            <span>تجهیزات</span>
-            <select defaultValue="gown">
-              <option value="gown">لباس فارغ‌التحصیلی</option>
-              <option value="grad">استند حروف GRAD</option>
-              <option value="1400">استند اعداد ۱۴۰۰</option>
-              <option value="bouquet">دسته‌گل</option>
-              <option value="easel">سه‌پایه بوم</option>
-            </select>
-          </label>
-          <div className="form-grid">
-            <label><span>تاریخ مراسم</span><input type="date" aria-label="تاریخ مراسم" /></label>
-            <label><span>تعداد</span><input type="number" min="1" max="30" defaultValue="1" /></label>
-          </div>
-          <fieldset className="price-type">
-            <legend>نوع قیمت</legend>
-            <label><input type="radio" name="price" defaultChecked /> <span><b>دانشگاه بوعلی</b><small>با احراز دانشجویی</small></span></label>
-            <label><input type="radio" name="price" /> <span><b>آزاد</b><small>برای همه</small></span></label>
-          </fieldset>
-          <button type="button">بررسی موجودی و قیمت <span aria-hidden="true">←</span></button>
-          <p className="secure-note">ثبت درخواست رایگان است؛ پرداخت پس از تأیید موجودی انجام می‌شود.</p>
-        </form>
-      </section>
-
-      <section id="equipment" className="equipment-section">
-        <div className="section-heading">
-          <div><span>پیشنهادهای محبوب</span><h2>هر چیزی برای یک قاب ماندگار</h2></div>
-          <a href="#reserve">مشاهده همه تجهیزات <span>←</span></a>
-        </div>
-        <div className="product-grid">
-          {products.map((product) => (
-            <article className="product-card" key={product.title}>
-              <div className={`product-art ${product.tone}`}><span>{product.icon}</span></div>
-              <div className="product-info">
-                <h3>{product.title}</h3>
-                <div className="prices">
-                  <span><small>قیمت بوعلی</small><strong>{product.basuPrice}</strong><i>هزار تومان</i></span>
-                  <span><small>قیمت آزاد</small><b>{product.publicPrice}</b><i>هزار تومان</i></span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+  return <main><SiteHeader/><section className="hero-shell" id="top"><div className="hero-copy"><span className="eyebrow"><i/> رزرو ساده برای روزهای مهم</span><h1>رزرو تجهیزات،<br/><em>بی‌دردسر.</em></h1><p>تجهیزات رویداد و فارغ‌التحصیلی را با قیمت شفاف، موجودی بازه‌ای و پیگیری آنلاین از انتخاب تا بازگشت رزرو کن.</p><div className="hero-actions"><Link className="primary-action" href="/book">شروع رزرو <span>←</span></Link><Link className="secondary-action" href="/equipment">دیدن کاتالوگ</Link></div><div className="hero-proof"><div><strong>۶ قلم</strong><span>با قیمت واقعی شیت</span></div><div><strong>۲ نوع قیمت</strong><span>آزاد و بوعلی</span></div><div><strong>۱۰ قابلیت</strong><span>از waitlist تا تحلیل</span></div></div></div><div className="hero-stage" aria-label="نمایش قابلیت‌های باسو"><div className="stage-orbit orbit-one">GRAD</div><div className="stage-orbit orbit-two">۱۴۰۰</div><div className="stage-card main-stage-card"><span className="stage-kicker">رزرو شماره BR-2026</span><strong>همه‌چیز آماده‌ست.</strong><div className="stage-timeline"><i className="done"/><i className="done"/><i className="active"/><i/></div><small>انتخاب · پرداخت · تحویل · بازگشت</small></div><div className="stage-card price-stage"><span>قیمت بوعلی</span><b>از ۹۹ هزار تومان</b><small>پس از احراز عضویت</small></div><div className="stage-card live-stage"><i/>موجودی زنده</div></div></section>
+  <section className="ticker" aria-label="مزیت‌های باسو"><span>قیمت شفاف</span><i/><span>رزرو اتمیک</span><i/><span>پیگیری سلف‌سرویس</span><i/><span>تحویل زمان‌بندی‌شده</span><i/><span>RTL و موبایل</span></section>
+  <section className="section-shell" id="equipment"><div className="section-heading"><div><span>کاتالوگ واقعی</span><h2>برای هر قاب، یک انتخاب درست</h2></div><Link href="/equipment">مشاهده همه <span>←</span></Link></div><div className="equipment-grid">{CATALOG.slice(0,3).map((item)=><EquipmentCard item={item} key={item.id}/>)}</div></section>
+  <section className="dark-feature-section"><div className="section-heading light"><div><span>فراتر از فرم رزرو</span><h2>یک چرخه کامل، از تصمیم تا بازگشت</h2></div><p>هر تغییر وضعیت ثبت می‌شود؛ رزرو و پرداخت هم دو مسیر مستقل و قابل ممیزی دارند.</p></div><div className="differentiator-grid">{differentiators.map(([number,title,copy])=><article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
+  <section className="steps-section" id="how"><span className="eyebrow"><i/> سه قدم تا رزرو</span><h2>انتخاب کن. زمان بده. تمام.</h2><div className="step-grid"><article><b>۱</b><h3>تجهیزات را بچین</h3><p>از یک قلم تا بسته کامل، تعداد و نوع قیمت را مشخص کن.</p></article><article><b>۲</b><h3>موجودی را قطعی کن</h3><p>بازه زمانی به‌صورت اتمیک کنترل و یک hold امن ایجاد می‌شود.</p></article><article><b>۳</b><h3>از حسابت پیگیری کن</h3><p>پرداخت، تغییر زمان، تحویل، یادآور و بازگشت در یک صفحه است.</p></article></div><Link className="primary-action" href="/book">رزرو نهایی را بساز <span>←</span></Link></section><SiteFooter/></main>;
 }
