@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product Operations Human Approval Store",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "requests"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["requestId", "taskId", "gate", "question", "status", "requestedAt"],
+        "properties": {
+          "requestId": { "type": "string", "pattern": "^APR-[A-Z0-9-]+$" },
+          "taskId": { "type": "string", "minLength": 3 },
+          "gate": { "type": "string", "minLength": 1 },
+          "question": { "type": "string", "minLength": 1 },
+          "context": { "type": "string" },
+          "options": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "recommendedOption": { "type": ["string", "null"] },
+          "recommendationRationale": {
+            "type": "string",
+            "description": "Why the prepared recommendation is preferred. It informs the owner and never decides for them."
+          },
+          "optionImpacts": {
+            "type": "object",
+            "additionalProperties": { "type": "string", "minLength": 1 },
+            "description": "Human-readable consequence of choosing each offered option, keyed by the exact option value."
+          },
+          "evidenceRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "risks": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "status": { "enum": ["pending", "approved", "rejected"] },
+          "requestedAt": { "type": "string", "format": "date-time" },
+          "decidedAt": { "type": ["string", "null"], "format": "date-time" },
+          "decidedByActorId": { "type": ["string", "null"] },
+          "rationale": { "type": ["string", "null"] },
+          "attribution": {
+            "enum": ["human_entered", "panel_entered", "model_relayed"],
+            "description": "How the deciding person's words reached the canonical approval record. Present when the decision surface can distinguish the path."
+          },
+          "selectedOption": {
+            "type": ["string", "null"],
+            "description": "Which of the offered options the product owner chose. Null on a plain approve-or-reject gate."
+          },
+          "conditions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 },
+            "description": "What the product owner attached to the disposition. An approval with conditions is not the same record as a bare approval."
+          }
+        }
+      }
+    }
+  }
+}

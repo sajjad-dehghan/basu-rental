@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Development Contract Sync Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "receiptId", "direction", "contractType", "contractId", "contractDigest", "sourceRevision", "storedAt", "createdAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "receiptId": { "type": "string", "pattern": "^SYNC-[A-Za-z0-9._-]+$" },
+    "direction": { "enum": ["product_to_development", "development_to_product"] },
+    "contractType": { "enum": ["development_request", "engineering_result"] },
+    "contractId": { "type": "string", "minLength": 3 },
+    "contractDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sourceRevision": { "type": "string", "minLength": 7 },
+    "storedAt": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

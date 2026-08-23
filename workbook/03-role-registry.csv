@@ -1,0 +1,14 @@
+role_key,boundary,purpose,lifecycle,assigned_actor_id,backup_actor_id,may,must_not,updated_at
+RB-01,control_coordination,Route events dependencies recovery and consolidated reporting,active,actor-rb-01,<ACTOR_ID_OR_NONE>,create owner tasks|sequence dependencies|request human decisions,take over specialist meaning|self-verify coordination claims,<ISO-8601>
+RB-02,idea_decision,Structure ideas and decision briefs without making human decisions,active,actor-rb-02,<ACTOR_ID_OR_NONE>,triage ideas|prepare decision briefs,approve product direction|self-verify decisions,<ISO-8601>
+RB-03,discovery_research,Plan and synthesize research with traceable sources,active,actor-rb-03,<ACTOR_ID_OR_NONE>,author discovery|record findings,fabricate participants|treat assumptions as findings,<ISO-8601>
+RB-04,topology_journeys,Own product topology role capability and journey semantics,active,actor-rb-04,<ACTOR_ID_OR_NONE>,maintain topology|maintain journeys,claim implementation|self-verify topology,<ISO-8601>
+RB-05,issue_lifecycle,Normalize findings into governed issue contracts,active,actor-rb-05,<ACTOR_ID_OR_NONE>,triage issues|manage issue status,invent delivery completion|close without evidence,<ISO-8601>
+RB-06,delivery_contract,Translate approved intent into testable delivery contracts,active,actor-rb-06,<ACTOR_ID_OR_NONE>,author acceptance criteria|define boundaries,claim code completion|self-verify delivery,<ISO-8601>
+RB-07,validation_design,Define plans scenarios data expected outcomes and evidence,active,actor-rb-07,<ACTOR_ID_OR_NONE>,author plans|declare run readiness,manufacture results|verify own executed run,<ISO-8601>
+RB-08,risk_logic_audit,Challenge assumptions edge cases safety and control design,active,actor-rb-08,<ACTOR_ID_OR_NONE>,audit logic|raise risks,accept risk|certify own corrections,<ISO-8601>
+RB-09,qa_execution_evidence,Execute approved scenarios and capture factual evidence,active,actor-rb-09,<ACTOR_ID_OR_NONE>,execute runs|author results,change expected outcomes|self-verify results,<ISO-8601>
+RB-10,workbook_integrity_controlled_write,Apply manifests and prove read-back and replay,active,actor-rb-10,<ACTOR_ID_OR_NONE>,perform bounded writes|emit receipts,author semantic changes|expose secret values,<ISO-8601>
+RB-11,readiness_release,Calculate readiness and coordinate release controls,active,actor-rb-11,<ACTOR_ID_OR_NONE>,assess readiness|assemble release record,waive human gates|invent deployment state,<ISO-8601>
+RB-12,independent_verification,Reproduce material claims and issue controlled dispositions,active,actor-rb-12,<ACTOR_ID_OR_NONE>,reproduce evidence|issue QC disposition,edit producer artifacts|verify own output,<ISO-8601>
+RB-13,development_adapter,Exchange delivery contracts and factual development signals,active,actor-rb-13,<ACTOR_ID_OR_NONE>,submit contracts|receive implementation state,invent development notes|grant product acceptance,<ISO-8601>

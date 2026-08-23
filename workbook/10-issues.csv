@@ -1,0 +1,2 @@
+issue_id,event_id,title,status,priority,risk,source_ids,affected_user,current_behavior,expected_behavior,impact,evidence_refs,duplicate_of,decision_id,ticket_ids,result_ids,closure_disposition,owner_role,owner_actor_id,updated_at,supersedes_id
+<ISSUE_ID>,<EVENT_ID>,<TITLE>,<statuses.issue>,<statuses.priority>,<statuses.risk>,<ID_LIST>,<USER_ROLE>,<CURRENT>,<EXPECTED>,<IMPACT>,<ID_LIST>,,<DECISION_ID>,<ID_LIST>,<ID_LIST>,,RB-05,<ACTOR_ID>,<ISO-8601>,

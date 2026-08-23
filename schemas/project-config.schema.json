@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product Operations Project Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "catalogVersion",
+    "catalogAuthority",
+    "project",
+    "agents",
+    "separation",
+    "ownership",
+    "routing",
+    "taskIds",
+    "statuses",
+    "workbook",
+    "fieldAuthority",
+    "validation",
+    "adapters"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "catalogVersion": { "type": "integer", "minimum": 1 },
+    "catalogAuthority": {
+      "type": "string",
+      "const": "templates/config/operating-model.yaml"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "vision",
+        "targetUsers",
+        "environments",
+        "humanAuthorityActorId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "vision": { "type": "string", "minLength": 1 },
+        "targetUsers": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "environments": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["local", "test", "staging", "production"] }
+        },
+        "humanAuthorityActorId": { "type": "string", "minLength": 2 }
+      }
+    },
+    "agents": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": { "$ref": "#/$defs/agent" }
+    },
+    "separation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requireDistinctActiveActors",
+        "writerRole",
+        "independentVerifierRole",
+        "developmentRole"
+      ],
+      "properties": {
+        "requireDistinctActiveActors": { "const": true },
+        "writerRole": { "const": "RB-10" },
+        "independentVerifierRole": { "const": "RB-12" },
+        "developmentRole": { "const": "RB-13" },
+        "verificationOfVerifierRole": { "const": "RB-08" }
+      }
+    },
+    "ownership": {
+      "type": "array",
+      "minItems": 23,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact", "owner"],
+        "properties": {
+          "artifact": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string", "pattern": "^RB-[0-9]{2}$" }
+        }
+      }
+    },
+    "routing": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event", "owner", "reviewers", "output"],
+        "properties": {
+          "event": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string", "pattern": "^RB-[0-9]{2}$" },
+          "reviewers": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^RB-[0-9]{2}$" }
+          },
+          "output": { "type": "string", "minLength": 1 },
+          "steps": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["role", "title", "humanGate"],
+              "properties": {
+                "role": { "type": "string", "pattern": "^RB-[0-9]{2}$" },
+                "title": { "type": "string", "minLength": 1 },
+                "humanGate": { "type": "string" },
+                "key": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]{0,39}$",
+                  "description": "Names this step so later steps can wait on it. Unique within the route."
+                },
+                "after": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,39}$" },
+                  "description": "Keys of earlier steps in this route that must finish first. An empty array starts with the event. Omit it entirely to wait on the step written before this one."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "taskIds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prefix", "pattern"],
+      "properties": {
+        "prefix": { "type": "string", "pattern": "^[A-Z][A-Z0-9]{1,7}$" },
+        "pattern": { "type": "string", "minLength": 1 }
+      }
+    },
+    "statuses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "description", "terminal", "transitions"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "terminal": { "type": "boolean" },
+          "transitions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "workbook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sheets"],
+      "properties": {
+        "sheets": {
+          "type": "array",
+          "minItems": 23,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["key", "name", "file", "owner", "columns"],
+            "properties": {
+              "key": { "type": "string", "minLength": 1 },
+              "name": { "type": "string", "minLength": 1 },
+              "file": {
+                "type": "string",
+                "pattern": "^workbook/(?!.*\\.\\.)[^/].*\\.csv$"
+              },
+              "owner": { "type": "string", "pattern": "^RB-[0-9]{2}$" },
+              "columns": { "$ref": "#/$defs/nonEmptyStringArray" }
+            }
+          }
+        }
+      }
+    },
+    "fieldAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protectedDevelopmentFields",
+        "protectedHumanFields",
+        "protectedFieldTabs",
+        "writerEnvironments"
+      ],
+      "properties": {
+        "protectedDevelopmentFields": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "protectedHumanFields": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "protectedFieldTabs": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "$ref": "#/$defs/nonEmptyStringArray" }
+        },
+        "writerEnvironments": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["local", "test", "staging", "production"] }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["excludedDirectories", "allowedSyntheticEmailDomains"],
+      "properties": {
+        "excludedDirectories": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": [".git", "node_modules"] }
+        },
+        "allowedSyntheticEmailDomains": { "$ref": "#/$defs/nonEmptyStringArray" }
+      }
+    },
+    "operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modelVersion",
+        "runtimeDirectory",
+        "externalWritesDefaultDryRun",
+        "requireHumanGateAttribution"
+      ],
+      "properties": {
+        "modelVersion": { "type": "integer", "minimum": 1 },
+        "runtimeDirectory": {
+          "type": "string",
+          "pattern": "^\\.product-ops/runtime$"
+        },
+        "externalWritesDefaultDryRun": { "const": true },
+        "requireHumanGateAttribution": { "const": true }
+      }
+    },
+    "adapters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["development", "git", "spreadsheet"],
+      "properties": {
+        "development": { "$ref": "#/$defs/adapter" },
+        "git": { "$ref": "#/$defs/adapter" },
+        "spreadsheet": { "$ref": "#/$defs/adapter" }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "actorId",
+        "name",
+        "role",
+        "responsibilities",
+        "prohibitedActions",
+        "lifecycle"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^RB-[0-9]{2}$" },
+        "actorId": { "type": "string", "minLength": 2 },
+        "name": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "responsibilities": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "prohibitedActions": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "lifecycle": { "enum": ["active", "suspended", "retired", "proposed"] }
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "enabled", "file"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "enabled": { "type": "boolean" },
+        "file": {
+          "type": "string",
+          "pattern": "^adapters/(?!.*\\.\\.)[^/].*\\.json$"
+        },
+        "implementation": { "type": "string", "minLength": 1 },
+        "settings": { "type": "object" }
+      }
+    }
+  }
+}

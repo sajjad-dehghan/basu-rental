@@ -1,0 +1,2 @@
+decision_id,event_id,title,status,selected_option,decision_maker_actor_id,decided_at,brief_reference,evidence_refs,risk_acceptance,conditions,supersedes_decision_id,resulting_task_ids
+<DECISION_ID>,<EVENT_ID>,<QUESTION>,<statuses.decision>,<OPTION_OR_NONE>,<HUMAN_ACTOR_ID_OR_NONE>,<ISO-8601_OR_NONE>,<PATH>,<ID_LIST>,<NONE_OR_EXACT_RISK>,<CONDITIONS>,,<ID_LIST>

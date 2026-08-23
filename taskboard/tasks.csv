@@ -1,0 +1,2 @@
+task_id,event_id,title,owner_role,owner_actor_id,status,priority,dependency_ids,blocked_reason,next_owner_role,unblock_condition,canonical_output_refs,evidence_refs,handoff_id,independent_verifier_role,verifier_actor_id,human_gate,due_at,updated_at
+BR-0001,EVT-00000000-001,Complete the first discovery record,RB-03,actor-rb-03,ready,P2,,,,,events/EVT-00000000-001-first-discovery.md,,,RB-12,actor-rb-12,,,

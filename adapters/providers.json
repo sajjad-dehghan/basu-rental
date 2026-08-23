@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0.0",
+  "defaultDryRun": true,
+  "providers": {
+    "github": {
+      "category": "development",
+      "enabled": false,
+      "baseUrl": "https://api.github.com",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_GITHUB_TOKEN",
+      "operations": ["create_task", "update_task", "read_pull_request"]
+    },
+    "gitlab": {
+      "category": "development",
+      "enabled": false,
+      "baseUrl": "https://gitlab.com/api/v4",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_GITLAB_TOKEN",
+      "operations": ["create_task", "update_task", "read_merge_request"]
+    },
+    "jira": {
+      "category": "work_management",
+      "enabled": false,
+      "baseUrl": "https://example.invalid",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_JIRA_TOKEN",
+      "operations": ["create_task", "update_task", "read_task"]
+    },
+    "linear": {
+      "category": "work_management",
+      "enabled": false,
+      "baseUrl": "https://api.linear.app/graphql",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_LINEAR_TOKEN",
+      "operations": ["create_task", "update_task", "read_task"]
+    },
+    "azure_devops": {
+      "category": "development",
+      "enabled": false,
+      "baseUrl": "https://dev.azure.com",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_AZURE_DEVOPS_TOKEN",
+      "operations": ["create_task", "update_task", "read_pull_request"]
+    },
+    "google_sheets": {
+      "category": "workbook",
+      "enabled": false,
+      "baseUrl": "https://sheets.googleapis.com/v4",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_GOOGLE_TOKEN",
+      "operations": ["read_range", "write_range", "batch_update"]
+    },
+    "microsoft_graph": {
+      "category": "workbook",
+      "enabled": false,
+      "baseUrl": "https://graph.microsoft.com/v1.0",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_MICROSOFT_TOKEN",
+      "operations": ["read_range", "write_range"]
+    },
+    "airtable": {
+      "category": "workbook",
+      "enabled": false,
+      "baseUrl": "https://api.airtable.com/v0",
+      "credentialEnvironmentVariable": "PRODUCT_OPS_AIRTABLE_TOKEN",
+      "operations": ["read_records", "write_records"]
+    }
+  }
+}

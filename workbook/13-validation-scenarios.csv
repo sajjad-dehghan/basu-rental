@@ -1,0 +1,2 @@
+scenario_id,plan_id,event_id,ticket_id,status,claim_or_ac_ids,preconditions,steps,expected_outcomes,evidence_required,edge_cases,pass_rule,fail_rule,stop_condition,owner_role,owner_actor_id,supersedes_id
+<SCENARIO_ID>,<PLAN_ID>,<EVENT_ID>,<TICKET_ID>,<statuses.validation_scenario>,<ID_LIST>,<PRECONDITIONS>,<STEPS>,<FIXED_EXPECTATIONS>,<EVIDENCE_LIST>,<EDGE_CASES>,<PASS_RULE>,<FAIL_RULE>,<STOP_CONDITION>,RB-07,<ACTOR_ID>,

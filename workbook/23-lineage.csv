@@ -1,0 +1,2 @@
+lineage_edge_id,event_id,from_id,from_type,relationship,to_id,to_type,canonical_reference,created_at,created_by_role
+<EDGE_ID>,<EVENT_ID>,<SOURCE_ID>,<SOURCE_TYPE>,<RELATIONSHIP>,<TARGET_ID>,<TARGET_TYPE>,<PATH_OR_ROW_REFERENCE>,<ISO-8601>,<ROLE_KEY>

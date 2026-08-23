@@ -1,0 +1,2 @@
+observation_id,event_id,ticket_id,scenario_id,run_id,result_id,status,required_because,observer_actor_id,scheduled_at,observed_at,environment_alias,expected_behavior,observed_behavior,conditions,evidence_ids,producer_actor_id,verifier_actor_id,qc_record_id
+<OBSERVATION_ID>,<EVENT_ID>,<TICKET_ID>,<SCENARIO_ID>,<RUN_ID>,<RESULT_ID>,<statuses.human_observation>,<REASON>,<HUMAN_ACTOR_ID>,<ISO-8601>,<ISO-8601>,<NON_SECRET_ALIAS>,<EXPECTED>,<OBSERVED>,<CONDITIONS>,<ID_LIST>,<ACTOR_ID>,<DISTINCT_ACTOR_ID>,<QC_ID>

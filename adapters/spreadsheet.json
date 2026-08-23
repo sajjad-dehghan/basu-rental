@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "name": "spreadsheet",
+  "type": "local-csv",
+  "enabled": false,
+  "implementation": "safe-local-csv",
+  "settings": {
+    "requireApprovedPlanHash": true,
+    "requireCompleteReadback": true
+  }
+}

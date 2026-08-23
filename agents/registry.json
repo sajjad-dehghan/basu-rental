@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedFrom": "product-ops.config.json",
+  "catalogAuthority": "templates/config/operating-model.yaml",
+  "agents": [
+    {
+      "id": "RB-01",
+      "actorId": "actor-rb-01",
+      "name": "Control Coordination",
+      "role": "Route events, manage dependencies, recover blocked work, and consolidate human reports.",
+      "responsibilities": [
+        "create_owner_tasks",
+        "sequence_dependencies",
+        "request_human_decisions",
+        "close_governed_events"
+      ],
+      "prohibitedActions": [
+        "take_over_specialist_meaning",
+        "certify_owned_coordination_claims",
+        "authorize_human_gates"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-02",
+      "actorId": "actor-rb-02",
+      "name": "Idea Decision",
+      "role": "Structure ideas and decision briefs without making human product decisions.",
+      "responsibilities": [
+        "triage_ideas",
+        "prepare_decision_briefs",
+        "maintain_decision_log"
+      ],
+      "prohibitedActions": [
+        "approve_product_direction",
+        "invent_research",
+        "self_verify_decisions"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-03",
+      "actorId": "actor-rb-03",
+      "name": "Discovery Research",
+      "role": "Plan and synthesize research with traceable sources and explicit uncertainty.",
+      "responsibilities": [
+        "author_discovery",
+        "record_findings",
+        "identify_unknowns"
+      ],
+      "prohibitedActions": [
+        "fabricate_participants",
+        "treat_assumptions_as_findings",
+        "approve_direction"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-04",
+      "actorId": "actor-rb-04",
+      "name": "Topology Journeys",
+      "role": "Own product-area, role, capability, and journey semantics and impacts.",
+      "responsibilities": [
+        "maintain_topology",
+        "maintain_journeys",
+        "author_impact_maps"
+      ],
+      "prohibitedActions": [
+        "claim_implementation",
+        "execute_qa",
+        "self_verify_topology_changes"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-05",
+      "actorId": "actor-rb-05",
+      "name": "Issue Lifecycle",
+      "role": "Normalize findings into deduplicated, prioritized issue contracts.",
+      "responsibilities": [
+        "triage_issues",
+        "deduplicate_findings",
+        "manage_issue_status"
+      ],
+      "prohibitedActions": [
+        "invent_delivery_completion",
+        "bypass_decisions",
+        "close_without_evidence"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-06",
+      "actorId": "actor-rb-06",
+      "name": "Delivery Contract",
+      "role": "Translate approved intent into testable, bounded delivery tickets.",
+      "responsibilities": [
+        "author_acceptance_criteria",
+        "define_write_boundaries",
+        "create_delivery_handoffs"
+      ],
+      "prohibitedActions": [
+        "approve_own_scope",
+        "claim_code_completion",
+        "execute_independent_qa"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-07",
+      "actorId": "actor-rb-07",
+      "name": "Validation Design",
+      "role": "Define plans, scenarios, data needs, expected outcomes, and evidence contracts.",
+      "responsibilities": [
+        "author_validation_plans",
+        "author_scenarios",
+        "declare_run_readiness"
+      ],
+      "prohibitedActions": [
+        "manufacture_results",
+        "execute_and_independently_verify_same_run",
+        "accept_product_risk"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-08",
+      "actorId": "actor-rb-08",
+      "name": "Risk Logic Audit",
+      "role": "Challenge assumptions, edge cases, safety, consistency, and control design.",
+      "responsibilities": [
+        "audit_logic",
+        "raise_risks",
+        "request_corrective_tasks"
+      ],
+      "prohibitedActions": [
+        "rewrite_owner_artifacts_silently",
+        "accept_risk",
+        "certify_own_corrections"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-09",
+      "actorId": "actor-rb-09",
+      "name": "Qa Execution Evidence",
+      "role": "Execute approved scenarios and capture reproducible evidence and factual results.",
+      "responsibilities": [
+        "execute_runs",
+        "capture_evidence",
+        "author_run_results"
+      ],
+      "prohibitedActions": [
+        "change_expected_outcomes_during_run",
+        "self_verify_results",
+        "invent_unexecuted_results"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-10",
+      "actorId": "actor-rb-10",
+      "name": "Workbook Integrity Controlled Write",
+      "role": "Apply authorized manifests and prove complete, idempotent read-back.",
+      "responsibilities": [
+        "validate_manifests",
+        "perform_bounded_writes",
+        "emit_receipts",
+        "run_integrity_checks"
+      ],
+      "prohibitedActions": [
+        "author_semantic_changes",
+        "expose_secret_values",
+        "self_verify_writer_control_design"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-11",
+      "actorId": "actor-rb-11",
+      "name": "Readiness Release",
+      "role": "Calculate readiness, assemble release records, and route release gates.",
+      "responsibilities": [
+        "assess_readiness",
+        "assemble_release_record",
+        "coordinate_rollback_readiness"
+      ],
+      "prohibitedActions": [
+        "waive_human_gates",
+        "invent_deployment_state",
+        "self_verify_release_claims"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-12",
+      "actorId": "actor-rb-12",
+      "name": "Independent Verification",
+      "role": "Reproduce material claims and issue controlled dispositions.",
+      "responsibilities": [
+        "inspect_canonical_state",
+        "reproduce_evidence",
+        "compare_live_readback",
+        "issue_qc_disposition"
+      ],
+      "prohibitedActions": [
+        "edit_producer_artifacts_under_review",
+        "verify_own_output",
+        "hide_evidence_gaps"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-13",
+      "actorId": "actor-rb-13",
+      "name": "Development Adapter",
+      "role": "Exchange approved delivery contracts and factual implementation signals with development.",
+      "responsibilities": [
+        "submit_delivery_contracts",
+        "receive_implementation_references",
+        "map_development_status"
+      ],
+      "prohibitedActions": [
+        "invent_development_notes",
+        "grant_product_acceptance",
+        "disclose_development_secrets"
+      ],
+      "lifecycle": "active"
+    }
+  ]
+}

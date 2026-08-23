@@ -1,0 +1,2 @@
+plan_id,event_id,ticket_id,status,risk,objective,claims,entry_criteria,exit_criteria,stop_conditions,scenario_ids,environment_alias,data_set,evidence_contract,human_gate,design_owner_role,design_owner_actor_id,execution_owner_role,verifier_role,verifier_actor_id,approved_at,supersedes_id
+<PLAN_ID>,<EVENT_ID>,<TICKET_ID>,<statuses.validation_plan>,<statuses.risk>,<OBJECTIVE>,<CLAIM_LIST>,<CRITERIA>,<CRITERIA>,<CONDITIONS>,<ID_LIST>,<NON_SECRET_ALIAS>,<SYNTHETIC_DATASET>,<EVIDENCE_REQUIREMENTS>,<GATE_OR_NONE>,RB-07,<ACTOR_ID>,RB-09,RB-12,<DISTINCT_ACTOR_ID>,<ISO-8601>,

@@ -1,0 +1,1556 @@
+{
+  "schemaVersion": "1.0.0",
+  "catalogVersion": 2,
+  "catalogAuthority": "templates/config/operating-model.yaml",
+  "project": {
+    "id": "basu-rental",
+    "name": "Basu Rental",
+    "vision": "Describe the product outcome this operating system should support.",
+    "targetUsers": [
+      "Describe the primary user group."
+    ],
+    "environments": [
+      "local",
+      "test",
+      "staging",
+      "production"
+    ],
+    "humanAuthorityActorId": "human-product-owner"
+  },
+  "agents": [
+    {
+      "id": "RB-01",
+      "actorId": "actor-rb-01",
+      "name": "Control Coordination",
+      "role": "Route events, manage dependencies, recover blocked work, and consolidate human reports.",
+      "responsibilities": [
+        "create_owner_tasks",
+        "sequence_dependencies",
+        "request_human_decisions",
+        "close_governed_events"
+      ],
+      "prohibitedActions": [
+        "take_over_specialist_meaning",
+        "certify_owned_coordination_claims",
+        "authorize_human_gates"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-02",
+      "actorId": "actor-rb-02",
+      "name": "Idea Decision",
+      "role": "Structure ideas and decision briefs without making human product decisions.",
+      "responsibilities": [
+        "triage_ideas",
+        "prepare_decision_briefs",
+        "maintain_decision_log"
+      ],
+      "prohibitedActions": [
+        "approve_product_direction",
+        "invent_research",
+        "self_verify_decisions"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-03",
+      "actorId": "actor-rb-03",
+      "name": "Discovery Research",
+      "role": "Plan and synthesize research with traceable sources and explicit uncertainty.",
+      "responsibilities": [
+        "author_discovery",
+        "record_findings",
+        "identify_unknowns"
+      ],
+      "prohibitedActions": [
+        "fabricate_participants",
+        "treat_assumptions_as_findings",
+        "approve_direction"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-04",
+      "actorId": "actor-rb-04",
+      "name": "Topology Journeys",
+      "role": "Own product-area, role, capability, and journey semantics and impacts.",
+      "responsibilities": [
+        "maintain_topology",
+        "maintain_journeys",
+        "author_impact_maps"
+      ],
+      "prohibitedActions": [
+        "claim_implementation",
+        "execute_qa",
+        "self_verify_topology_changes"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-05",
+      "actorId": "actor-rb-05",
+      "name": "Issue Lifecycle",
+      "role": "Normalize findings into deduplicated, prioritized issue contracts.",
+      "responsibilities": [
+        "triage_issues",
+        "deduplicate_findings",
+        "manage_issue_status"
+      ],
+      "prohibitedActions": [
+        "invent_delivery_completion",
+        "bypass_decisions",
+        "close_without_evidence"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-06",
+      "actorId": "actor-rb-06",
+      "name": "Delivery Contract",
+      "role": "Translate approved intent into testable, bounded delivery tickets.",
+      "responsibilities": [
+        "author_acceptance_criteria",
+        "define_write_boundaries",
+        "create_delivery_handoffs"
+      ],
+      "prohibitedActions": [
+        "approve_own_scope",
+        "claim_code_completion",
+        "execute_independent_qa"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-07",
+      "actorId": "actor-rb-07",
+      "name": "Validation Design",
+      "role": "Define plans, scenarios, data needs, expected outcomes, and evidence contracts.",
+      "responsibilities": [
+        "author_validation_plans",
+        "author_scenarios",
+        "declare_run_readiness"
+      ],
+      "prohibitedActions": [
+        "manufacture_results",
+        "execute_and_independently_verify_same_run",
+        "accept_product_risk"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-08",
+      "actorId": "actor-rb-08",
+      "name": "Risk Logic Audit",
+      "role": "Challenge assumptions, edge cases, safety, consistency, and control design.",
+      "responsibilities": [
+        "audit_logic",
+        "raise_risks",
+        "request_corrective_tasks"
+      ],
+      "prohibitedActions": [
+        "rewrite_owner_artifacts_silently",
+        "accept_risk",
+        "certify_own_corrections"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-09",
+      "actorId": "actor-rb-09",
+      "name": "Qa Execution Evidence",
+      "role": "Execute approved scenarios and capture reproducible evidence and factual results.",
+      "responsibilities": [
+        "execute_runs",
+        "capture_evidence",
+        "author_run_results"
+      ],
+      "prohibitedActions": [
+        "change_expected_outcomes_during_run",
+        "self_verify_results",
+        "invent_unexecuted_results"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-10",
+      "actorId": "actor-rb-10",
+      "name": "Workbook Integrity Controlled Write",
+      "role": "Apply authorized manifests and prove complete, idempotent read-back.",
+      "responsibilities": [
+        "validate_manifests",
+        "perform_bounded_writes",
+        "emit_receipts",
+        "run_integrity_checks"
+      ],
+      "prohibitedActions": [
+        "author_semantic_changes",
+        "expose_secret_values",
+        "self_verify_writer_control_design"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-11",
+      "actorId": "actor-rb-11",
+      "name": "Readiness Release",
+      "role": "Calculate readiness, assemble release records, and route release gates.",
+      "responsibilities": [
+        "assess_readiness",
+        "assemble_release_record",
+        "coordinate_rollback_readiness"
+      ],
+      "prohibitedActions": [
+        "waive_human_gates",
+        "invent_deployment_state",
+        "self_verify_release_claims"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-12",
+      "actorId": "actor-rb-12",
+      "name": "Independent Verification",
+      "role": "Reproduce material claims and issue controlled dispositions.",
+      "responsibilities": [
+        "inspect_canonical_state",
+        "reproduce_evidence",
+        "compare_live_readback",
+        "issue_qc_disposition"
+      ],
+      "prohibitedActions": [
+        "edit_producer_artifacts_under_review",
+        "verify_own_output",
+        "hide_evidence_gaps"
+      ],
+      "lifecycle": "active"
+    },
+    {
+      "id": "RB-13",
+      "actorId": "actor-rb-13",
+      "name": "Development Adapter",
+      "role": "Exchange approved delivery contracts and factual implementation signals with development.",
+      "responsibilities": [
+        "submit_delivery_contracts",
+        "receive_implementation_references",
+        "map_development_status"
+      ],
+      "prohibitedActions": [
+        "invent_development_notes",
+        "grant_product_acceptance",
+        "disclose_development_secrets"
+      ],
+      "lifecycle": "active"
+    }
+  ],
+  "separation": {
+    "requireDistinctActiveActors": true,
+    "writerRole": "RB-10",
+    "independentVerifierRole": "RB-12",
+    "developmentRole": "RB-13",
+    "verificationOfVerifierRole": "RB-08"
+  },
+  "ownership": [
+    {
+      "artifact": "config",
+      "owner": "RB-01"
+    },
+    {
+      "artifact": "status_catalog",
+      "owner": "RB-01"
+    },
+    {
+      "artifact": "role_registry",
+      "owner": "RB-01"
+    },
+    {
+      "artifact": "ownership",
+      "owner": "RB-01"
+    },
+    {
+      "artifact": "events",
+      "owner": "RB-01"
+    },
+    {
+      "artifact": "taskboard",
+      "owner": "RB-01"
+    },
+    {
+      "artifact": "idea_inbox",
+      "owner": "RB-02"
+    },
+    {
+      "artifact": "discovery",
+      "owner": "RB-03"
+    },
+    {
+      "artifact": "decision_log",
+      "owner": "RB-02"
+    },
+    {
+      "artifact": "issues",
+      "owner": "RB-05"
+    },
+    {
+      "artifact": "delivery_tickets",
+      "owner": "RB-06"
+    },
+    {
+      "artifact": "validation_plans",
+      "owner": "RB-07"
+    },
+    {
+      "artifact": "validation_scenarios",
+      "owner": "RB-07"
+    },
+    {
+      "artifact": "validation_runs",
+      "owner": "RB-09"
+    },
+    {
+      "artifact": "validation_results",
+      "owner": "RB-09"
+    },
+    {
+      "artifact": "evidence",
+      "owner": "RB-09"
+    },
+    {
+      "artifact": "human_observations",
+      "owner": "RB-09"
+    },
+    {
+      "artifact": "qc_log",
+      "owner": "RB-12"
+    },
+    {
+      "artifact": "readiness",
+      "owner": "RB-11"
+    },
+    {
+      "artifact": "releases",
+      "owner": "RB-11"
+    },
+    {
+      "artifact": "writer_manifests",
+      "owner": "RB-12"
+    },
+    {
+      "artifact": "writer_receipts",
+      "owner": "RB-12"
+    },
+    {
+      "artifact": "lineage",
+      "owner": "RB-01"
+    }
+  ],
+  "routing": [
+    {
+      "event": "new_idea",
+      "owner": "RB-02",
+      "reviewers": [
+        "RB-03",
+        "RB-12"
+      ],
+      "output": "idea_inbox",
+      "steps": [
+        {
+          "role": "RB-02",
+          "title": "Triage idea",
+          "humanGate": "",
+          "key": "triage",
+          "after": []
+        },
+        {
+          "role": "RB-03",
+          "title": "Complete discovery",
+          "humanGate": "",
+          "key": "discovery",
+          "after": [
+            "triage"
+          ]
+        },
+        {
+          "role": "RB-02",
+          "title": "Prepare decision brief",
+          "humanGate": "",
+          "key": "brief",
+          "after": [
+            "discovery"
+          ]
+        },
+        {
+          "role": "RB-04",
+          "title": "Update topology and impact",
+          "humanGate": "product_direction_or_priority",
+          "key": "topology",
+          "after": [
+            "brief"
+          ]
+        },
+        {
+          "role": "RB-05",
+          "title": "Create or disposition issue",
+          "humanGate": "",
+          "key": "issue",
+          "after": [
+            "topology"
+          ]
+        },
+        {
+          "role": "RB-06",
+          "title": "Author delivery contract",
+          "humanGate": "",
+          "key": "contract",
+          "after": [
+            "issue"
+          ]
+        },
+        {
+          "role": "RB-07",
+          "title": "Design validation",
+          "humanGate": "",
+          "key": "validation-design",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-08",
+          "title": "Audit assumptions and edges",
+          "humanGate": "",
+          "key": "risk",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-13",
+          "title": "Implement approved delivery",
+          "humanGate": "",
+          "key": "implement",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-09",
+          "title": "Execute QA and capture evidence",
+          "humanGate": "",
+          "key": "qa",
+          "after": [
+            "validation-design",
+            "implement"
+          ]
+        },
+        {
+          "role": "RB-10",
+          "title": "Apply controlled operational update",
+          "humanGate": "",
+          "key": "operational-update",
+          "after": [
+            "qa"
+          ]
+        },
+        {
+          "role": "RB-12",
+          "title": "Independently verify material claims",
+          "humanGate": "",
+          "key": "verify",
+          "after": [
+            "operational-update",
+            "risk"
+          ]
+        },
+        {
+          "role": "RB-11",
+          "title": "Assess readiness and release",
+          "humanGate": "",
+          "key": "readiness",
+          "after": [
+            "verify"
+          ]
+        }
+      ]
+    },
+    {
+      "event": "user_finding",
+      "owner": "RB-05",
+      "reviewers": [
+        "RB-06",
+        "RB-12"
+      ],
+      "output": "issues",
+      "steps": [
+        {
+          "role": "RB-05",
+          "title": "Triage finding",
+          "humanGate": "",
+          "key": "triage",
+          "after": []
+        },
+        {
+          "role": "RB-06",
+          "title": "Author delivery contract",
+          "humanGate": "product_direction_or_priority",
+          "key": "contract",
+          "after": [
+            "triage"
+          ]
+        },
+        {
+          "role": "RB-07",
+          "title": "Design validation",
+          "humanGate": "",
+          "key": "validation-design",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-08",
+          "title": "Audit assumptions and edges",
+          "humanGate": "",
+          "key": "risk",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-13",
+          "title": "Implement approved delivery",
+          "humanGate": "",
+          "key": "implement",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-09",
+          "title": "Execute QA and capture evidence",
+          "humanGate": "",
+          "key": "qa",
+          "after": [
+            "validation-design",
+            "implement"
+          ]
+        },
+        {
+          "role": "RB-10",
+          "title": "Apply controlled operational update",
+          "humanGate": "",
+          "key": "operational-update",
+          "after": [
+            "qa"
+          ]
+        },
+        {
+          "role": "RB-12",
+          "title": "Independently verify material claims",
+          "humanGate": "",
+          "key": "verify",
+          "after": [
+            "operational-update",
+            "risk"
+          ]
+        },
+        {
+          "role": "RB-11",
+          "title": "Assess readiness",
+          "humanGate": "",
+          "key": "readiness",
+          "after": [
+            "verify"
+          ]
+        }
+      ]
+    },
+    {
+      "event": "delivery_ready_issue",
+      "owner": "RB-06",
+      "reviewers": [
+        "RB-07",
+        "RB-13",
+        "RB-12"
+      ],
+      "output": "delivery_tickets",
+      "steps": [
+        {
+          "role": "RB-06",
+          "title": "Confirm delivery contract",
+          "humanGate": "product_direction_or_priority",
+          "key": "contract",
+          "after": []
+        },
+        {
+          "role": "RB-07",
+          "title": "Design validation",
+          "humanGate": "",
+          "key": "validation-design",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-08",
+          "title": "Audit assumptions and edges",
+          "humanGate": "",
+          "key": "risk",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-13",
+          "title": "Implement approved delivery",
+          "humanGate": "",
+          "key": "implement",
+          "after": [
+            "contract"
+          ]
+        },
+        {
+          "role": "RB-09",
+          "title": "Execute QA and capture evidence",
+          "humanGate": "",
+          "key": "qa",
+          "after": [
+            "validation-design",
+            "implement"
+          ]
+        },
+        {
+          "role": "RB-10",
+          "title": "Apply controlled operational update",
+          "humanGate": "",
+          "key": "operational-update",
+          "after": [
+            "qa"
+          ]
+        },
+        {
+          "role": "RB-12",
+          "title": "Independently verify material claims",
+          "humanGate": "",
+          "key": "verify",
+          "after": [
+            "operational-update",
+            "risk"
+          ]
+        },
+        {
+          "role": "RB-11",
+          "title": "Assess readiness",
+          "humanGate": "",
+          "key": "readiness",
+          "after": [
+            "verify"
+          ]
+        }
+      ]
+    },
+    {
+      "event": "qa_retest",
+      "owner": "RB-07",
+      "reviewers": [
+        "RB-09",
+        "RB-12"
+      ],
+      "output": "validation_results",
+      "steps": [
+        {
+          "role": "RB-07",
+          "title": "Confirm retest scenario",
+          "humanGate": "",
+          "key": "scenario",
+          "after": []
+        },
+        {
+          "role": "RB-09",
+          "title": "Execute QA retest",
+          "humanGate": "",
+          "key": "retest",
+          "after": [
+            "scenario"
+          ]
+        },
+        {
+          "role": "RB-10",
+          "title": "Apply controlled result update",
+          "humanGate": "",
+          "key": "result-update",
+          "after": [
+            "retest"
+          ]
+        },
+        {
+          "role": "RB-12",
+          "title": "Independently verify retest",
+          "humanGate": "",
+          "key": "verify",
+          "after": [
+            "result-update"
+          ]
+        },
+        {
+          "role": "RB-11",
+          "title": "Recalculate readiness",
+          "humanGate": "",
+          "key": "readiness",
+          "after": [
+            "verify"
+          ]
+        }
+      ]
+    },
+    {
+      "event": "workbook_or_status_change",
+      "owner": "RB-10",
+      "reviewers": [
+        "RB-08",
+        "RB-12"
+      ],
+      "output": "writer_manifests",
+      "steps": [
+        {
+          "role": "RB-10",
+          "title": "Prepare controlled workbook change",
+          "humanGate": "",
+          "key": "change",
+          "after": []
+        },
+        {
+          "role": "RB-08",
+          "title": "Audit control and logic",
+          "humanGate": "",
+          "key": "audit",
+          "after": [
+            "change"
+          ]
+        },
+        {
+          "role": "RB-12",
+          "title": "Independently verify workbook change",
+          "humanGate": "",
+          "key": "verify",
+          "after": [
+            "audit"
+          ]
+        }
+      ]
+    },
+    {
+      "event": "release_transition",
+      "owner": "RB-11",
+      "reviewers": [
+        "RB-12"
+      ],
+      "output": "releases",
+      "steps": [
+        {
+          "role": "RB-11",
+          "title": "Prepare release transition",
+          "humanGate": "",
+          "key": "transition",
+          "after": []
+        },
+        {
+          "role": "RB-12",
+          "title": "Independently verify release claims",
+          "humanGate": "",
+          "key": "verify",
+          "after": [
+            "transition"
+          ]
+        }
+      ]
+    },
+    {
+      "event": "governance_or_role_change",
+      "owner": "RB-01",
+      "reviewers": [
+        "RB-08",
+        "RB-12"
+      ],
+      "output": "role_registry",
+      "steps": [
+        {
+          "role": "RB-01",
+          "title": "Prepare governance change",
+          "humanGate": "governance_or_role_lifecycle_change",
+          "key": "change",
+          "after": []
+        },
+        {
+          "role": "RB-08",
+          "title": "Audit governance change",
+          "humanGate": "",
+          "key": "audit",
+          "after": [
+            "change"
+          ]
+        },
+        {
+          "role": "RB-12",
+          "title": "Independently verify governance change",
+          "humanGate": "",
+          "key": "verify",
+          "after": [
+            "audit"
+          ]
+        }
+      ]
+    }
+  ],
+  "taskIds": {
+    "prefix": "BR",
+    "pattern": "^BR-[0-9]{4}$"
+  },
+  "statuses": [
+    {
+      "id": "backlog",
+      "description": "Captured but not ready to start.",
+      "terminal": false,
+      "transitions": [
+        "ready",
+        "blocked",
+        "cancelled"
+      ]
+    },
+    {
+      "id": "ready",
+      "description": "Inputs and ownership are sufficient to start.",
+      "terminal": false,
+      "transitions": [
+        "in_progress",
+        "blocked",
+        "cancelled"
+      ]
+    },
+    {
+      "id": "in_progress",
+      "description": "The owner is actively producing the required output.",
+      "terminal": false,
+      "transitions": [
+        "blocked",
+        "in_review",
+        "cancelled"
+      ]
+    },
+    {
+      "id": "blocked",
+      "description": "Progress requires an explicit dependency or decision.",
+      "terminal": false,
+      "transitions": [
+        "ready",
+        "in_progress",
+        "cancelled"
+      ]
+    },
+    {
+      "id": "in_review",
+      "description": "Output is awaiting independent review or acceptance.",
+      "terminal": false,
+      "transitions": [
+        "in_progress",
+        "done",
+        "blocked",
+        "cancelled"
+      ]
+    },
+    {
+      "id": "done",
+      "description": "Required outputs and evidence passed completion gates.",
+      "terminal": true,
+      "transitions": []
+    },
+    {
+      "id": "cancelled",
+      "description": "Work was explicitly cancelled with a durable disposition.",
+      "terminal": true,
+      "transitions": []
+    }
+  ],
+  "workbook": {
+    "sheets": [
+      {
+        "key": "config",
+        "name": "Config",
+        "file": "workbook/01-config.csv",
+        "owner": "RB-01",
+        "columns": [
+          "config_key",
+          "config_value",
+          "description",
+          "locked"
+        ]
+      },
+      {
+        "key": "status_catalog",
+        "name": "Status Catalog",
+        "file": "workbook/02-status-catalog.csv",
+        "owner": "RB-01",
+        "columns": [
+          "status_family",
+          "status_value",
+          "display_order",
+          "terminal",
+          "definition"
+        ]
+      },
+      {
+        "key": "role_registry",
+        "name": "Role Registry",
+        "file": "workbook/03-role-registry.csv",
+        "owner": "RB-01",
+        "columns": [
+          "role_key",
+          "boundary",
+          "purpose",
+          "lifecycle",
+          "assigned_actor_id",
+          "backup_actor_id",
+          "may",
+          "must_not",
+          "updated_at"
+        ]
+      },
+      {
+        "key": "ownership",
+        "name": "Ownership",
+        "file": "workbook/04-ownership.csv",
+        "owner": "RB-01",
+        "columns": [
+          "artifact_type",
+          "semantic_owner_role",
+          "mechanical_writer_role",
+          "independent_verifier_role",
+          "human_approver_when_required",
+          "development_owned_fields",
+          "notes"
+        ]
+      },
+      {
+        "key": "events",
+        "name": "Events",
+        "file": "workbook/05-events.csv",
+        "owner": "RB-01",
+        "columns": [
+          "event_id",
+          "event_type",
+          "title",
+          "status",
+          "priority",
+          "risk",
+          "source_id",
+          "coordinator_role",
+          "coordinator_actor_id",
+          "semantic_owner_roles",
+          "writer_role",
+          "verifier_role",
+          "producer_actor_id",
+          "verifier_actor_id",
+          "human_gates",
+          "affected_systems",
+          "rollback_boundary",
+          "evidence_requirements",
+          "opened_at",
+          "closed_at",
+          "supersedes_id"
+        ]
+      },
+      {
+        "key": "taskboard",
+        "name": "Taskboard",
+        "file": "workbook/06-taskboard.csv",
+        "owner": "RB-01",
+        "columns": [
+          "task_id",
+          "event_id",
+          "title",
+          "owner_role",
+          "owner_actor_id",
+          "status",
+          "priority",
+          "dependency_ids",
+          "blocked_reason",
+          "next_owner_role",
+          "unblock_condition",
+          "canonical_output_refs",
+          "evidence_refs",
+          "handoff_id",
+          "independent_verifier_role",
+          "verifier_actor_id",
+          "human_gate",
+          "due_at",
+          "updated_at"
+        ]
+      },
+      {
+        "key": "idea_inbox",
+        "name": "Idea Inbox",
+        "file": "workbook/07-idea-inbox.csv",
+        "owner": "RB-02",
+        "columns": [
+          "idea_id",
+          "event_id",
+          "submitted_at",
+          "submitted_by",
+          "problem_or_opportunity",
+          "target_user",
+          "expected_outcome",
+          "source_reference",
+          "status",
+          "priority",
+          "triage_owner_role",
+          "duplicate_of",
+          "discovery_id",
+          "decision_id",
+          "notes"
+        ]
+      },
+      {
+        "key": "discovery",
+        "name": "Discovery",
+        "file": "workbook/08-discovery.csv",
+        "owner": "RB-03",
+        "columns": [
+          "discovery_id",
+          "event_id",
+          "idea_id",
+          "status",
+          "owner_role",
+          "owner_actor_id",
+          "question",
+          "method",
+          "source_refs",
+          "key_findings",
+          "limitations",
+          "recommendation",
+          "decision_id",
+          "producer_actor_id",
+          "verifier_actor_id",
+          "qc_record_id",
+          "started_at",
+          "completed_at",
+          "supersedes_id"
+        ]
+      },
+      {
+        "key": "decision_log",
+        "name": "Decision Log",
+        "file": "workbook/09-decision-log.csv",
+        "owner": "RB-02",
+        "columns": [
+          "decision_id",
+          "event_id",
+          "title",
+          "status",
+          "selected_option",
+          "decision_maker_actor_id",
+          "decided_at",
+          "brief_reference",
+          "evidence_refs",
+          "risk_acceptance",
+          "conditions",
+          "supersedes_decision_id",
+          "resulting_task_ids"
+        ]
+      },
+      {
+        "key": "issues",
+        "name": "Issues",
+        "file": "workbook/10-issues.csv",
+        "owner": "RB-05",
+        "columns": [
+          "issue_id",
+          "event_id",
+          "title",
+          "status",
+          "priority",
+          "risk",
+          "source_ids",
+          "affected_user",
+          "current_behavior",
+          "expected_behavior",
+          "impact",
+          "evidence_refs",
+          "duplicate_of",
+          "decision_id",
+          "ticket_ids",
+          "result_ids",
+          "closure_disposition",
+          "owner_role",
+          "owner_actor_id",
+          "updated_at",
+          "supersedes_id"
+        ]
+      },
+      {
+        "key": "delivery_tickets",
+        "name": "Delivery Tickets",
+        "file": "workbook/11-delivery-tickets.csv",
+        "owner": "RB-06",
+        "columns": [
+          "ticket_id",
+          "event_id",
+          "issue_id",
+          "decision_id",
+          "title",
+          "status",
+          "priority",
+          "risk",
+          "outcome",
+          "scope",
+          "non_goals",
+          "acceptance_criteria",
+          "dependencies",
+          "write_boundary",
+          "validation_plan_id",
+          "implementation_reference",
+          "development_status",
+          "development_notes",
+          "owner_role",
+          "owner_actor_id",
+          "development_adapter_role",
+          "updated_at"
+        ]
+      },
+      {
+        "key": "validation_plans",
+        "name": "Validation Plans",
+        "file": "workbook/12-validation-plans.csv",
+        "owner": "RB-07",
+        "columns": [
+          "plan_id",
+          "event_id",
+          "ticket_id",
+          "status",
+          "risk",
+          "objective",
+          "claims",
+          "entry_criteria",
+          "exit_criteria",
+          "stop_conditions",
+          "scenario_ids",
+          "environment_alias",
+          "data_set",
+          "evidence_contract",
+          "human_gate",
+          "design_owner_role",
+          "design_owner_actor_id",
+          "execution_owner_role",
+          "verifier_role",
+          "verifier_actor_id",
+          "approved_at",
+          "supersedes_id"
+        ]
+      },
+      {
+        "key": "validation_scenarios",
+        "name": "Validation Scenarios",
+        "file": "workbook/13-validation-scenarios.csv",
+        "owner": "RB-07",
+        "columns": [
+          "scenario_id",
+          "plan_id",
+          "event_id",
+          "ticket_id",
+          "status",
+          "claim_or_ac_ids",
+          "preconditions",
+          "steps",
+          "expected_outcomes",
+          "evidence_required",
+          "edge_cases",
+          "pass_rule",
+          "fail_rule",
+          "stop_condition",
+          "owner_role",
+          "owner_actor_id",
+          "supersedes_id"
+        ]
+      },
+      {
+        "key": "validation_runs",
+        "name": "Validation Runs",
+        "file": "workbook/14-validation-runs.csv",
+        "owner": "RB-09",
+        "columns": [
+          "run_id",
+          "plan_id",
+          "scenario_id",
+          "event_id",
+          "ticket_id",
+          "status",
+          "executor_role",
+          "executor_actor_id",
+          "environment_alias",
+          "implementation_reference",
+          "data_set",
+          "started_at",
+          "ended_at",
+          "actual_observation",
+          "evidence_manifest_id",
+          "blocked_reason",
+          "cleanup_state",
+          "result_id",
+          "known_limitations"
+        ]
+      },
+      {
+        "key": "validation_results",
+        "name": "Validation Results",
+        "file": "workbook/15-validation-results.csv",
+        "owner": "RB-09",
+        "columns": [
+          "result_id",
+          "run_id",
+          "plan_id",
+          "scenario_id",
+          "event_id",
+          "ticket_id",
+          "disposition",
+          "expected",
+          "observed",
+          "difference",
+          "decisive_evidence_ids",
+          "producer_role",
+          "producer_actor_id",
+          "verifier_role",
+          "verifier_actor_id",
+          "qc_record_id",
+          "issue_status_implication",
+          "ticket_status_implication",
+          "corrective_task_ids",
+          "recorded_at"
+        ]
+      },
+      {
+        "key": "evidence",
+        "name": "Evidence",
+        "file": "workbook/16-evidence.csv",
+        "owner": "RB-09",
+        "columns": [
+          "evidence_item_id",
+          "evidence_manifest_id",
+          "event_id",
+          "run_id",
+          "result_id",
+          "status",
+          "claim_or_step_ids",
+          "artifact_type",
+          "canonical_path",
+          "capture_method",
+          "captured_at",
+          "environment_alias",
+          "media_type",
+          "byte_length",
+          "sha256",
+          "decisive",
+          "limitation",
+          "contains_sensitive_material",
+          "secret_scan_passed"
+        ]
+      },
+      {
+        "key": "human_observations",
+        "name": "Human Observations",
+        "file": "workbook/17-human-observations.csv",
+        "owner": "RB-09",
+        "columns": [
+          "observation_id",
+          "event_id",
+          "ticket_id",
+          "scenario_id",
+          "run_id",
+          "result_id",
+          "status",
+          "required_because",
+          "observer_actor_id",
+          "scheduled_at",
+          "observed_at",
+          "environment_alias",
+          "expected_behavior",
+          "observed_behavior",
+          "conditions",
+          "evidence_ids",
+          "producer_actor_id",
+          "verifier_actor_id",
+          "qc_record_id"
+        ]
+      },
+      {
+        "key": "qc_log",
+        "name": "QC Log",
+        "file": "workbook/18-qc-log.csv",
+        "owner": "RB-12",
+        "columns": [
+          "qc_record_id",
+          "event_id",
+          "task_id",
+          "artifact_ids",
+          "producer_role",
+          "producer_actor_id",
+          "verifier_role",
+          "verifier_actor_id",
+          "disposition",
+          "claims_reproduced",
+          "canonical_revision",
+          "live_receipt_id",
+          "development_reference",
+          "human_disposition_id",
+          "evidence_refs",
+          "gap_or_failure",
+          "corrective_owner_role",
+          "corrective_task_id",
+          "verified_at"
+        ]
+      },
+      {
+        "key": "readiness",
+        "name": "Readiness",
+        "file": "workbook/19-readiness.csv",
+        "owner": "RB-11",
+        "columns": [
+          "readiness_id",
+          "event_id",
+          "ticket_ids",
+          "status",
+          "target_environment",
+          "required_gate_ids",
+          "satisfied_gate_ids",
+          "blocking_ids",
+          "residual_risks",
+          "human_risk_acceptance_id",
+          "rollback_reference",
+          "release_id",
+          "owner_role",
+          "owner_actor_id",
+          "producer_actor_id",
+          "verifier_actor_id",
+          "qc_record_id",
+          "assessed_at"
+        ]
+      },
+      {
+        "key": "releases",
+        "name": "Releases",
+        "file": "workbook/20-releases.csv",
+        "owner": "RB-11",
+        "columns": [
+          "release_id",
+          "readiness_id",
+          "event_id",
+          "status",
+          "target_environment",
+          "ticket_ids",
+          "implementation_refs",
+          "human_authorization_id",
+          "rollback_reference",
+          "writer_receipt_ids",
+          "deployment_reference",
+          "development_deployment_status",
+          "health_check_refs",
+          "started_at",
+          "ended_at",
+          "residual_risks",
+          "follow_up_task_ids",
+          "owner_role",
+          "owner_actor_id"
+        ]
+      },
+      {
+        "key": "writer_manifests",
+        "name": "Writer Manifests",
+        "file": "workbook/21-writer-manifests.csv",
+        "owner": "RB-12",
+        "columns": [
+          "write_manifest_id",
+          "event_id",
+          "status",
+          "semantic_owner_role",
+          "semantic_owner_actor_id",
+          "authorized_by_actor_id",
+          "authorized_at",
+          "writer_role",
+          "writer_actor_id",
+          "target_system_alias",
+          "target_environment",
+          "record_or_tab",
+          "key_fields",
+          "allowed_fields",
+          "prohibited_fields",
+          "bounded_range",
+          "preconditions_hash",
+          "changes_hash",
+          "second_read_path",
+          "rollback_plan",
+          "human_production_authorization_id"
+        ]
+      },
+      {
+        "key": "writer_receipts",
+        "name": "Writer Receipts",
+        "file": "workbook/22-writer-receipts.csv",
+        "owner": "RB-12",
+        "columns": [
+          "write_receipt_id",
+          "write_manifest_id",
+          "event_id",
+          "status",
+          "writer_role",
+          "writer_actor_id",
+          "target_system_alias",
+          "target_environment",
+          "canonical_revision",
+          "records_attempted",
+          "records_changed",
+          "records_unchanged",
+          "preconditions_match",
+          "full_readback_match",
+          "second_read_match",
+          "unexpected_differences",
+          "replay_writes",
+          "rollback_tested",
+          "evidence_refs",
+          "verifier_role",
+          "verifier_actor_id",
+          "qc_record_id",
+          "completed_at"
+        ]
+      },
+      {
+        "key": "lineage",
+        "name": "Lineage",
+        "file": "workbook/23-lineage.csv",
+        "owner": "RB-01",
+        "columns": [
+          "lineage_edge_id",
+          "event_id",
+          "from_id",
+          "from_type",
+          "relationship",
+          "to_id",
+          "to_type",
+          "canonical_reference",
+          "created_at",
+          "created_by_role"
+        ]
+      }
+    ]
+  },
+  "fieldAuthority": {
+    "protectedDevelopmentFields": [
+      "implementation_reference",
+      "development_status",
+      "development_notes",
+      "deployment_reference",
+      "development_deployment_status"
+    ],
+    "protectedHumanFields": [
+      "decision_maker_actor_id",
+      "observer_actor_id",
+      "human_risk_acceptance_id",
+      "human_authorization_id",
+      "human_production_authorization_id"
+    ],
+    "protectedFieldTabs": {
+      "implementation_reference": [
+        "delivery_tickets",
+        "validation_runs"
+      ],
+      "development_status": [
+        "delivery_tickets"
+      ],
+      "development_notes": [
+        "delivery_tickets"
+      ],
+      "deployment_reference": [
+        "releases"
+      ],
+      "development_deployment_status": [
+        "releases"
+      ],
+      "decision_maker_actor_id": [
+        "decision_log"
+      ],
+      "observer_actor_id": [
+        "human_observations"
+      ],
+      "human_risk_acceptance_id": [
+        "readiness"
+      ],
+      "human_authorization_id": [
+        "releases"
+      ],
+      "human_production_authorization_id": [
+        "writer_manifests"
+      ]
+    },
+    "writerEnvironments": [
+      "local",
+      "test",
+      "staging",
+      "production"
+    ]
+  },
+  "validation": {
+    "excludedDirectories": [
+      ".git",
+      "node_modules"
+    ],
+    "allowedSyntheticEmailDomains": [
+      "example.com",
+      "example.org",
+      "example.net",
+      "invalid"
+    ]
+  },
+  "operations": {
+    "modelVersion": 4,
+    "runtimeDirectory": ".product-ops/runtime",
+    "externalWritesDefaultDryRun": true,
+    "requireHumanGateAttribution": true
+  },
+  "adapters": {
+    "development": {
+      "type": "command",
+      "enabled": false,
+      "file": "adapters/development.json",
+      "implementation": "command-runner",
+      "settings": {
+        "executable": "",
+        "arguments": [],
+        "workingDirectory": ".",
+        "timeoutMs": 1800000,
+        "allowedPaths": [
+          "src",
+          "tests"
+        ],
+        "environmentAllowlist": []
+      }
+    },
+    "git": {
+      "type": "local-git",
+      "enabled": false,
+      "file": "adapters/git.json",
+      "implementation": "local-git",
+      "settings": {
+        "repositoryPath": ".",
+        "branchPrefix": "product-ops/",
+        "requireCleanWorktree": true
+      }
+    },
+    "spreadsheet": {
+      "type": "local-csv",
+      "enabled": false,
+      "file": "adapters/spreadsheet.json",
+      "implementation": "safe-local-csv",
+      "settings": {
+        "requireApprovedPlanHash": true,
+        "requireCompleteReadback": true
+      }
+    }
+  }
+}

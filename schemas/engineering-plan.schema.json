@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Engineering Delivery Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "planId", "requestId", "sourceDigest", "status", "riskClass", "workstreams", "qualityGates", "architectureDecisions", "createdAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "planId": { "type": "string", "pattern": "^ENGPLAN-[A-Za-z0-9._-]+$" },
+    "requestId": { "type": "string", "pattern": "^DEVREQ-[A-Za-z0-9._-]+$" },
+    "sourceDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "status": { "enum": ["planned", "in_progress", "blocked", "ready_for_independent_verification", "completed"] },
+    "riskClass": { "enum": ["low", "medium", "high", "critical"] },
+    "workstreams": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "ownerRole", "domain", "title", "dependencies", "deliverables", "requiredEvidence", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^WS-[0-9]{2}$" },
+          "ownerRole": { "type": "string", "pattern": "^ENG-[0-9]{2}$" },
+          "domain": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 3 },
+          "dependencies": { "$ref": "#/$defs/strings" },
+          "deliverables": { "$ref": "#/$defs/nonEmptyStrings" },
+          "requiredEvidence": { "$ref": "#/$defs/nonEmptyStrings" },
+          "status": { "enum": ["ready", "in_progress", "blocked", "in_review", "done"] }
+        }
+      }
+    },
+    "qualityGates": { "$ref": "#/$defs/nonEmptyStrings" },
+    "architectureDecisions": { "$ref": "#/$defs/strings" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "strings": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "nonEmptyStrings": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+  }
+}

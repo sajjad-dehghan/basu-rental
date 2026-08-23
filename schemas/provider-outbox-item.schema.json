@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product Operations Provider Outbox Item",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "provider", "operation", "method", "endpoint", "payload", "status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9._-]+$" },
+    "provider": { "type": "string", "minLength": 1 },
+    "operation": { "type": "string", "minLength": 1 },
+    "method": { "enum": ["GET", "POST", "PUT", "PATCH"] },
+    "endpoint": { "type": "string", "pattern": "^/(?!.*\\.\\.)[^\\\\]*$" },
+    "payload": { "type": "object" },
+    "responseFields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+$" }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approvedPlanHash": { "type": "string" },
+        "humanAuthorizationId": { "type": "string" },
+        "preconditionHash": { "type": "string" },
+        "expectedReadbackSha256": { "type": "string" },
+        "rollbackPlan": { "type": "string" },
+        "readbackEndpoint": { "type": "string" }
+      }
+    },
+    "status": { "enum": ["queued", "completed", "needs_reconciliation"] }
+  }
+}

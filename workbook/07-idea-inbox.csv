@@ -1,0 +1,2 @@
+idea_id,event_id,submitted_at,submitted_by,problem_or_opportunity,target_user,expected_outcome,source_reference,status,priority,triage_owner_role,duplicate_of,discovery_id,decision_id,notes
+IDEA-00000000-001,EVT-00000000-001,,,Define the first user problem to investigate,Describe the primary user group.,Describe the product outcome this operating system should support.,events/EVT-00000000-001-first-discovery.md,discovery,P2,RB-02,,DSC-00000000-001,,

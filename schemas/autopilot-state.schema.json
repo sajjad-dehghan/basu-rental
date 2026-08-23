@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-product-operations-os.local/schemas/autopilot-state.schema.json",
+  "title": "Autopilot State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "status", "activeCycleId", "activeEventId", "phase", "currentTaskId", "currentRoleId", "applicationRoot", "attempt", "transientAttempt", "nextRetryAt", "lastErrorKind", "startedAt", "updatedAt", "completedAt", "lastError", "latestReport"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "status": { "enum": ["idle", "running", "paused", "waiting_for_human", "completed", "blocked", "failed"] },
+    "activeCycleId": { "type": ["string", "null"] },
+    "activeEventId": { "type": ["string", "null"] },
+    "phase": { "enum": ["idle", "product_analysis", "human_gate", "development_handoff", "engineering", "product_validation", "reporting", "complete"] },
+    "currentTaskId": { "type": ["string", "null"] },
+    "currentRoleId": { "type": ["string", "null"] },
+    "applicationRoot": { "type": ["string", "null"] },
+    "attempt": { "type": "integer", "minimum": 0 },
+    "transientAttempt": { "type": "integer", "minimum": 0 },
+    "nextRetryAt": { "type": ["string", "null"], "format": "date-time" },
+    "lastErrorKind": { "enum": [null, "logical", "transient"] },
+    "startedAt": { "type": ["string", "null"], "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": ["string", "null"], "format": "date-time" },
+    "lastError": { "type": ["string", "null"], "maxLength": 2000 },
+    "latestReport": { "type": ["string", "null"], "maxLength": 1000 }
+  }
+}

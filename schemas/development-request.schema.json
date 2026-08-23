@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product to Development Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "requestId", "productTaskId", "deliveryTicketReference", "title", "problem", "desiredOutcome", "acceptanceCriteria", "impacts", "constraints", "nonFunctionalRequirements", "writeBoundary", "validation", "approval", "source"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "requestId": { "type": "string", "pattern": "^DEVREQ-[A-Za-z0-9._-]+$" },
+    "productTaskId": { "type": "string", "minLength": 3 },
+    "deliveryTicketReference": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 3, "maxLength": 200 },
+    "problem": { "type": "string", "minLength": 10 },
+    "desiredOutcome": { "type": "string", "minLength": 5 },
+    "acceptanceCriteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "verification"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^AC-[0-9]{2,}$" },
+          "statement": { "type": "string", "minLength": 5 },
+          "verification": { "type": "string", "minLength": 3 }
+        }
+      }
+    },
+    "impacts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["architecture", "frontend", "accessibility", "backend", "api", "integration", "mobile", "desktop", "database", "storage", "cache", "messaging", "search", "data", "ai", "analytics", "security", "privacy", "identity", "compliance", "network", "infrastructure", "devops", "sre", "observability", "performance", "resilience", "cost", "seo", "documentation"] }
+    },
+    "constraints": { "$ref": "#/$defs/strings" },
+    "nonFunctionalRequirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["domain", "requirement", "verification"],
+        "properties": {
+          "domain": { "type": "string", "minLength": 1 },
+          "requirement": { "type": "string", "minLength": 3 },
+          "verification": { "type": "string", "minLength": 3 }
+        }
+      }
+    },
+    "writeBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repositories", "allowedPaths", "prohibitedPaths"],
+      "properties": {
+        "repositories": { "$ref": "#/$defs/strings" },
+        "allowedPaths": { "$ref": "#/$defs/strings" },
+        "prohibitedPaths": { "$ref": "#/$defs/strings" }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commands", "evidenceRequired"],
+      "properties": {
+        "commands": { "$ref": "#/$defs/strings" },
+        "evidenceRequired": { "$ref": "#/$defs/strings" }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "actorId", "decidedAt", "reference"],
+      "properties": {
+        "status": { "const": "approved" },
+        "actorId": { "type": "string", "minLength": 2 },
+        "decidedAt": { "type": "string", "format": "date-time" },
+        "reference": { "type": "string", "minLength": 1 }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["productOperationsRevision", "exportedAt"],
+      "properties": {
+        "productOperationsRevision": { "type": "string", "minLength": 7 },
+        "applicationBaseRevision": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" },
+        "exportedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "$defs": {
+    "strings": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  }
+}

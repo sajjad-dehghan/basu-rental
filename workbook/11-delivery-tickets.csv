@@ -1,0 +1,2 @@
+ticket_id,event_id,issue_id,decision_id,title,status,priority,risk,outcome,scope,non_goals,acceptance_criteria,dependencies,write_boundary,validation_plan_id,implementation_reference,development_status,development_notes,owner_role,owner_actor_id,development_adapter_role,updated_at
+<TICKET_ID>,<EVENT_ID>,<ISSUE_ID>,<DECISION_ID>,<TITLE>,<statuses.ticket>,<statuses.priority>,<statuses.risk>,<OUTCOME>,<SCOPE>,<NON_GOALS>,<AC_LIST>,<ID_LIST>,<BOUNDARY>,<PLAN_ID>,<DEVELOPMENT_OWNED>,<DEVELOPMENT_OWNED>,<DEVELOPMENT_OWNED>,RB-06,<ACTOR_ID>,RB-13,<ISO-8601>

@@ -1,0 +1,151 @@
+catalog_version: 2
+catalog_authority: templates/config/operating-model.yaml
+customization_note: Replace project placeholders and assignments; preserve stable keys after use.
+
+project:
+  key: "<PROJECT_KEY>"
+  name: "<PRODUCT_NAME>"
+  timezone: "UTC"
+  canonical_repository: "<REPOSITORY_REFERENCE>"
+  development_adapter: "<ADAPTER_REFERENCE>"
+  live_workbook_reference: "<NON_SECRET_WORKBOOK_ALIAS>"
+
+identifier_patterns:
+  event: "EVT-{YYYYMMDD}-{NNN}"
+  idea: "IDEA-{YYYYMMDD}-{NNN}"
+  discovery: "DSC-{YYYYMMDD}-{NNN}"
+  decision: "DEC-{YYYYMMDD}-{NNN}"
+  task: "TASK-{ROLE_KEY}-{YYYYMMDD}-{NNN}"
+  handoff: "HOF-{YYYYMMDD}-{NNN}"
+  issue: "ISS-{YYYYMMDD}-{NNN}"
+  ticket: "TKT-{YYYYMMDD}-{NNN}"
+  validation_plan: "VPL-{YYYYMMDD}-{NNN}"
+  validation_scenario: "VSC-{YYYYMMDD}-{NNN}"
+  validation_run: "VRN-{YYYYMMDD}-{NNN}"
+  validation_result: "VRS-{YYYYMMDD}-{NNN}"
+  evidence_manifest: "EVD-{YYYYMMDD}-{NNN}"
+  human_observation: "HOB-{YYYYMMDD}-{NNN}"
+  qc_record: "QCV-{YYYYMMDD}-{NNN}"
+  readiness: "RDY-{YYYYMMDD}-{NNN}"
+  release: "REL-{YYYYMMDD}-{NNN}"
+  write_manifest: "WFM-{YYYYMMDD}-{NNN}"
+  write_receipt: "WRC-{YYYYMMDD}-{NNN}"
+
+roles:
+  RB-01: { boundary: control_coordination, lifecycle: active }
+  RB-02: { boundary: idea_decision, lifecycle: active }
+  RB-03: { boundary: discovery_research, lifecycle: active }
+  RB-04: { boundary: topology_journeys, lifecycle: active }
+  RB-05: { boundary: issue_lifecycle, lifecycle: active }
+  RB-06: { boundary: delivery_contract, lifecycle: active }
+  RB-07: { boundary: validation_design, lifecycle: active }
+  RB-08: { boundary: risk_logic_audit, lifecycle: active }
+  RB-09: { boundary: qa_execution_evidence, lifecycle: active }
+  RB-10: { boundary: workbook_integrity_controlled_write, lifecycle: active }
+  RB-11: { boundary: readiness_release, lifecycle: active }
+  RB-12: { boundary: independent_verification, lifecycle: active }
+  RB-13: { boundary: development_adapter, lifecycle: active }
+
+statuses:
+  role_lifecycle: [proposed, active, suspended, retired]
+  event: [draft, authorized, active, blocked, verifying, closed, cancelled, superseded]
+  task: [backlog, ready, in_progress, blocked, in_review, done, cancelled]
+  idea: [inbox, triage, discovery, decided, archived]
+  discovery: [draft, active, blocked, complete, superseded]
+  decision: [draft, pending_human, approved, rejected, deferred, superseded]
+  issue: [open, needs_decision, ready_for_delivery, in_delivery, needs_validation, validated, closed, wont_fix]
+  ticket: [draft, ready, in_progress, blocked, implementation_complete, validation_failed, accepted, released, cancelled]
+  validation_plan: [draft, in_review, approved, run_ready, blocked, complete, superseded]
+  validation_scenario: [draft, ready, blocked, retired]
+  validation_run: [planned, running, blocked, completed, aborted]
+  validation_result: [pass, fail, inconclusive, not_run]
+  qc: [pass, evidence_gap, control_failure, live_propagation_failure, human_decision_required]
+  human_observation: [required, scheduled, accepted, rejected, waived_by_human]
+  readiness: [not_ready, conditionally_ready, ready, released]
+  release: [planned, approved, in_progress, completed, rolled_back, cancelled]
+  write_manifest: [draft, authorized, applied, failed, rolled_back]
+  write_receipt: [pending_readback, verified, mismatch, replay_verified, rollback_verified]
+  evidence_item: [expected, captured, unavailable, invalidated]
+  priority: [P0, P1, P2, P3]
+  risk: [low, medium, high, critical]
+
+human_gates:
+  - product_direction_or_priority
+  - risk_acceptance
+  - production_write
+  - destructive_or_irreversible_action
+  - real_money_or_provider_operation
+  - credential_or_sensitive_access_change
+  - governance_or_role_lifecycle_change
+  - final_user_visible_acceptance
+
+workbook_tabs:
+  config: { name: "Config", file: "01-config.csv", owner: RB-01, key_fields: [config_key] }
+  status_catalog: { name: "Status Catalog", file: "02-status-catalog.csv", owner: RB-01, key_fields: [status_family, status_value] }
+  role_registry: { name: "Role Registry", file: "03-role-registry.csv", owner: RB-01, key_fields: [role_key] }
+  ownership: { name: "Ownership", file: "04-ownership.csv", owner: RB-01, key_fields: [artifact_type] }
+  events: { name: "Events", file: "05-events.csv", owner: RB-01, key_fields: [event_id] }
+  taskboard: { name: "Taskboard", file: "06-taskboard.csv", owner: RB-01, key_fields: [task_id] }
+  idea_inbox: { name: "Idea Inbox", file: "07-idea-inbox.csv", owner: RB-02, key_fields: [idea_id] }
+  discovery: { name: "Discovery", file: "08-discovery.csv", owner: RB-03, key_fields: [discovery_id] }
+  decision_log: { name: "Decision Log", file: "09-decision-log.csv", owner: RB-02, key_fields: [decision_id] }
+  issues: { name: "Issues", file: "10-issues.csv", owner: RB-05, key_fields: [issue_id] }
+  delivery_tickets: { name: "Delivery Tickets", file: "11-delivery-tickets.csv", owner: RB-06, key_fields: [ticket_id] }
+  validation_plans: { name: "Validation Plans", file: "12-validation-plans.csv", owner: RB-07, key_fields: [plan_id] }
+  validation_scenarios: { name: "Validation Scenarios", file: "13-validation-scenarios.csv", owner: RB-07, key_fields: [scenario_id] }
+  validation_runs: { name: "Validation Runs", file: "14-validation-runs.csv", owner: RB-09, key_fields: [run_id] }
+  validation_results: { name: "Validation Results", file: "15-validation-results.csv", owner: RB-09, key_fields: [result_id] }
+  evidence: { name: "Evidence", file: "16-evidence.csv", owner: RB-09, key_fields: [evidence_item_id] }
+  human_observations: { name: "Human Observations", file: "17-human-observations.csv", owner: RB-09, key_fields: [observation_id] }
+  qc_log: { name: "QC Log", file: "18-qc-log.csv", owner: RB-12, key_fields: [qc_record_id] }
+  readiness: { name: "Readiness", file: "19-readiness.csv", owner: RB-11, key_fields: [readiness_id] }
+  releases: { name: "Releases", file: "20-releases.csv", owner: RB-11, key_fields: [release_id] }
+  writer_manifests: { name: "Writer Manifests", file: "21-writer-manifests.csv", owner: RB-12, key_fields: [write_manifest_id] }
+  writer_receipts: { name: "Writer Receipts", file: "22-writer-receipts.csv", owner: RB-12, key_fields: [write_receipt_id] }
+  lineage: { name: "Lineage", file: "23-lineage.csv", owner: RB-01, key_fields: [lineage_edge_id] }
+
+field_authority:
+  protected_development_fields:
+    - implementation_reference
+    - development_status
+    - development_notes
+    - deployment_reference
+    - development_deployment_status
+  protected_human_fields:
+    - decision_maker_actor_id
+    - observer_actor_id
+    - human_risk_acceptance_id
+    - human_authorization_id
+    - human_production_authorization_id
+  protected_field_tabs:
+    implementation_reference: [delivery_tickets, validation_runs]
+    development_status: [delivery_tickets]
+    development_notes: [delivery_tickets]
+    deployment_reference: [releases]
+    development_deployment_status: [releases]
+    decision_maker_actor_id: [decision_log]
+    observer_actor_id: [human_observations]
+    human_risk_acceptance_id: [readiness]
+    human_authorization_id: [releases]
+    human_production_authorization_id: [writer_manifests]
+  writer_environments: [local, test, staging, production]
+
+validation:
+  excluded_directories: [.git, node_modules]
+  allowed_synthetic_email_domains: [example.com, example.org, example.net, invalid]
+
+guardrails:
+  producer_may_self_verify: false
+  secret_values_allowed_in_repository: false
+  result_without_execution_allowed: false
+  live_write_without_manifest_allowed: false
+  live_write_without_readback_allowed: false
+  historical_record_mutation_allowed: false
+  secret_reference_format: "store://<approved-store>/<alias>"
+
+runtime:
+  model_version: 2
+  directory: .product-ops/runtime
+  external_writes_default_dry_run: true
+  human_gate_attribution_required: true
+  command_agents_require_independent_sandbox_for_untrusted_code: true

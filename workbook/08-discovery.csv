@@ -1,0 +1,2 @@
+discovery_id,event_id,idea_id,status,owner_role,owner_actor_id,question,method,source_refs,key_findings,limitations,recommendation,decision_id,producer_actor_id,verifier_actor_id,qc_record_id,started_at,completed_at,supersedes_id
+DSC-00000000-001,EVT-00000000-001,IDEA-00000000-001,draft,RB-03,actor-rb-03,What user problem and measurable outcome should be validated first?,To be selected,,,No research has been executed yet,,,actor-rb-03,actor-rb-12,,,,
