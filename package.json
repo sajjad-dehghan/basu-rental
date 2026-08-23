@@ -42,5 +42,10 @@
     "vite": "8.0.13",
     "wrangler": "4.92.0"
   },
+  "pnpm": {
+    "overrides": {
+      "fast-uri": "3.1.5"
+    }
+  },
   "type": "module"
 }
