@@ -1,0 +1,393 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "ENGPLAN-EVT-20260823-001",
+  "requestId": "DEVREQ-EVT-20260823-001",
+  "sourceDigest": "3c1e5062a3432a4d2d8c87b2bbde116f6d5da24b6a31cb00101a67c7601daadf",
+  "status": "planned",
+  "riskClass": "high",
+  "workstreams": [
+    {
+      "id": "WS-01",
+      "ownerRole": "ENG-01",
+      "domain": "engineering_coordination",
+      "title": "Engineering Coordination: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [],
+      "deliverables": [
+        "Owned workstream sequence",
+        "Dependency and blocker register",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-02",
+      "ownerRole": "ENG-02",
+      "domain": "solution_architecture",
+      "title": "Solution Architecture: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-01"
+      ],
+      "deliverables": [
+        "System impact analysis",
+        "Architecture decision records",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-03",
+      "ownerRole": "ENG-03",
+      "domain": "frontend_accessibility",
+      "title": "Frontend and Accessibility: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Domain implementation or review output",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-04",
+      "ownerRole": "ENG-04",
+      "domain": "backend_api_integration",
+      "title": "Backend, API, and Integration: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Domain implementation or review output",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-05",
+      "ownerRole": "ENG-05",
+      "domain": "mobile_desktop_clients",
+      "title": "Client Applications: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Domain implementation or review output",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-06",
+      "ownerRole": "ENG-06",
+      "domain": "database_storage",
+      "title": "Database and Storage: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Data model and migration plan",
+        "Backup, restore, rollback, index, and capacity plan",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-07",
+      "ownerRole": "ENG-07",
+      "domain": "data_analytics_ai",
+      "title": "Data, Analytics, and AI: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Domain implementation or review output",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-08",
+      "ownerRole": "ENG-08",
+      "domain": "platform_cloud_network",
+      "title": "Platform, Cloud, and Network: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Domain implementation or review output",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-09",
+      "ownerRole": "ENG-09",
+      "domain": "security_privacy_compliance",
+      "title": "Security, Privacy, and Compliance: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02",
+        "WS-03",
+        "WS-04",
+        "WS-05",
+        "WS-06",
+        "WS-07",
+        "WS-08",
+        "WS-11",
+        "WS-12",
+        "WS-13"
+      ],
+      "deliverables": [
+        "Threat model and security/privacy review",
+        "Supply-chain review",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-10",
+      "ownerRole": "ENG-10",
+      "domain": "quality_test_automation",
+      "title": "Quality Engineering: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-03",
+        "WS-04",
+        "WS-05",
+        "WS-06",
+        "WS-07",
+        "WS-08",
+        "WS-11",
+        "WS-12",
+        "WS-13",
+        "WS-09"
+      ],
+      "deliverables": [
+        "Automated validation implementation",
+        "Regression evidence",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-11",
+      "ownerRole": "ENG-11",
+      "domain": "sre_observability_performance",
+      "title": "SRE, Observability, and Performance: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Service objectives and telemetry plan",
+        "Performance and recovery evidence",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-12",
+      "ownerRole": "ENG-12",
+      "domain": "devex_ci_cd_release",
+      "title": "Developer Experience and Delivery: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Domain implementation or review output",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-13",
+      "ownerRole": "ENG-13",
+      "domain": "seo_web_discovery",
+      "title": "SEO and Web Discovery: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02"
+      ],
+      "deliverables": [
+        "Technical SEO assessment",
+        "Crawl, metadata, structured-data, and web-vitals evidence",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-14",
+      "ownerRole": "ENG-14",
+      "domain": "technical_documentation",
+      "title": "Technical Documentation: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-02",
+        "WS-03",
+        "WS-04",
+        "WS-05",
+        "WS-06",
+        "WS-07",
+        "WS-08",
+        "WS-11",
+        "WS-12",
+        "WS-13"
+      ],
+      "deliverables": [
+        "Updated architecture and operating documentation",
+        "Runbook or migration guidance",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "commands and environment",
+        "machine-readable or inspectable result"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "WS-15",
+      "ownerRole": "ENG-15",
+      "domain": "independent_engineering_verification",
+      "title": "Independent Engineering Verification: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+      "dependencies": [
+        "WS-01",
+        "WS-02",
+        "WS-03",
+        "WS-04",
+        "WS-05",
+        "WS-06",
+        "WS-07",
+        "WS-08",
+        "WS-09",
+        "WS-10",
+        "WS-11",
+        "WS-12",
+        "WS-13",
+        "WS-14"
+      ],
+      "deliverables": [
+        "Independent reproduction record",
+        "Verification disposition",
+        "Traceability to DEVREQ-EVT-20260823-001",
+        "Implementation or review notes",
+        "Known risks and limitations"
+      ],
+      "requiredEvidence": [
+        "canonical revision",
+        "reproduction commands",
+        "independent evidence references"
+      ],
+      "status": "ready"
+    }
+  ],
+  "qualityGates": [
+    "GATE-ARCHITECTURE",
+    "GATE-CODE-REVIEW",
+    "GATE-AUTOMATED-TESTS",
+    "GATE-SECURITY",
+    "GATE-SUPPLY-CHAIN",
+    "GATE-DATABASE",
+    "GATE-API-COMPATIBILITY",
+    "GATE-INFRA-NETWORK",
+    "GATE-PRIVACY-COMPLIANCE",
+    "GATE-ACCESSIBILITY",
+    "GATE-PERFORMANCE",
+    "GATE-RELIABILITY",
+    "GATE-SEO",
+    "GATE-DOCUMENTATION",
+    "GATE-INDEPENDENT-VERIFICATION"
+  ],
+  "architectureDecisions": [
+    "engineering/architecture/decisions/ADR-000-template.md"
+  ],
+  "createdAt": "2026-08-23T14:06:15.350Z"
+}

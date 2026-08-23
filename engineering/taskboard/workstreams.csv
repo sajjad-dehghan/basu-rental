@@ -1,1 +1,16 @@
 workstream_id,request_id,owner_role,domain,title,status,dependency_ids,evidence_refs,updated_at
+WS-01,DEVREQ-EVT-20260823-001,ENG-01,engineering_coordination,Engineering Coordination: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,,,2026-08-23T14:06:35.124Z
+WS-02,DEVREQ-EVT-20260823-001,ENG-02,solution_architecture,Solution Architecture: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-01,,2026-08-23T14:06:35.124Z
+WS-03,DEVREQ-EVT-20260823-001,ENG-03,frontend_accessibility,Frontend and Accessibility: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-04,DEVREQ-EVT-20260823-001,ENG-04,backend_api_integration,"Backend, API, and Integration: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-05,DEVREQ-EVT-20260823-001,ENG-05,mobile_desktop_clients,Client Applications: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-06,DEVREQ-EVT-20260823-001,ENG-06,database_storage,Database and Storage: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-07,DEVREQ-EVT-20260823-001,ENG-07,data_analytics_ai,"Data, Analytics, and AI: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-08,DEVREQ-EVT-20260823-001,ENG-08,platform_cloud_network,"Platform, Cloud, and Network: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-09,DEVREQ-EVT-20260823-001,ENG-09,security_privacy_compliance,"Security, Privacy, and Compliance: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",ready,WS-02|WS-03|WS-04|WS-05|WS-06|WS-07|WS-08|WS-11|WS-12|WS-13,,2026-08-23T14:06:35.124Z
+WS-10,DEVREQ-EVT-20260823-001,ENG-10,quality_test_automation,Quality Engineering: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-03|WS-04|WS-05|WS-06|WS-07|WS-08|WS-11|WS-12|WS-13|WS-09,,2026-08-23T14:06:35.124Z
+WS-11,DEVREQ-EVT-20260823-001,ENG-11,sre_observability_performance,"SRE, Observability, and Performance: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-12,DEVREQ-EVT-20260823-001,ENG-12,devex_ci_cd_release,Developer Experience and Delivery: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-13,DEVREQ-EVT-20260823-001,ENG-13,seo_web_discovery,SEO and Web Discovery: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-02,,2026-08-23T14:06:35.124Z
+WS-14,DEVREQ-EVT-20260823-001,ENG-14,technical_documentation,Technical Documentation: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-02|WS-03|WS-04|WS-05|WS-06|WS-07|WS-08|WS-11|WS-12|WS-13,,2026-08-23T14:06:35.124Z
+WS-15,DEVREQ-EVT-20260823-001,ENG-15,independent_engineering_verification,Independent Engineering Verification: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت,ready,WS-01|WS-02|WS-03|WS-04|WS-05|WS-06|WS-07|WS-08|WS-09|WS-10|WS-11|WS-12|WS-13|WS-14,,2026-08-23T14:06:35.124Z
