@@ -1057,6 +1057,13 @@ textarea:focus-visible {
   color: #086a43;
   background: #ddf7e9;
 }
+.form-message.info {
+  color: #174072;
+  background: #e8f0ff;
+}
+.delivery-fee-pending b {
+  color: #865f00;
+}
 .form-message a {
   display: block;
   margin-top: 5px;
@@ -1146,14 +1153,16 @@ textarea:focus-visible {
 .status-paid,
 .status-confirmed,
 .status-returned,
-.status-sent {
+.status-sent,
+.status-delivery_fee_finalized {
   color: #08734a;
   background: #def6e9;
 }
 .status-held,
 .status-pending,
 .status-scheduled,
-.status-waiting {
+.status-waiting,
+.status-delivery_fee_pending {
   color: #865f00;
   background: #fff0c7;
 }
@@ -1280,11 +1289,16 @@ textarea:focus-visible {
 .action-panel {
   background: #eef3ff;
 }
+.pending-invoice-panel {
+  border-color: #ecd69a;
+  background: #fff8df;
+}
 .danger-panel {
   border-color: #f0c5bf;
 }
 .danger-panel p,
-.action-panel p {
+.action-panel p,
+.pending-invoice-panel p {
   color: var(--muted);
   font-size: 9px;
   line-height: 1.8;
@@ -1398,7 +1412,7 @@ textarea:focus-visible {
 .table-head,
 .table-row {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr 1fr;
+  grid-template-columns: 1.1fr 0.7fr 0.65fr 0.65fr 1.45fr 0.85fr;
   gap: 12px;
   align-items: center;
   padding: 12px 16px;
@@ -1438,6 +1452,43 @@ textarea:focus-visible {
   color: var(--blue);
   font-size: 8px;
   font-weight: 900;
+}
+.delivery-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.delivery-admin > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.delivery-admin input {
+  width: 88px;
+  min-width: 0;
+  padding: 7px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 8px;
+}
+.delivery-admin button {
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--blue);
+  font-size: 8px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.delivery-admin button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.pickup-label {
+  color: var(--muted);
+  font-size: 8px;
 }
 .analytics-grid,
 .operations-grid {
@@ -1725,7 +1776,7 @@ textarea:focus-visible {
   }
   .table-head,
   .table-row {
-    min-width: 740px;
+    min-width: 940px;
   }
   .bar-row {
     grid-template-columns: 90px 1fr 25px;

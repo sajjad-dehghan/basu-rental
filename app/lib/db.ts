@@ -1,16 +1,16 @@
-import { env } from 'cloudflare:workers';
-import { CATALOG, GOWN_TIERS, SOURCE_WORKBOOK } from './catalog';
-import { SCHEMA_STATEMENTS } from './schema';
+import { env } from "cloudflare:workers";
+import { CATALOG, GOWN_TIERS, SOURCE_WORKBOOK } from "./catalog";
+import { SCHEMA_STATEMENTS } from "./schema";
 
 let initialization: Promise<void> | undefined;
 
 export function getD1(): D1Database {
-  if (!env.DB) throw new Error('D1 binding DB is unavailable.');
+  if (!env.DB) throw new Error("D1 binding DB is unavailable.");
   return env.DB;
 }
 
 export function getFiles(): R2Bucket {
-  if (!env.FILES) throw new Error('R2 binding FILES is unavailable.');
+  if (!env.FILES) throw new Error("R2 binding FILES is unavailable.");
   return env.FILES;
 }
 
@@ -27,42 +27,133 @@ export async function ensureDatabase(): Promise<D1Database> {
 async function initialize(db: D1Database): Promise<void> {
   await db.batch(SCHEMA_STATEMENTS.map((statement) => db.prepare(statement)));
   const now = new Date().toISOString();
-  const equipmentSeeds = CATALOG.map((item) => db.prepare(
-    `INSERT OR IGNORE INTO equipment
+  await db.batch([
+    db
+      .prepare(
+        `INSERT OR IGNORE INTO delivery_quotes
+      (booking_id, status, fee_thousands, reviewed_by_user_id, reviewed_at, note, created_at, updated_at)
+      SELECT id, 'pending', NULL, NULL, NULL, 'نیازمند بررسی هزینه ارسال', ?, ?
+      FROM bookings WHERE delivery_method = 'delivery'`,
+      )
+      .bind(now, now),
+    db
+      .prepare(
+        `UPDATE bookings SET quote_required = 1, updated_at = ?
+      WHERE delivery_method = 'delivery' AND payment_status <> 'paid'
+        AND NOT EXISTS (
+          SELECT 1 FROM delivery_quotes dq
+          WHERE dq.booking_id = bookings.id AND dq.status = 'finalized'
+        )`,
+      )
+      .bind(now),
+  ]);
+  const equipmentSeeds = CATALOG.map((item) =>
+    db
+      .prepare(
+        `INSERT OR IGNORE INTO equipment
       (id, slug, name, category, description, capacity, published, public_price_thousands, basu_price_thousands, accent, source_ref, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?)`,
-  ).bind(item.id, item.slug, item.name, item.category, item.description, item.capacity,
-    item.publicThousands, item.basuThousands, item.accent, SOURCE_WORKBOOK, now));
-  const tierSeeds = GOWN_TIERS.map((tier) => db.prepare(
-    `INSERT OR IGNORE INTO price_tiers
+      )
+      .bind(
+        item.id,
+        item.slug,
+        item.name,
+        item.category,
+        item.description,
+        item.capacity,
+        item.publicThousands,
+        item.basuThousands,
+        item.accent,
+        SOURCE_WORKBOOK,
+        now,
+      ),
+  );
+  const tierSeeds = GOWN_TIERS.map((tier) =>
+    db
+      .prepare(
+        `INSERT OR IGNORE INTO price_tiers
       (id, equipment_id, min_quantity, max_quantity, priority, public_price_thousands, basu_price_thousands, note, effective_at)
      VALUES (?, 'eq-gown', ?, ?, ?, ?, ?, ?, ?)`,
-  ).bind(`tier-gown-${tier.priority}`, tier.min, tier.max, tier.priority,
-    tier.publicThousands, tier.basuThousands, tier.note, now));
+      )
+      .bind(
+        `tier-gown-${tier.priority}`,
+        tier.min,
+        tier.max,
+        tier.priority,
+        tier.publicThousands,
+        tier.basuThousands,
+        tier.note,
+        now,
+      ),
+  );
   const policySeeds = [
-    db.prepare(`INSERT OR IGNORE INTO policy_versions
+    db
+      .prepare(
+        `INSERT OR IGNORE INTO policy_versions
       (id, policy_type, version, config_json, effective_at, active)
-      VALUES ('policy-rental-v1', 'rental', '1', ?, ?, 1)`).bind(JSON.stringify({
-        cancellationHours: 24, holdMinutes: 20, interval: 'half-open', timezone: 'Asia/Tehran',
-      }), now),
-    db.prepare(`INSERT OR IGNORE INTO policy_versions
+      VALUES ('policy-rental-v1', 'rental', '1', ?, ?, 1)`,
+      )
+      .bind(
+        JSON.stringify({
+          cancellationHours: 24,
+          holdMinutes: 20,
+          interval: "half-open",
+          timezone: "Asia/Tehran",
+        }),
+        now,
+      ),
+    db
+      .prepare(
+        `INSERT OR IGNORE INTO policy_versions
       (id, policy_type, version, config_json, effective_at, active)
-      VALUES ('policy-price-v1', 'pricing', '1', ?, ?, 1)`).bind(JSON.stringify({
-        source: SOURCE_WORKBOOK, gownOverlap: 'source-order-first-match', quoteRequired: 'public quantity 20-30',
-      }), now),
+      VALUES ('policy-price-v1', 'pricing', '1', ?, ?, 1)`,
+      )
+      .bind(
+        JSON.stringify({
+          source: SOURCE_WORKBOOK,
+          gownOverlap: "source-order-first-match",
+          quoteRequired: "public quantity 20-30",
+        }),
+        now,
+      ),
+    db
+      .prepare(
+        `INSERT OR IGNORE INTO policy_versions
+      (id, policy_type, version, config_json, effective_at, active)
+      VALUES ('policy-delivery-v1', 'delivery', '1', ?, ?, 1)`,
+      )
+      .bind(
+        JSON.stringify({
+          feeMode: "admin-reviewed",
+          paymentBlockedUntilFinalized: true,
+          currency: "TOMAN",
+        }),
+        now,
+      ),
   ];
   await db.batch([...equipmentSeeds, ...tierSeeds, ...policySeeds]);
-  await db.prepare('PRAGMA optimize').run();
+  await db.prepare("PRAGMA optimize").run();
 }
 
-export async function queryAll<T>(statement: string, ...values: unknown[]): Promise<T[]> {
+export async function queryAll<T>(
+  statement: string,
+  ...values: unknown[]
+): Promise<T[]> {
   const db = await ensureDatabase();
-  const result = await db.prepare(statement).bind(...values).all<T>();
+  const result = await db
+    .prepare(statement)
+    .bind(...values)
+    .all<T>();
   return result.results ?? [];
 }
 
-export async function queryFirst<T>(statement: string, ...values: unknown[]): Promise<T | null> {
+export async function queryFirst<T>(
+  statement: string,
+  ...values: unknown[]
+): Promise<T | null> {
   const db = await ensureDatabase();
-  return db.prepare(statement).bind(...values).first<T>();
+  return db
+    .prepare(statement)
+    .bind(...values)
+    .first<T>();
 }
-

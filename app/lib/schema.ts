@@ -75,6 +75,17 @@ export const SCHEMA_STATEMENTS = [
     source_ref TEXT NOT NULL,
     UNIQUE(booking_id, equipment_id)
   )`,
+  `CREATE TABLE IF NOT EXISTS delivery_quotes (
+    booking_id TEXT PRIMARY KEY REFERENCES bookings(id) ON DELETE CASCADE,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','finalized')),
+    fee_thousands INTEGER CHECK(fee_thousands IS NULL OR fee_thousands >= 0),
+    reviewed_by_user_id TEXT REFERENCES users(id),
+    reviewed_at TEXT,
+    note TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    CHECK((status = 'pending' AND fee_thousands IS NULL) OR (status = 'finalized' AND fee_thousands IS NOT NULL))
+  )`,
   `CREATE TABLE IF NOT EXISTS booking_events (
     id TEXT PRIMARY KEY,
     booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
@@ -199,8 +210,8 @@ export const SCHEMA_STATEMENTS = [
   `CREATE INDEX IF NOT EXISTS idx_bookings_user_created ON bookings(user_id, created_at)`,
   `CREATE INDEX IF NOT EXISTS idx_bookings_interval_status ON bookings(start_at, end_at, reservation_status)`,
   `CREATE INDEX IF NOT EXISTS idx_booking_lines_equipment ON booking_lines(equipment_id, booking_id)`,
+  `CREATE INDEX IF NOT EXISTS idx_delivery_quotes_status ON delivery_quotes(status, updated_at)`,
   `CREATE INDEX IF NOT EXISTS idx_waitlist_equipment_status ON waitlist_entries(equipment_id, status, created_at)`,
   `CREATE INDEX IF NOT EXISTS idx_notifications_due_status ON notification_jobs(status, due_at)`,
   `CREATE INDEX IF NOT EXISTS idx_audit_entity ON audit_events(entity_type, entity_id, created_at)`,
 ] as const;
-

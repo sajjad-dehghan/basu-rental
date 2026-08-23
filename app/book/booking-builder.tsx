@@ -1,14 +1,327 @@
-'use client';
-import { useMemo,useState } from 'react';
-import Link from 'next/link';
-import { CATALOG,formatTomanFromThousands,quoteLine,type Audience } from '../lib/catalog';
-type ApiResult={ok:boolean;data?:{bookingId:string;reference:string;subtotalThousands:number|null;quoteRequired:boolean};error?:{message:string;code:string}};
-export function BookingBuilder(){
- const initial=typeof window!=='undefined'?new URLSearchParams(window.location.search).get('item')??'eq-gown':'eq-gown';
- const [quantities,setQuantities]=useState<Record<string,number>>({[initial]:1});const [audience,setAudience]=useState<Audience>('public');const[startAt,setStartAt]=useState('');const[endAt,setEndAt]=useState('');const[phone,setPhone]=useState('');const[title,setTitle]=useState('جشن فارغ‌التحصیلی');const[delivery,setDelivery]=useState<'pickup'|'delivery'>('pickup');const[address,setAddress]=useState('');const[busy,setBusy]=useState(false);const[message,setMessage]=useState<{kind:'error'|'success';text:string;id?:string}|null>(null);
- const lines=useMemo(()=>CATALOG.filter((item)=>(quantities[item.id]??0)>0).map((item)=>({item,quantity:quantities[item.id],quote:quoteLine(item,quantities[item.id],audience)})),[quantities,audience]);
- const total=lines.every((line)=>line.quote.totalThousands!==null)?lines.reduce((sum,line)=>sum+(line.quote.totalThousands??0),0):null;
- function update(itemId:string,value:number){setQuantities((current)=>({...current,[itemId]:Math.max(0,Math.min(30,Number.isFinite(value)?value:0))}))}
- async function submit(){setBusy(true);setMessage(null);try{const response=await fetch('/api/app',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'booking.create',payload:{audience,startAt,endAt,contactPhone:phone,eventTitle:title,deliveryMethod:delivery,deliveryAddress:address,lines:lines.map((line)=>({equipmentId:line.item.id,quantity:line.quantity})),idempotencyKey:crypto.randomUUID()}})});const result=await response.json() as ApiResult;if(!result.ok||!result.data)throw new Error(result.error?.message??'ثبت رزرو انجام نشد.');setMessage({kind:'success',text:`رزرو ${result.data.reference} با موفقیت ایجاد شد.`,id:result.data.bookingId})}catch(error){setMessage({kind:'error',text:error instanceof Error?error.message:'خطای غیرمنتظره'})}finally{setBusy(false)}}
- return <section className="builder-shell"><div className="builder-main"><div className="builder-block"><div className="builder-heading"><span>۱</span><div><h2>تجهیزات</h2><p>برای حذف هر قلم، تعداد را صفر کن.</p></div></div><div className="builder-items">{CATALOG.map((item)=><div className={(quantities[item.id]??0)>0?'builder-item selected':'builder-item'} key={item.id}><div className={`mini-art accent-${item.accent}`}>{item.art}</div><div><b>{item.name}</b><small>{formatTomanFromThousands(audience==='basu'?item.basuThousands:item.publicThousands)}</small></div><label><span>تعداد</span><input aria-label={`تعداد ${item.name}`} type="number" min="0" max="30" value={quantities[item.id]??0} onChange={(event)=>update(item.id,Number(event.target.value))}/></label></div>)}</div></div><div className="builder-block"><div className="builder-heading"><span>۲</span><div><h2>زمان و نوع قیمت</h2><p>بازه‌ها به وقت تهران نمایش داده می‌شوند.</p></div></div><div className="form-grid wide"><label><span>شروع</span><input type="datetime-local" value={startAt} onChange={(e)=>setStartAt(e.target.value)}/></label><label><span>پایان</span><input type="datetime-local" value={endAt} onChange={(e)=>setEndAt(e.target.value)}/></label></div><div className="audience-switch"><button className={audience==='public'?'active':''} onClick={()=>setAudience('public')} type="button"><b>قیمت آزاد</b><small>برای همه کاربران</small></button><button className={audience==='basu'?'active':''} onClick={()=>setAudience('basu')} type="button"><b>قیمت بوعلی</b><small>نیازمند احراز عضویت</small></button></div></div><div className="builder-block"><div className="builder-heading"><span>۳</span><div><h2>جزئیات تحویل</h2><p>فقط حداقل اطلاعات لازم نگهداری می‌شود.</p></div></div><div className="form-grid wide"><label><span>عنوان رویداد</span><input value={title} maxLength={90} onChange={(e)=>setTitle(e.target.value)}/></label><label><span>شماره تماس</span><input inputMode="tel" placeholder="0912…" value={phone} onChange={(e)=>setPhone(e.target.value)}/></label></div><div className="audience-switch"><button className={delivery==='pickup'?'active':''} onClick={()=>setDelivery('pickup')} type="button"><b>دریافت حضوری</b><small>هماهنگی slot بعد از پرداخت</small></button><button className={delivery==='delivery'?'active':''} onClick={()=>setDelivery('delivery')} type="button"><b>ارسال</b><small>با زمان‌بندی و مسئول تحویل</small></button></div>{delivery==='delivery'&&<label className="full-field"><span>نشانی تحویل</span><textarea value={address} onChange={(e)=>setAddress(e.target.value)} maxLength={300}/></label>}</div></div><aside className="builder-summary"><span className="summary-kicker">خلاصه رزرو</span><h2>{lines.length.toLocaleString('fa-IR')} قلم انتخاب شده</h2><div className="summary-lines">{lines.map((line)=><div key={line.item.id}><span>{line.item.name}<small>× {line.quantity.toLocaleString('fa-IR')}</small></span><b>{formatTomanFromThousands(line.quote.totalThousands)}</b></div>)}</div><div className="summary-total"><span>جمع برآورد</span><strong>{formatTomanFromThousands(total)}</strong><small>{audience==='basu'?'قیمت بوعلی پس از احراز نهایی می‌شود.':'قیمت آزاد'}</small></div>{message&&<div className={`form-message ${message.kind}`}>{message.text}{message.id&&<Link href={`/account/bookings/${message.id}`}>مشاهده رزرو ←</Link>}</div>}<button className="primary-action summary-submit" disabled={busy||lines.length===0||!startAt||!endAt||!phone} onClick={submit}>{busy?'در حال ثبت…':'بررسی نهایی و ثبت رزرو'} <span>←</span></button><p className="summary-note">موجودی در لحظه ثبت دوباره و به‌صورت اتمیک کنترل می‌شود.</p></aside></section>
+"use client";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import {
+  CATALOG,
+  formatTomanFromThousands,
+  quoteLine,
+  type Audience,
+} from "../lib/catalog";
+type ApiResult = {
+  ok: boolean;
+  data?: {
+    bookingId: string;
+    reference: string;
+    subtotalThousands: number | null;
+    quoteRequired: boolean;
+  };
+  error?: { message: string; code: string };
+};
+export function BookingBuilder() {
+  const initial =
+    typeof window !== "undefined"
+      ? (new URLSearchParams(window.location.search).get("item") ?? "eq-gown")
+      : "eq-gown";
+  const [quantities, setQuantities] = useState<Record<string, number>>({
+    [initial]: 1,
+  });
+  const [audience, setAudience] = useState<Audience>("public");
+  const [startAt, setStartAt] = useState("");
+  const [endAt, setEndAt] = useState("");
+  const [phone, setPhone] = useState("");
+  const [title, setTitle] = useState("جشن فارغ‌التحصیلی");
+  const [delivery, setDelivery] = useState<"pickup" | "delivery">("pickup");
+  const [address, setAddress] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState<{
+    kind: "error" | "success";
+    text: string;
+    id?: string;
+  } | null>(null);
+  const lines = useMemo(
+    () =>
+      CATALOG.filter((item) => (quantities[item.id] ?? 0) > 0).map((item) => ({
+        item,
+        quantity: quantities[item.id],
+        quote: quoteLine(item, quantities[item.id], audience),
+      })),
+    [quantities, audience],
+  );
+  const total = lines.every((line) => line.quote.totalThousands !== null)
+    ? lines.reduce((sum, line) => sum + (line.quote.totalThousands ?? 0), 0)
+    : null;
+  function update(itemId: string, value: number) {
+    setQuantities((current) => ({
+      ...current,
+      [itemId]: Math.max(0, Math.min(30, Number.isFinite(value) ? value : 0)),
+    }));
+  }
+  async function submit() {
+    setBusy(true);
+    setMessage(null);
+    try {
+      const response = await fetch("/api/app", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "booking.create",
+          payload: {
+            audience,
+            startAt,
+            endAt,
+            contactPhone: phone,
+            eventTitle: title,
+            deliveryMethod: delivery,
+            deliveryAddress: address,
+            lines: lines.map((line) => ({
+              equipmentId: line.item.id,
+              quantity: line.quantity,
+            })),
+            idempotencyKey: crypto.randomUUID(),
+          },
+        }),
+      });
+      const result = (await response.json()) as ApiResult;
+      if (!result.ok || !result.data)
+        throw new Error(result.error?.message ?? "ثبت رزرو انجام نشد.");
+      setMessage({
+        kind: "success",
+        text:
+          delivery === "delivery"
+            ? `رزرو ${result.data.reference} ثبت شد. هزینه ارسال پس از بررسی در فاکتور نهایی اعمال می‌شود.`
+            : `رزرو ${result.data.reference} با موفقیت ایجاد شد.`,
+        id: result.data.bookingId,
+      });
+    } catch (error) {
+      setMessage({
+        kind: "error",
+        text: error instanceof Error ? error.message : "خطای غیرمنتظره",
+      });
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <section className="builder-shell">
+      <div className="builder-main">
+        <div className="builder-block">
+          <div className="builder-heading">
+            <span>۱</span>
+            <div>
+              <h2>تجهیزات</h2>
+              <p>برای حذف هر قلم، تعداد را صفر کن.</p>
+            </div>
+          </div>
+          <div className="builder-items">
+            {CATALOG.map((item) => (
+              <div
+                className={
+                  (quantities[item.id] ?? 0) > 0
+                    ? "builder-item selected"
+                    : "builder-item"
+                }
+                key={item.id}
+              >
+                <div className={`mini-art accent-${item.accent}`}>
+                  {item.art}
+                </div>
+                <div>
+                  <b>{item.name}</b>
+                  <small>
+                    {formatTomanFromThousands(
+                      (quantities[item.id] ?? 0) > 0
+                        ? quoteLine(item, quantities[item.id], audience)
+                            .unitThousands
+                        : audience === "basu"
+                          ? item.basuThousands
+                          : item.publicThousands,
+                    )}
+                    {(quantities[item.id] ?? 0) > 0 && item.tiers
+                      ? " برای هر عدد"
+                      : ""}
+                  </small>
+                </div>
+                <label>
+                  <span>تعداد</span>
+                  <input
+                    aria-label={`تعداد ${item.name}`}
+                    type="number"
+                    min="0"
+                    max="30"
+                    value={quantities[item.id] ?? 0}
+                    onChange={(event) =>
+                      update(item.id, Number(event.target.value))
+                    }
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="builder-block">
+          <div className="builder-heading">
+            <span>۲</span>
+            <div>
+              <h2>زمان و نوع قیمت</h2>
+              <p>بازه‌ها به وقت تهران نمایش داده می‌شوند.</p>
+            </div>
+          </div>
+          <div className="form-grid wide">
+            <label>
+              <span>شروع</span>
+              <input
+                type="datetime-local"
+                value={startAt}
+                onChange={(e) => setStartAt(e.target.value)}
+              />
+            </label>
+            <label>
+              <span>پایان</span>
+              <input
+                type="datetime-local"
+                value={endAt}
+                onChange={(e) => setEndAt(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="audience-switch">
+            <button
+              className={audience === "public" ? "active" : ""}
+              onClick={() => setAudience("public")}
+              type="button"
+            >
+              <b>قیمت آزاد</b>
+              <small>برای همه کاربران</small>
+            </button>
+            <button
+              className={audience === "basu" ? "active" : ""}
+              onClick={() => setAudience("basu")}
+              type="button"
+            >
+              <b>قیمت بوعلی</b>
+              <small>نیازمند احراز عضویت</small>
+            </button>
+          </div>
+        </div>
+        <div className="builder-block">
+          <div className="builder-heading">
+            <span>۳</span>
+            <div>
+              <h2>جزئیات تحویل</h2>
+              <p>فقط حداقل اطلاعات لازم نگهداری می‌شود.</p>
+            </div>
+          </div>
+          <div className="form-grid wide">
+            <label>
+              <span>عنوان رویداد</span>
+              <input
+                value={title}
+                maxLength={90}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </label>
+            <label>
+              <span>شماره تماس</span>
+              <input
+                inputMode="tel"
+                placeholder="0912…"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="audience-switch">
+            <button
+              className={delivery === "pickup" ? "active" : ""}
+              onClick={() => setDelivery("pickup")}
+              type="button"
+            >
+              <b>دریافت حضوری</b>
+              <small>هماهنگی slot بعد از پرداخت</small>
+            </button>
+            <button
+              className={delivery === "delivery" ? "active" : ""}
+              onClick={() => setDelivery("delivery")}
+              type="button"
+            >
+              <b>ارسال</b>
+              <small>با زمان‌بندی و مسئول تحویل</small>
+            </button>
+          </div>
+          {delivery === "delivery" && (
+            <>
+              <label className="full-field">
+                <span>نشانی تحویل</span>
+                <textarea
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  maxLength={300}
+                />
+              </label>
+              <div className="form-message info">
+                مبلغ ارسال پس از بررسی نشانی، زمان‌بندی و هزینه‌های اجرایی به
+                فاکتور نهایی اضافه می‌شود. پرداخت تا نهایی‌شدن این مبلغ فعال
+                نخواهد شد.
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+      <aside className="builder-summary">
+        <span className="summary-kicker">خلاصه رزرو</span>
+        <h2>{lines.length.toLocaleString("fa-IR")} قلم انتخاب شده</h2>
+        <div className="summary-lines">
+          {lines.map((line) => (
+            <div key={line.item.id}>
+              <span>
+                {line.item.name}
+                <small>× {line.quantity.toLocaleString("fa-IR")}</small>
+              </span>
+              <b>{formatTomanFromThousands(line.quote.totalThousands)}</b>
+            </div>
+          ))}
+          {delivery === "delivery" && (
+            <div className="delivery-fee-pending">
+              <span>
+                هزینه ارسال
+                <small>پس از بررسی زمان‌بندی و نشانی</small>
+              </span>
+              <b>در حال بررسی</b>
+            </div>
+          )}
+        </div>
+        <div className="summary-total">
+          <span>{delivery === "delivery" ? "جمع تجهیزات" : "جمع برآورد"}</span>
+          <strong>{formatTomanFromThousands(total)}</strong>
+          <small>
+            {delivery === "delivery"
+              ? "جمع نهایی پس از افزودن هزینه ارسال صادر می‌شود."
+              : audience === "basu"
+                ? "قیمت بوعلی پس از احراز نهایی می‌شود."
+                : "قیمت آزاد"}
+          </small>
+        </div>
+        {message && (
+          <div className={`form-message ${message.kind}`}>
+            {message.text}
+            {message.id && (
+              <Link href={`/account/bookings/${message.id}`}>
+                مشاهده رزرو ←
+              </Link>
+            )}
+          </div>
+        )}
+        <button
+          className="primary-action summary-submit"
+          disabled={busy || lines.length === 0 || !startAt || !endAt || !phone}
+          onClick={submit}
+        >
+          {busy ? "در حال ثبت…" : "بررسی نهایی و ثبت رزرو"} <span>←</span>
+        </button>
+        <p className="summary-note">
+          موجودی در لحظه ثبت دوباره و به‌صورت اتمیک کنترل می‌شود.
+        </p>
+      </aside>
+    </section>
+  );
 }

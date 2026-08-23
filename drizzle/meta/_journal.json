@@ -8,6 +8,13 @@
       "when": 1787495800000,
       "tag": "0000_basu_rental",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1787500200000,
+      "tag": "0001_delivery_fee_quotes",
+      "breakpoints": true
     }
   ]
 }
