@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "CTR-20260823135615104",
+  "kind": "control_plane",
+  "dryRun": false,
+  "actions": [
+    {
+      "type": "promote_task",
+      "taskId": "BR-0008",
+      "status": "ready"
+    },
+    {
+      "type": "promote_task",
+      "taskId": "BR-0009",
+      "status": "ready"
+    },
+    {
+      "type": "promote_task",
+      "taskId": "BR-0010",
+      "status": "ready"
+    },
+    {
+      "type": "dispatch_task",
+      "taskId": "BR-0008",
+      "ownerRole": "RB-07",
+      "ownerActorId": "actor-rb-07",
+      "developmentExecution": false
+    },
+    {
+      "type": "dispatch_task",
+      "taskId": "BR-0009",
+      "ownerRole": "RB-08",
+      "ownerActorId": "actor-rb-08",
+      "developmentExecution": false
+    },
+    {
+      "type": "dispatch_task",
+      "taskId": "BR-0010",
+      "ownerRole": "RB-13",
+      "ownerActorId": "actor-rb-13",
+      "developmentExecution": false,
+      "nextAction": "Run the development command with explicit execution authorization."
+    }
+  ],
+  "advanced": 3,
+  "awaitingPerformer": 3,
+  "createdAt": "2026-08-23T13:56:15.104Z"
+}

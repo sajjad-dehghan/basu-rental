@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "BR-0008",
+  "eventId": "EVT-20260823-001",
+  "roleId": "RB-07",
+  "producerActorId": "actor-rb-07",
+  "status": "completed",
+  "summary": "طرح اعتبارسنجی نسخهٔ نهایی و هشت سناریوی قابل بازتولید برای پوشش AC-01 تا AC-16 طراحی شد. اجرا و نتیجه‌سازی انجام نشده و plan تا آماده‌شدن build، migration و endpoint در وضعیت blocked باقی می‌ماند.",
+  "findings": [
+    "پوشش معتبر باید سه سطح unit برای قیمت و قواعد، integration برای تراکنش/مجوز/فایل، و E2E برای مسیر مشتری و مدیر را با build و deployment smoke ترکیب کند.",
+    "آخرین ظرفیت و callback پرداخت دو ناحیهٔ پرریسک رقابتی هستند و شواهد UI به‌تنهایی برای آنها کافی نیست.",
+    "ده قابلیت متمایز در یک سناریوی اختصاصی و همچنین در مسیرهای مشتری/مدیر cross-check می‌شوند تا صرف وجود component به‌عنوان تکمیل پذیرفته نشود.",
+    "شناسهٔ validation_plan_id ثبت‌شده در ticket به شکل VAL-20260823-001 است اما الگوی canonical این sheet شناسهٔ VPL می‌خواهد؛ طرح معتبر با VPL-20260823-001 ساخته و این ناسازگاری برای اصلاح کنترل‌شده ثبت می‌شود."
+  ],
+  "recommendations": [
+    "dataset قطعی شامل همه مرزهای قیمت، دو نقش مشتری، ظرفیت آخر، slotهای پر/خالی، رزروهای قابل تغییر/لغو و فایل‌های سالم/نامعتبر نسخه‌بندی شود.",
+    "هر اجرا digest کد، schema/migration، lockfile، dataset، فرمان و خروجی machine-readable را ثبت کند.",
+    "آزمون‌های مخرب یا دارای داده شخصی فقط روی محیط synthetic انجام و cleanup read-back شود.",
+    "یک بازبین مستقل نتایج decisive را از repository و endpoint دوباره اجرا کند."
+  ],
+  "acceptanceCriteria": [
+    {
+      "statement": "طرح تمام AC-01 تا AC-16 و هر ده قابلیت متمایز را حداقل یک بار پوشش دهد.",
+      "verification": "مجموعه claim_or_ac_ids سناریوها با فهرست قرارداد مقایسه و نبود شناسه گزارش شود."
+    },
+    {
+      "statement": "سناریوها داده، پیش‌شرط، مراحل، نتیجه مورد انتظار، شاهد و قواعد pass/fail/stop روشن داشته باشند.",
+      "verification": "schema validation و بازبینی مستقل طرح اجرا شود."
+    },
+    {
+      "statement": "هیچ نتیجه یا پذیرش پیش از اجرای واقعی ثبت نشود.",
+      "verification": "validation_runs/results خالی بمانند و plan تا entry criteria کامل blocked باشد."
+    }
+  ],
+  "impacts": [
+    "integration",
+    "security",
+    "accessibility",
+    "database",
+    "storage",
+    "backend",
+    "resilience",
+    "seo",
+    "observability",
+    "documentation"
+  ],
+  "constraints": [
+    "نسخهٔ نهایی و هر ده قابلیت باید در دامنهٔ اجرا بمانند.",
+    "داده آزمون synthetic است و داده تاریخی شناسایی‌پذیر وارد محیط تست نمی‌شود.",
+    "درگاه واقعی فقط با credentials معتبر آزموده می‌شود؛ adapter محلی می‌تواند منطق را اثبات کند اما فعال‌سازی provider را ثابت نمی‌کند.",
+    "policy حداقل سن وابستگی قابل دورزدن نیست و فعلاً entry criterion نصب را مسدود کرده است."
+  ],
+  "nonFunctionalRequirements": [
+    {
+      "domain": "تکرارپذیری",
+      "requirement": "هر شاهد به SHA، محیط، dataset، فرمان، زمان و digest خروجی متصل باشد.",
+      "verification": "manifest شواهد با read-back مستقل تطبیق داده شود."
+    },
+    {
+      "domain": "ایمنی",
+      "requirement": "تست‌ها روی داده synthetic و محیط خصوصی اجرا، رازها redact و cleanup اثبات شود.",
+      "verification": "secret scan و cleanup_state در هر run بررسی شود."
+    },
+    {
+      "domain": "استقلال",
+      "requirement": "تهیه‌کننده اجرا نمی‌تواند همان ادعا را مستقل verify کند.",
+      "verification": "actor اجرا و verifier متفاوت و disposition جدا ثبت شود."
+    }
+  ],
+  "evidence": [
+    "workbook/11-delivery-tickets.csv#TKT-20260823-001",
+    ".product-ops/runtime/autopilot/product-runs/BR-0007-result.json",
+    ".product-ops/runtime/approvals.json#APR-D7D4A4195A4F",
+    "رزرو و قیمت ها.xlsx#قیمت ها!A1:D26"
+  ],
+  "knownRisks": [
+    "عدم تطابق VAL/VPL در reference تیکت نیازمند اصلاح کنترل‌شده است.",
+    "build و endpoint هنوز وجود ندارند، پس هیچ سناریویی اجرا نشده است.",
+    "سناریوی provider پرداخت تولیدی تا دریافت credential معتبر محدود می‌ماند.",
+    "بازبینی انسانی فارسی و screen-reader پس از پیش‌نمایش لازم است."
+  ],
+  "canonicalRecords": [
+    {
+      "sheet": "validation_plans",
+      "key": {
+        "plan_id": "VPL-20260823-001"
+      },
+      "fields": {
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "blocked",
+        "risk": "high",
+        "objective": "اثبات انتهابه‌انتهای نسخهٔ نهایی BASU Rental شامل صحت قیمت، رزرو اتمیک، هویت و مجوز، پرداخت، عملیات مشتری/مدیر، ده قابلیت متمایز، داده پایدار، امنیت، accessibility، reliability، SEO و انتشار.",
+        "claims": "AC-01|AC-02|AC-03|AC-04|AC-05|AC-06|AC-07|AC-08|AC-09|AC-10|AC-11|AC-12|AC-13|AC-14|AC-15|AC-16",
+        "entry_criteria": "نصب قفل‌شده مطابق policy|build production موفق|migration روی D1 تست|fixture synthetic نسخه‌شده|adapter پرداخت تست|endpoint خصوصی|threat model به‌روز|manifest ده قابلیت",
+        "exit_criteria": "هر هشت سناریو pass|هیچ finding بحرانی/بالا باز نباشد|تمام ACها شاهد decisive داشته باشند|cleanup کامل|verification مستقل pass|build/deployment smoke pass",
+        "stop_conditions": "نشت راز یا داده شخصی|تغییر schema بدون migration|دسترسی unauthorized|overbooking|عدم تطابق قیمت منبع|شاهد بدون digest|endpoint اشتباه|تلاش برای دورزدن policy وابستگی",
+        "scenario_ids": "VSC-20260823-001|VSC-20260823-002|VSC-20260823-003|VSC-20260823-004|VSC-20260823-005|VSC-20260823-006|VSC-20260823-007|VSC-20260823-008",
+        "environment_alias": "local",
+        "data_set": "basu-rental-synthetic-v1: تمام قیمت‌ها و مرزهای لباس، مشتری عمومی و بوعلی، مدیر، اقلام ظرفیت ۰/۱/چند، slotهای تحویل، رزروهای حالت‌دار، callbackهای پرداخت و فایل‌های تصویر سالم/نامعتبر",
+        "evidence_contract": "برای هر run: source SHA|lockfile digest|migration digest|dataset digest|environment alias|commands|machine-readable results|screenshots فقط در UI|structured logs|cleanup read-back|secret-scan result|verifier disposition",
+        "human_gate": "فعال‌سازی provider پرداخت و انتشار عمومی نیازمند credential/مجوز مالک است؛ اجرای محلی و endpoint خصوصی gate انسانی ندارد.",
+        "design_owner_role": "RB-07",
+        "design_owner_actor_id": "actor-rb-07",
+        "execution_owner_role": "RB-09",
+        "verifier_role": "RB-12",
+        "verifier_actor_id": "actor-rb-12",
+        "approved_at": "",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-001"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-01|AC-02",
+        "preconditions": "fixture قیمت و کاتالوگ load شده؛ ظرفیت آخر قابل کنترل",
+        "steps": "مقایسه تمام قیمت‌ها و مرزهای تعداد؛ query موجودی چند بازه؛ ارسال دو رزرو همزمان برای آخرین ظرفیت",
+        "expected_outcomes": "قیمت‌ها دقیق؛ قواعد مرزی deterministic؛ فقط یک رزرو commit و دیگری conflict؛ جمع قیمت پایدار",
+        "evidence_required": "unit report|transaction log|DB read-back|request correlation ids",
+        "edge_cases": "تعداد ۰/۱/۲/۳/۴/۶/۱۰/۲۰/۳۰/۳۱؛ بازه معکوس؛ timezone؛ ظرفیت صفر",
+        "pass_rule": "تمام مرزها برابر منبع و هیچ overbooking رخ ندهد",
+        "fail_rule": "هر اختلاف قیمت یا ظرفیت منفی/رزرو همزمان دوگانه",
+        "stop_condition": "schema/fixture digest mismatch",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-002"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-03|AC-05",
+        "preconditions": "حساب مهمان، عمومی، بوعلی، مشتری دیگر و مدیر؛ رزروهای synthetic",
+        "steps": "آزمون login/session؛ تلاش نقش‌ها روی قیمت/API؛ مشاهده و تغییر/لغو رزرو خود و دیگری",
+        "expected_outcomes": "قیمت بوعلی فقط برای هویت معتبر؛ مالکیت و RBAC سمت سرور؛ تاریخچه تغییرات حفظ",
+        "evidence_required": "authorization matrix|API results|audit log|E2E trace",
+        "edge_cases": "session منقضی؛ downgrade نقش؛ رزرو غیرقابل لغو؛ replay",
+        "pass_rule": "تمام deny/allowها مطابق ماتریس و بدون leakage",
+        "fail_rule": "هر دسترسی فراتر از نقش یا قیمت ترجیحی بدون احراز",
+        "stop_condition": "داده شناسایی‌پذیر یا راز در output",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-003"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-04",
+        "preconditions": "adapter پرداخت تست و کلید synthetic؛ رزرو unpaid",
+        "steps": "شروع پرداخت؛ callback موفق/خطا/timeout؛ callback تکراری و دستکاری‌شده؛ reconciliation مدیر",
+        "expected_outcomes": "ماشین حالت پرداخت مستقل؛ idempotency؛ امضای نامعتبر رد؛ رزرو فقط یک‌بار تغییر؛ audit کامل",
+        "evidence_required": "webhook tests|state transition log|DB read-back|audit entries",
+        "edge_cases": "duplicate؛ out-of-order؛ amount mismatch؛ stale callback",
+        "pass_rule": "تمام transitionها مجاز و اثر مالی یکتا",
+        "fail_rule": "double effect، قبول امضای بد یا coupling نادرست وضعیت",
+        "stop_condition": "تماس با provider واقعی بدون gate/secret",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-004"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-06|AC-07|AC-08",
+        "preconditions": "مدیر و مشتری؛ slotهای تحویل؛ bucket تست R2",
+        "steps": "مدیریت کاتالوگ/تقویم/رزرو؛ زمان‌بندی؛ handoff و return با عکس؛ خسارت/ودیعه؛ تلاش مشتری به admin و فایل دیگری",
+        "expected_outcomes": "workflow کامل و audit؛ ظرفیت slot؛ فایل امن؛ دسترسی unauthorized رد",
+        "evidence_required": "E2E trace|R2 metadata|audit read-back|RBAC results",
+        "edge_cases": "slot پر؛ فایل بد/بزرگ؛ return ناقص؛ خسارت صفر/مثبت",
+        "pass_rule": "همه عملیات معتبر و denyها درست با فایل‌های قابل پاکسازی",
+        "fail_rule": "دسترسی admin/file غیرمجاز یا از دست رفتن audit",
+        "stop_condition": "R2 production یا فایل حساس",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-005"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-09|AC-10|AC-11",
+        "preconditions": "manifest ده قابلیت؛ داده تقاضا/درآمد؛ worker زمان قابل کنترل",
+        "steps": "اجرای هر ده قابلیت؛ فعال‌سازی waitlist؛ reminder/retry/opt-out؛ export تقویم؛ مقایسه analytics با محاسبه مرجع",
+        "expected_outcomes": "هر قابلیت رفتار قابل مشاهده؛ promotion waitlist اتمیک؛ اعلان dedupe؛ تقویم معتبر؛ aggregates دقیق",
+        "evidence_required": "feature matrix|integration/E2E reports|queue log|ICS validation|analytics reference diff",
+        "edge_cases": "waitlist خالی؛ retry؛ opt-out؛ analytics بدون داده؛ timezone",
+        "pass_rule": "۱۰/۱۰ قابلیت و تمام محاسبات/اعلان‌ها pass",
+        "fail_rule": "هر قابلیت صرفاً نمایشی یا aggregate/notification نادرست",
+        "stop_condition": "ارسال اعلان واقعی به شخص بیرونی",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-006"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-12|AC-14",
+        "preconditions": "D1/R2 test خالی؛ migrations؛ threat model؛ scannerها",
+        "steps": "migration fresh/upgrade؛ query constraints/indexes؛ backup/restore؛ upload/access/delete؛ auth/input/rate-limit regressions؛ scans",
+        "expected_outcomes": "schema و recovery صحیح؛ file lifecycle امن؛ هیچ finding بحرانی/بالا یا راز؛ تمام کنترل‌ها fail-closed",
+        "evidence_required": "migration logs|schema dump|restore checksum|security tests|secret/dependency reports",
+        "edge_cases": "migration replay؛ partial failure؛ path/type spoof؛ injection؛ rate burst",
+        "pass_rule": "همه کنترل‌ها و restore pass و findings disposition شده",
+        "fail_rule": "data loss، bypass، secret یا finding باز بالا",
+        "stop_condition": "هر نشانه اتصال production یا داده واقعی",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-007"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-13|AC-15",
+        "preconditions": "build و endpoint خصوصی؛ viewportها؛ ابزار accessibility/SEO/performance",
+        "steps": "مسیرهای مشتری/مدیر در موبایل/دسکتاپ RTL؛ keyboard/axe؛ metadata/sitemap/robots/schema؛ health/log/correlation؛ performance budget",
+        "expected_outcomes": "UI فارسی responsive و accessible؛ SEO معتبر؛ telemetry بدون PII؛ budgets پاس",
+        "evidence_required": "axe JSON|keyboard notes|screenshots|SEO audit|structured-data result|web-vitals|health/log sample",
+        "edge_cases": "loading/empty/error؛ متن بلند؛ reduced motion؛ 404/500",
+        "pass_rule": "هیچ violation جدی/بحرانی و همه artifactهای فنی معتبر",
+        "fail_rule": "مسیر غیرقابل استفاده، leakage یا budget/SEO failure",
+        "stop_condition": "تصویربرداری داده شخصی یا endpoint عمومی تأییدنشده",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    },
+    {
+      "sheet": "validation_scenarios",
+      "key": {
+        "scenario_id": "VSC-20260823-008"
+      },
+      "fields": {
+        "plan_id": "VPL-20260823-001",
+        "event_id": "EVT-20260823-001",
+        "ticket_id": "TKT-20260823-001",
+        "status": "ready",
+        "claim_or_ac_ids": "AC-16",
+        "preconditions": "clean checkout؛ lockfile؛ docs/runbooks؛ site private target",
+        "steps": "fresh install مطابق policy؛ lint/typecheck/unit/integration/E2E/build؛ package؛ deploy private؛ smoke؛ rollback/restore drill؛ independent reproduction",
+        "expected_outcomes": "build تکرارپذیر؛ همه suites سبز؛ endpoint healthy؛ rollback معتبر؛ verifier مستقل pass",
+        "evidence_required": "command manifest|test reports|artifact digests|deployment URL/id|smoke results|rollback record|independent disposition",
+        "edge_cases": "cold install؛ missing secret؛ rollback after failed health؛ stale migration",
+        "pass_rule": "تمام gateها و independent verification pass",
+        "fail_rule": "هر suite/build/smoke/rollback یا verification fail",
+        "stop_condition": "دورزدن dependency policy یا انتشار عمومی بدون authority",
+        "owner_role": "RB-07",
+        "owner_actor_id": "actor-rb-07",
+        "supersedes_id": ""
+      }
+    }
+  ],
+  "completedAt": "2026-08-23T13:59:39.462Z"
+}

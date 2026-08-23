@@ -1,0 +1,180 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "BR-0007",
+  "eventId": "EVT-20260823-001",
+  "roleId": "RB-06",
+  "producerActorId": "actor-rb-06",
+  "status": "completed",
+  "summary": "قرارداد تحویل نسخهٔ نهایی BASU Rental با دامنهٔ کامل، معیارهای پذیرش انتهابه‌انتها، مرز نوشتن و الزامات شواهد مستقل آماده شد؛ این قرارداد MVP نیست و ادعای پیاده‌سازی یا پذیرش نمی‌کند.",
+  "findings": [
+    "دامنهٔ تأییدشده یک سامانهٔ تراکنشی کامل با دو تجربهٔ مشتری و مدیر است و باید قیمت، ظرفیت، رزرو، پرداخت، تحویل، بازگشت، خسارت و گزارش را در یک مدل سازگار پوشش دهد.",
+    "ده قابلیت متمایز باید به‌صورت معیارهای پذیرش صریح باقی بمانند تا در تقسیم کار مهندسی حذف یا به آینده موکول نشوند.",
+    "وضعیت رزرو و وضعیت پرداخت دو ماشین حالت مستقل هستند؛ مقدار تغییر زمان در شیت تاریخی نباید به‌عنوان وضعیت پرداخت نرمال‌سازی شود.",
+    "درگاه پرداخت تولیدی و انتشار عمومی به راز و مجوز بیرونی نیاز دارند؛ قرارداد پیاده‌سازی کامل adapter، idempotency و مسیر جایگزین قابل آزمون را الزام می‌کند و فعال‌سازی provider واقعی را جعل نمی‌کند."
+  ],
+  "recommendations": [
+    "مهندسی دامنه را به معماری، رابط، API، داده، امنیت، کیفیت، قابلیت اطمینان، SEO و مستندات تقسیم کند اما همه workstreamها را زیر یک قرارداد و یک ماتریس ردیابی نگه دارد.",
+    "قیمت‌های منبع و قواعد بازه‌ای لباس به fixtureهای نسخه‌شده تبدیل و با آزمون واحد قفل شوند.",
+    "رقابت رزرو با تراکنش/قید اتمیک و آزمون همزمانی اثبات شود؛ بررسی سادهٔ سمت کاربر معیار پذیرش نیست.",
+    "انتشار فقط پس از build قابل تکرار، migration، آزمون‌های مسیرهای اصلی، امنیت نقش‌ها و disposition مستقل انجام شود."
+  ],
+  "acceptanceCriteria": [
+    {
+      "statement": "AC-01 کاتالوگ کامل اقلام، تصاویر، ظرفیت، ویژگی‌ها و قیمت آزاد/بوعلی را مطابق شیت قیمت نمایش دهد و قواعد لباس برای همه بازه‌ها قطعی و آزموده باشد.",
+      "verification": "fixture منبع و آزمون واحد تمام ردیف‌های قیمت و مرزهای ۱، ۲–۳، ۴–۶، ۶–۱۰، ۱۰–۲۰ و ۲۰–۳۰ را مقایسه کند."
+    },
+    {
+      "statement": "AC-02 مشتری بتواند بازهٔ زمانی، اقلام و تعداد را انتخاب کند، موجودی زنده و جمع قیمت را ببیند و یک رزرو اتمیک بدون overbooking بسازد.",
+      "verification": "آزمون integration رزرو موفق، ظرفیت ناکافی و دو درخواست همزمان برای آخرین ظرفیت را اجرا کند."
+    },
+    {
+      "statement": "AC-03 هویت کاربر، نقش عمومی/بوعلی و نقش مدیر در سمت سرور اعمال شود و قیمت بوعلی فقط پس از احراز معتبر فعال باشد.",
+      "verification": "آزمون مجوز برای مهمان، مشتری مالک، مشتری دیگر، عضو بوعلی و مدیر روی APIها و صفحات محافظت‌شده عبور کند."
+    },
+    {
+      "statement": "AC-04 پرداخت مستقل از وضعیت رزرو، idempotent، قابل ممیزی و دارای adapter آزمون‌پذیر باشد؛ callback تکراری یا دستکاری‌شده دوباره مبلغ/رزرو را تغییر ندهد.",
+      "verification": "آزمون webhook امضاشده، تکرار، خطا، timeout و reconciliation مدیر اجرا شود؛ فعال‌سازی provider واقعی فقط با راز معتبر گزارش شود."
+    },
+    {
+      "statement": "AC-05 مشتری از حساب خود وضعیت رزرو را پیگیری، در محدوده سیاست تغییر/لغو کند، رسید و رویدادهای تحویل/بازگشت را ببیند و تاریخچهٔ تغییرات حفظ شود.",
+      "verification": "E2E مسیر ثبت تا پرداخت، تغییر، لغو مجاز/نامجاز و مشاهده تاریخچه را اجرا کند."
+    },
+    {
+      "statement": "AC-06 مدیر کاتالوگ، قیمت، ظرفیت، تقویم تعارض، رزرو، پرداخت، مشتری، تحویل، بازگشت، خسارت، ودیعه و گزارش را با RBAC و audit log مدیریت کند.",
+      "verification": "E2E عملیات مدیر و آزمون جلوگیری از دسترسی مشتری، همراه read-back رویداد ممیزی اجرا شود."
+    },
+    {
+      "statement": "AC-07 زمان‌بندی ارسال/دریافت و تحویل/بازگشت با slot ظرفیت‌دار، مسئول، نشانی، یادداشت و وضعیت مستقل کار کند.",
+      "verification": "آزمون ظرفیت slot، هم‌پوشانی، تغییر زمان و تکمیل handoff اجرا شود."
+    },
+    {
+      "statement": "AC-08 چک‌لیست دیجیتال تحویل و بازگشت شامل عکس، وضعیت کالا، امضا/تأیید، خسارت و دسترسی امن فایل‌ها باشد.",
+      "verification": "آزمون upload نوع/اندازه، مالکیت فایل، URL امن، ثبت دو چک‌لیست و محاسبه خسارت اجرا شود."
+    },
+    {
+      "statement": "AC-09 هر ده قابلیت متمایز ارائه شود: موجودی بازه‌ای زنده، قیمت دوگانه شفاف، بسته‌ساز رویداد، waitlist خودکار، scheduler، سلف‌سرویس تغییر، یادآور/تقویم، handoff دیجیتال، تقویم تعارض مدیر و تحلیل تقاضا/درآمد.",
+      "verification": "برای هر قابلیت حداقل یک سناریوی E2E یا integration مستقل و یک شاهد UI/API ثبت شود."
+    },
+    {
+      "statement": "AC-10 یادآورها و اعلان‌ها برای رویدادهای رزرو، پرداخت، تحویل و بازگشت قابل صف‌بندی، retry و لغو باشند و خروجی تقویم تولید شود.",
+      "verification": "آزمون زمان‌بندی، deduplication، retry، opt-out و فایل تقویم معتبر اجرا شود."
+    },
+    {
+      "statement": "AC-11 تحلیل مدیر فقط از دادهٔ مجاز و پایدار، با بازه زمانی، تفکیک درآمد/تقاضا/بهره‌برداری و حالت دادهٔ خالی تولید شود.",
+      "verification": "آزمون aggregate روی dataset قطعی و مقایسه با محاسبه مرجع اجرا شود."
+    },
+    {
+      "statement": "AC-12 داده در D1 با migration نسخه‌شده، قیود، ایندکس و rollback/بازیابی مستند نگهداری و فایل‌ها در R2 با سیاست retention و مالکیت ذخیره شوند.",
+      "verification": "migration روی پایگاه خالی و ارتقای نسخه اجرا، schema read-back و سناریوی بازیابی/حذف فایل اثبات شود."
+    },
+    {
+      "statement": "AC-13 رابط فارسی RTL روی موبایل و دسکتاپ، دسترس‌پذیر با صفحه‌کلید و screen reader، و دارای حالت‌های loading/empty/error/success باشد.",
+      "verification": "آزمون خودکار accessibility، مرور صفحه‌کلید، کنتراست و screenshot در viewportهای اصلی ثبت شود."
+    },
+    {
+      "statement": "AC-14 امنیت شامل validation ورودی، CSRF/authorization، rate limit، مدیریت راز، محافظت XSS/SQL، privacy/retention و secret/dependency scan باشد.",
+      "verification": "threat model و regressionهای امنیتی، scan راز و dependency audit با disposition مستند اجرا شود."
+    },
+    {
+      "statement": "AC-15 سامانه metadata، sitemap/robots، داده ساختاریافته معتبر، لاگ ساختاریافته، شناسه همبستگی، health/error telemetry و بودجه عملکرد داشته باشد.",
+      "verification": "SEO audit، structured-data validation، health/readiness و تست performance budget اجرا شود."
+    },
+    {
+      "statement": "AC-16 build تولیدی تکرارپذیر، تست‌های unit/integration/E2E سبز، مستندات راه‌اندازی/عملیات/rollback کامل و deployment خصوصی قابل health-check باشد.",
+      "verification": "فرمان‌های نصب قفل‌شده، lint، typecheck، test، build، migration، deploy و smoke با digest و disposition مستقل ثبت شوند."
+    }
+  ],
+  "impacts": [
+    "architecture",
+    "frontend",
+    "accessibility",
+    "backend",
+    "api",
+    "integration",
+    "database",
+    "storage",
+    "analytics",
+    "security",
+    "privacy",
+    "identity",
+    "observability",
+    "performance",
+    "resilience",
+    "cost",
+    "seo",
+    "documentation"
+  ],
+  "constraints": [
+    "این تحویل نسخهٔ نهایی است و کوچک‌سازی آن به MVP یا حذف هر یک از ده قابلیت مجاز نیست.",
+    "ادعای تکمیل فقط با شواهد اجرا و verification مستقل پذیرفته می‌شود.",
+    "وابستگی‌ها باید policy حداقل سن انتشار را رعایت کنند و نسخه یا تنظیمات برای دورزدن آن تغییر نکند.",
+    "راز، حساب provider پرداخت و مجوز انتشار عمومی خارج از مخزن هستند و هیچ مقدار ساختگی یا hard-coded مجاز نیست.",
+    "رکوردهای تاریخی اکسل دادهٔ مرجع تقویم زنده نیستند و فقط برای درک فرایند/fixture ناشناس استفاده می‌شوند."
+  ],
+  "nonFunctionalRequirements": [
+    {
+      "domain": "کارایی و قابلیت اطمینان",
+      "requirement": "رزرو اتمیک، عملیات idempotent، retry محدود و صفحات اصلی در بودجه عملکرد تعریف‌شده کار کنند.",
+      "verification": "آزمون رقابت، retry و گزارش web-vitals/build budget ثبت شود."
+    },
+    {
+      "domain": "امنیت و حریم خصوصی",
+      "requirement": "کمینه‌سازی داده، RBAC سمت سرور، نگهداری محدود، audit و دسترسی فایل بر اساس مالکیت اعمال شود.",
+      "verification": "threat model، آزمون authorization و privacy review مستقل عبور کند."
+    },
+    {
+      "domain": "دسترس‌پذیری",
+      "requirement": "مسیرهای اصلی با WCAG 2.2 AA، RTL و صفحه‌کلید سازگار باشند.",
+      "verification": "axe، مرور صفحه‌کلید و بازبینی انسانی فارسی ثبت شود."
+    },
+    {
+      "domain": "عملیات",
+      "requirement": "لاگ ساختاریافته، health check، migration/rollback، backup و runbook انتشار وجود داشته باشد.",
+      "verification": "smoke deployment و تمرین rollback/restore با شاهد قابل بازتولید اجرا شود."
+    }
+  ],
+  "evidence": [
+    "workbook/10-issues.csv#ISS-20260823-001",
+    "workbook/09-decision-log.csv#DEC-20260823-001",
+    ".product-ops/runtime/approvals.json#APR-D7D4A4195A4F",
+    ".product-ops/runtime/autopilot/product-runs/BR-0005-result.json",
+    "رزرو و قیمت ها.xlsx#رزرو!A1:F36",
+    "رزرو و قیمت ها.xlsx#قیمت ها!A1:D26",
+    "D:/Projects/BASU-Reservation/basu-rental-app/development-os.config.json"
+  ],
+  "knownRisks": [
+    "درگاه پرداخت واقعی تا دریافت قرارداد و راز معتبر قابل فعال‌سازی نیست؛ adapter و مسیر ثبت/تطبیق مدیریتی باید کامل و قابل آزمون بماند.",
+    "قواعد حقوقی لغو، بازپرداخت، ودیعه، خسارت و احراز بوعلی هنوز متن قطعی ندارند و باید configuration-driven و پیش از انتشار عمومی تأیید شوند.",
+    "build و preview تا عبور وابستگی fast-uri از minimum-release-age قابل اجرا نیست.",
+    "گستره زیاد نیازمند ماتریس پوشش AC-01 تا AC-16 و verification مستقل است."
+  ],
+  "canonicalRecords": [
+    {
+      "sheet": "delivery_tickets",
+      "key": {
+        "ticket_id": "TKT-20260823-001"
+      },
+      "fields": {
+        "event_id": "EVT-20260823-001",
+        "issue_id": "ISS-20260823-001",
+        "decision_id": "DEC-20260823-001",
+        "title": "تحویل نسخهٔ نهایی پلتفرم اجاره تجهیزات BASU",
+        "status": "ready",
+        "priority": "P1",
+        "risk": "high",
+        "outcome": "سامانهٔ نهایی فارسی و قابل انتشار برای چرخهٔ کامل اجاره مشتری و مدیر با داده پایدار، امنیت، پرداخت، عملیات و ده قابلیت متمایز.",
+        "scope": "کاتالوگ و قیمت آزاد/بوعلی|موجودی بازه‌ای و رزرو اتمیک|حساب مشتری و احراز بوعلی|پرداخت idempotent|تغییر و لغو|تحویل و بازگشت و خسارت|پنل کامل مدیر|ده قابلیت متمایز|D1 و R2 و Auth|اعلان و تقویم|تحلیل|RTL و accessibility|امنیت و privacy|SEO و observability|آزمون و مستندات و deployment",
+        "non_goals": "اپ بومی موبایل/دسکتاپ|جعل حساب یا راز درگاه واقعی|استفاده از رزروهای تاریخی اکسل به‌عنوان تقویم زنده|کاهش دامنه به MVP|تضمین رتبه موتور جستجو",
+        "acceptance_criteria": "AC-01|AC-02|AC-03|AC-04|AC-05|AC-06|AC-07|AC-08|AC-09|AC-10|AC-11|AC-12|AC-13|AC-14|AC-15|AC-16",
+        "dependencies": "APR-D7D4A4195A4F|ISS-20260823-001|رزرو و قیمت ها.xlsx|D1|R2|auth|درگاه پرداخت/adapter",
+        "write_boundary": "D:/Projects/BASU-Reservation/basu-rental-app/app|D:/Projects/BASU-Reservation/basu-rental-app/db|D:/Projects/BASU-Reservation/basu-rental-app/public|D:/Projects/BASU-Reservation/basu-rental-app/tests|D:/Projects/BASU-Reservation/basu-rental-app/docs|D:/Projects/BASU-Reservation/basu-rental-app/migrations|D:/Projects/BASU-Reservation/basu-rental-app/.openai|D:/Projects/BASU-Reservation/basu-rental-app/engineering|D:/Projects/BASU-Reservation/basu-rental-app/package.json|D:/Projects/BASU-Reservation/basu-rental-app/pnpm-lock.yaml|D:/Projects/BASU-Reservation/basu-rental-app/*.config.*|D:/Projects/BASU-Reservation/basu-rental-app/*.d.ts",
+        "validation_plan_id": "VAL-20260823-001",
+        "owner_role": "RB-06",
+        "owner_actor_id": "actor-rb-06",
+        "development_adapter_role": "RB-13",
+        "updated_at": "2026-08-23T13:53:51.425Z"
+      }
+    }
+  ],
+  "completedAt": "2026-08-23T13:53:51.425Z"
+}

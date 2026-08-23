@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0.0",
+  "applicationRelativePath": "../basu-rental-app",
+  "provider": "codex",
+  "productExecutorsEnabled": false,
+  "engineeringExecutorsEnabled": false,
+  "autoStart": false,
+  "autoApproveInitialIdea": false,
+  "createdAt": "2026-08-23T13:38:39.360Z"
+}
