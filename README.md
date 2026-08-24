@@ -6,6 +6,8 @@
 
 سامانه‌ای فارسی، راست‌به‌چپ و واکنش‌گرا برای رزرو تجهیزات، محاسبه شفاف قیمت، مدیریت تحویل و پیگیری کامل درخواست‌ها.
 
+این پروژه با استفاده از معماری عملیاتی و چرخه توسعه شواهدمحور **[Open Product Operations OS](https://github.com/sedwna/open-product-operations-os)** طراحی و توسعه داده شده است.
+
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-D1%20%2B%20R2-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
