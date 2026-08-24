@@ -16,12 +16,12 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://basu-rental.openai.site",
   ),
   title: {
-    default: "باسو | اجاره تجهیزات مراسم و فارغ‌التحصیلی",
-    template: "%s — باسو",
+    default: "انجمن کامپیوتر دانشگاه بوعلی سینا | رزرو تجهیزات",
+    template: "%s — انجمن کامپیوتر دانشگاه بوعلی سینا",
   },
   description:
     "رزرو آنلاین لباس فارغ‌التحصیلی، استند، دسته‌گل و تجهیزات مراسم با قیمت آزاد و ویژه دانشگاه بوعلی.",
-  applicationName: "BASU Rental",
+  applicationName: "انجمن کامپیوتر دانشگاه بوعلی سینا",
   keywords: [
     "اجاره تجهیزات",
     "فارغ التحصیلی",
@@ -32,21 +32,21 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fa_IR",
-    siteName: "باسو",
-    title: "رزرو تجهیزات، بی‌دردسر",
+    siteName: "انجمن کامپیوتر دانشگاه بوعلی سینا",
+    title: "سامانه رزرو تجهیزات انجمن کامپیوتر",
     description: "تجهیزات رویداد و فارغ‌التحصیلی، با قیمت شفاف و رزرو آنلاین",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "باسو؛ رزرو تجهیزات، بی‌دردسر",
+        alt: "انجمن کامپیوتر دانشگاه بوعلی سینا؛ سامانه رزرو تجهیزات",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "رزرو تجهیزات، بی‌دردسر",
+    title: "سامانه رزرو تجهیزات انجمن کامپیوتر دانشگاه بوعلی سینا",
     description: "تجهیزات رویداد و فارغ‌التحصیلی، با قیمت شفاف و رزرو آنلاین",
     images: ["/og.png"],
   },

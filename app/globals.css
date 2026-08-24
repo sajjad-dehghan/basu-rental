@@ -96,7 +96,8 @@ textarea:focus-visible {
   flex-direction: column;
 }
 .brand b {
-  font-size: 19px;
+  font-size: 14px;
+  line-height: 1.45;
 }
 .brand small {
   margin-top: 1px;
@@ -2068,6 +2069,10 @@ textarea:focus-visible {
   .brand small,
   .header-user .quiet-link {
     display: none;
+  }
+  .site-header .brand b {
+    max-width: 190px;
+    font-size: 10px;
   }
   .header-user > a:first-child {
     max-width: 90px;
