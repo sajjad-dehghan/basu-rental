@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { JalaliDateTimePicker } from "@/app/components/jalali-date-time-picker";
 import { StatusPill } from "@/app/components/status-pill";
+import { formatJalaliDateTime } from "@/app/lib/jalali";
 
 type BookingRecord = {
   reference: string;
@@ -213,8 +215,9 @@ export function BookingDetail({ bookingId }: { bookingId: string }) {
                   <span>
                     <b>{event.safe_note || event.event_type}</b>
                     <small>
-                      {new Date(event.created_at).toLocaleString("fa-IR", {
-                        timeZone: "Asia/Tehran",
+                      {formatJalaliDateTime(event.created_at, {
+                        dateStyle: "medium",
+                        timeStyle: "short",
                       })}
                     </small>
                   </span>
@@ -227,18 +230,16 @@ export function BookingDetail({ bookingId }: { bookingId: string }) {
           <article className="panel">
             <h2>زمان رزرو</h2>
             <p>
-              {new Date(booking.start_at).toLocaleString("fa-IR", {
+              {formatJalaliDateTime(booking.start_at, {
                 dateStyle: "full",
                 timeStyle: "short",
-                timeZone: "Asia/Tehran",
               })}
             </p>
             <small>
               تا{" "}
-              {new Date(booking.end_at).toLocaleString("fa-IR", {
+              {formatJalaliDateTime(booking.end_at, {
                 dateStyle: "full",
                 timeStyle: "short",
-                timeZone: "Asia/Tehran",
               })}
             </small>
             <a
@@ -298,22 +299,17 @@ export function BookingDetail({ bookingId }: { bookingId: string }) {
             )}
           <article className="panel">
             <h2>تغییر زمان</h2>
-            <label>
-              <span>شروع جدید</span>
-              <input
-                type="datetime-local"
-                value={newStart}
-                onChange={(event) => setNewStart(event.target.value)}
-              />
-            </label>
-            <label>
-              <span>پایان جدید</span>
-              <input
-                type="datetime-local"
-                value={newEnd}
-                onChange={(event) => setNewEnd(event.target.value)}
-              />
-            </label>
+            <JalaliDateTimePicker
+              label="شروع جدید"
+              value={newStart}
+              onChange={setNewStart}
+            />
+            <JalaliDateTimePicker
+              label="پایان جدید"
+              value={newEnd}
+              minValue={newStart || undefined}
+              onChange={setNewEnd}
+            />
             <button
               className="secondary-action full"
               disabled={!newStart || !newEnd || Boolean(busy)}

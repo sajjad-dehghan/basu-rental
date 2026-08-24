@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { JalaliDateTimePicker } from "../components/jalali-date-time-picker";
 import {
   CATALOG,
   formatTomanFromThousands,
@@ -215,22 +216,17 @@ export function BookingBuilder() {
             </div>
           </div>
           <div className="form-grid wide">
-            <label>
-              <span>شروع</span>
-              <input
-                type="datetime-local"
-                value={startAt}
-                onChange={(e) => setStartAt(e.target.value)}
-              />
-            </label>
-            <label>
-              <span>پایان</span>
-              <input
-                type="datetime-local"
-                value={endAt}
-                onChange={(e) => setEndAt(e.target.value)}
-              />
-            </label>
+            <JalaliDateTimePicker
+              label="شروع"
+              value={startAt}
+              onChange={setStartAt}
+            />
+            <JalaliDateTimePicker
+              label="پایان"
+              value={endAt}
+              minValue={startAt || undefined}
+              onChange={setEndAt}
+            />
           </div>
           <div className="audience-switch">
             <button

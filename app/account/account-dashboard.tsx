@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { StatusPill } from "../components/status-pill";
+import { formatJalaliDateTime } from "../lib/jalali";
 
 type Booking = {
   id: string;
@@ -109,18 +110,16 @@ export function AccountDashboard() {
             <div className="booking-date">
               <span>بازه رزرو</span>
               <b>
-                {new Date(item.start_at).toLocaleString("fa-IR", {
+                {formatJalaliDateTime(item.start_at, {
                   dateStyle: "medium",
                   timeStyle: "short",
-                  timeZone: "Asia/Tehran",
                 })}
               </b>
               <small>
                 تا{" "}
-                {new Date(item.end_at).toLocaleString("fa-IR", {
+                {formatJalaliDateTime(item.end_at, {
                   dateStyle: "medium",
                   timeStyle: "short",
-                  timeZone: "Asia/Tehran",
                 })}
               </small>
             </div>

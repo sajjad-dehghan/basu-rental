@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { StatusPill } from "../components/status-pill";
+import { formatJalaliDateTime } from "../lib/jalali";
+import { JalaliBookingCalendar } from "./jalali-booking-calendar";
 
 type AdminBooking = {
   id: string;
@@ -166,30 +168,7 @@ export function AdminDashboard() {
         </article>
       </div>
       {view === "calendar" && (
-        <div className="calendar-board">
-          <div className="calendar-head">
-            <h2>تقویم تعارض و تحویل</h2>
-            <span>بازه‌های فعال · Asia/Tehran</span>
-          </div>
-          {data.bookings.map((booking) => (
-            <article key={booking.id}>
-              <div>
-                <small>{booking.reference}</small>
-                <b>{booking.event_title}</b>
-                <span>
-                  {new Date(booking.start_at).toLocaleString("fa-IR", {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                    timeZone: "Asia/Tehran",
-                  })}
-                </span>
-              </div>
-              <p>{booking.item_summary}</p>
-              <StatusPill value={booking.reservation_status} />
-              <Link href={`/account/bookings/${booking.id}`}>بازکردن ←</Link>
-            </article>
-          ))}
-        </div>
+        <JalaliBookingCalendar bookings={data.bookings} />
       )}
       {view === "bookings" && (
         <div className="admin-table">
@@ -369,8 +348,9 @@ export function AdminDashboard() {
                 <span>
                   {notification.template}
                   <small>
-                    {new Date(notification.due_at).toLocaleString("fa-IR", {
-                      timeZone: "Asia/Tehran",
+                    {formatJalaliDateTime(notification.due_at, {
+                      dateStyle: "medium",
+                      timeStyle: "short",
                     })}
                   </small>
                 </span>
