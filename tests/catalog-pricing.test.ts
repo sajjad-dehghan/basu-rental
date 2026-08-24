@@ -6,6 +6,7 @@ import {
   findCatalogItem,
   quoteLine,
   resolveUnitPriceThousands,
+  tierPricingInsight,
   type Audience,
 } from '../app/lib/catalog.ts';
 
@@ -69,6 +70,35 @@ describe('قیمت‌های استخراج‌شده از شیت قیمت‌ها'
       quoteRequired: false,
     });
     assert.equal(quoteLine(gown, 25, 'public').quoteRequired, true);
+  });
+
+  it('برای پنج لباس کاهش قیمت واحد و صرفه‌جویی رسید را شفاف محاسبه می‌کند', () => {
+    const gown = findCatalogItem('eq-gown');
+    assert.ok(gown);
+    assert.deepEqual(tierPricingInsight(gown, 5, 'public'), {
+      baseUnitThousands: 399,
+      currentUnitThousands: 379,
+      savingPerUnitThousands: 20,
+      totalSavingThousands: 100,
+      nextQuantity: 7,
+      nextUnitThousands: 359,
+    });
+    assert.deepEqual(quoteLine(gown, 5, 'public'), {
+      itemId: 'eq-gown',
+      quantity: 5,
+      unitThousands: 379,
+      totalThousands: 1895,
+      quoteRequired: false,
+    });
+  });
+
+  it('بین بازه‌های همپوشان فقط پله‌ای را پیشنهاد می‌دهد که واقعاً ارزان‌تر است', () => {
+    const gown = findCatalogItem('eq-gown');
+    assert.ok(gown);
+    const insight = tierPricingInsight(gown, 6, 'basu');
+    assert.equal(insight?.currentUnitThousands, 329);
+    assert.equal(insight?.nextQuantity, 7);
+    assert.equal(insight?.nextUnitThousands, 319);
   });
 
   it('ورودی تعداد نامعتبر را رد می‌کند', () => {

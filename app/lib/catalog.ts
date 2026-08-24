@@ -94,8 +94,54 @@ export function quoteLine(item: CatalogItem, quantity: number, audience: Audienc
   };
 }
 
+export type TierPricingInsight = {
+  baseUnitThousands: number | null;
+  currentUnitThousands: number | null;
+  savingPerUnitThousands: number | null;
+  totalSavingThousands: number | null;
+  nextQuantity: number | null;
+  nextUnitThousands: number | null;
+};
+
+export function tierPricingInsight(
+  item: CatalogItem,
+  quantity: number,
+  audience: Audience,
+): TierPricingInsight | null {
+  if (!item.tiers || !Number.isInteger(quantity) || quantity < 1) return null;
+
+  const baseUnitThousands = resolveUnitPriceThousands(item, 1, audience);
+  const currentUnitThousands = resolveUnitPriceThousands(item, quantity, audience);
+  const savingPerUnitThousands =
+    baseUnitThousands !== null && currentUnitThousands !== null
+      ? Math.max(0, baseUnitThousands - currentUnitThousands)
+      : null;
+
+  let nextQuantity: number | null = null;
+  let nextUnitThousands: number | null = null;
+  if (currentUnitThousands !== null) {
+    for (let candidate = quantity + 1; candidate <= item.capacity; candidate += 1) {
+      const candidateUnit = resolveUnitPriceThousands(item, candidate, audience);
+      if (candidateUnit !== null && candidateUnit < currentUnitThousands) {
+        nextQuantity = candidate;
+        nextUnitThousands = candidateUnit;
+        break;
+      }
+    }
+  }
+
+  return {
+    baseUnitThousands,
+    currentUnitThousands,
+    savingPerUnitThousands,
+    totalSavingThousands:
+      savingPerUnitThousands === null ? null : savingPerUnitThousands * quantity,
+    nextQuantity,
+    nextUnitThousands,
+  };
+}
+
 export function formatTomanFromThousands(value: number | null): string {
   if (value === null) return 'نیازمند استعلام';
   return `${new Intl.NumberFormat('fa-IR').format(value)} هزار تومان`;
 }
-

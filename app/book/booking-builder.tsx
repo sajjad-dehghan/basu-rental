@@ -5,6 +5,7 @@ import {
   CATALOG,
   formatTomanFromThousands,
   quoteLine,
+  tierPricingInsight,
   type Audience,
 } from "../lib/catalog";
 type ApiResult = {
@@ -40,20 +41,32 @@ export function BookingBuilder() {
   } | null>(null);
   const lines = useMemo(
     () =>
-      CATALOG.filter((item) => (quantities[item.id] ?? 0) > 0).map((item) => ({
-        item,
-        quantity: quantities[item.id],
-        quote: quoteLine(item, quantities[item.id], audience),
-      })),
+      CATALOG.filter((item) => (quantities[item.id] ?? 0) > 0).map((item) => {
+        const quantity = quantities[item.id];
+        return {
+          item,
+          quantity,
+          quote: quoteLine(item, quantity, audience),
+          pricingInsight: tierPricingInsight(item, quantity, audience),
+        };
+      }),
     [quantities, audience],
   );
   const total = lines.every((line) => line.quote.totalThousands !== null)
     ? lines.reduce((sum, line) => sum + (line.quote.totalThousands ?? 0), 0)
     : null;
-  function update(itemId: string, value: number) {
+  const totalQuantity = lines.reduce((sum, line) => sum + line.quantity, 0);
+  const totalSaving = lines.reduce(
+    (sum, line) => sum + (line.pricingInsight?.totalSavingThousands ?? 0),
+    0,
+  );
+  function update(itemId: string, value: number, capacity: number) {
     setQuantities((current) => ({
       ...current,
-      [itemId]: Math.max(0, Math.min(30, Number.isFinite(value) ? value : 0)),
+      [itemId]: Math.max(
+        0,
+        Math.min(capacity, Number.isFinite(value) ? value : 0),
+      ),
     }));
   }
   async function submit() {
@@ -113,49 +126,84 @@ export function BookingBuilder() {
             </div>
           </div>
           <div className="builder-items">
-            {CATALOG.map((item) => (
-              <div
-                className={
-                  (quantities[item.id] ?? 0) > 0
-                    ? "builder-item selected"
-                    : "builder-item"
-                }
-                key={item.id}
-              >
-                <div className={`mini-art accent-${item.accent}`}>
-                  {item.art}
+            {CATALOG.map((item) => {
+              const quantity = quantities[item.id] ?? 0;
+              const quote =
+                quantity > 0 ? quoteLine(item, quantity, audience) : null;
+              const insight =
+                quantity > 0
+                  ? tierPricingInsight(item, quantity, audience)
+                  : null;
+              return (
+                <div
+                  className={
+                    quantity > 0
+                      ? `builder-item selected${item.tiers ? " tiered" : ""}`
+                      : "builder-item"
+                  }
+                  key={item.id}
+                >
+                  <div className={`mini-art accent-${item.accent}`}>
+                    {item.art}
+                  </div>
+                  <div className="builder-item-copy">
+                    <b>{item.name}</b>
+                    <small>
+                      {formatTomanFromThousands(
+                        quote
+                          ? quote.unitThousands
+                          : audience === "basu"
+                            ? item.basuThousands
+                            : item.publicThousands,
+                      )}
+                      {quantity > 0 && item.tiers ? " برای هر لباس" : ""}
+                    </small>
+                  </div>
+                  <label>
+                    <span>تعداد</span>
+                    <input
+                      aria-label={`تعداد ${item.name}`}
+                      type="number"
+                      min="0"
+                      max={item.capacity}
+                      value={quantity}
+                      onChange={(event) =>
+                        update(
+                          item.id,
+                          Number(event.target.value),
+                          item.capacity,
+                        )
+                      }
+                    />
+                  </label>
+                  {insight && (
+                    <div className="tier-feedback" aria-live="polite">
+                      <div className="tier-current">
+                        <span>قیمت واحد برای {quantity.toLocaleString("fa-IR")} لباس</span>
+                        <strong>{formatTomanFromThousands(insight.currentUnitThousands)}</strong>
+                      </div>
+                      {insight.savingPerUnitThousands !== null &&
+                        insight.savingPerUnitThousands > 0 && (
+                          <div className="tier-saving">
+                            <b>
+                              هر لباس {formatTomanFromThousands(insight.savingPerUnitThousands)} ارزان‌تر
+                            </b>
+                            <small>
+                              در مجموع {formatTomanFromThousands(insight.totalSavingThousands)} صرفه‌جویی نسبت به قیمت تک‌لباس
+                            </small>
+                          </div>
+                        )}
+                      {insight.nextQuantity !== null && (
+                        <p>
+                          پله بعدی: با {insight.nextQuantity.toLocaleString("fa-IR")} لباس، قیمت هر لباس
+                          {" "}{formatTomanFromThousands(insight.nextUnitThousands)} می‌شود.
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <b>{item.name}</b>
-                  <small>
-                    {formatTomanFromThousands(
-                      (quantities[item.id] ?? 0) > 0
-                        ? quoteLine(item, quantities[item.id], audience)
-                            .unitThousands
-                        : audience === "basu"
-                          ? item.basuThousands
-                          : item.publicThousands,
-                    )}
-                    {(quantities[item.id] ?? 0) > 0 && item.tiers
-                      ? " برای هر عدد"
-                      : ""}
-                  </small>
-                </div>
-                <label>
-                  <span>تعداد</span>
-                  <input
-                    aria-label={`تعداد ${item.name}`}
-                    type="number"
-                    min="0"
-                    max="30"
-                    value={quantities[item.id] ?? 0}
-                    onChange={(event) =>
-                      update(item.id, Number(event.target.value))
-                    }
-                  />
-                </label>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <div className="builder-block">
@@ -268,15 +316,30 @@ export function BookingBuilder() {
         </div>
       </div>
       <aside className="builder-summary">
-        <span className="summary-kicker">خلاصه رزرو</span>
-        <h2>{lines.length.toLocaleString("fa-IR")} قلم انتخاب شده</h2>
+        <div className="receipt-head">
+          <div>
+            <span className="summary-kicker">رسید زنده رزرو</span>
+            <h2>{totalQuantity.toLocaleString("fa-IR")} عدد از {lines.length.toLocaleString("fa-IR")} نوع تجهیز</h2>
+          </div>
+          <span className="receipt-audience">
+            {audience === "basu" ? "نرخ بوعلی" : "نرخ آزاد"}
+          </span>
+        </div>
         <div className="summary-lines">
           {lines.map((line) => (
-            <div key={line.item.id}>
-              <span>
-                {line.item.name}
-                <small>× {line.quantity.toLocaleString("fa-IR")}</small>
-              </span>
+            <div className="receipt-line" key={line.item.id}>
+              <div className="receipt-line-title">
+                <span>{line.item.name}</span>
+                <small>
+                  {line.quantity.toLocaleString("fa-IR")} × {formatTomanFromThousands(line.quote.unitThousands)}
+                </small>
+                {line.pricingInsight?.savingPerUnitThousands !== null &&
+                  (line.pricingInsight?.savingPerUnitThousands ?? 0) > 0 && (
+                    <em>
+                      تخفیف تعدادی: {formatTomanFromThousands(line.pricingInsight?.totalSavingThousands ?? 0)}
+                    </em>
+                  )}
+              </div>
               <b>{formatTomanFromThousands(line.quote.totalThousands)}</b>
             </div>
           ))}
@@ -290,6 +353,12 @@ export function BookingBuilder() {
             </div>
           )}
         </div>
+        {totalSaving > 0 && (
+          <div className="receipt-saving-total">
+            <span>صرفه‌جویی با قیمت پلکانی</span>
+            <b>{formatTomanFromThousands(totalSaving)}</b>
+          </div>
+        )}
         <div className="summary-total">
           <span>{delivery === "delivery" ? "جمع تجهیزات" : "جمع برآورد"}</span>
           <strong>{formatTomanFromThousands(total)}</strong>
