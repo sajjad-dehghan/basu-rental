@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "BR-0009",
+  "eventId": "EVT-20260823-001",
+  "roleId": "RB-08",
+  "producerActorId": "actor-rb-08",
+  "status": "completed",
+  "summary": "ممیزی منطق نسخهٔ نهایی ۱۴ ریسک و لبهٔ اصلی را شناسایی و کنترل‌های لازم را به قرارداد و طرح اعتبارسنجی متصل کرد. هیچ ریسکی پذیرفته، artifact مالک دیگری بازنویسی یا ادعای verification نشده است.",
+  "findings": [
+    "R-01 بازه‌های قیمت لباس ۴–۶ و ۶–۱۰ در مقدار ۶ هم‌پوشان‌اند؛ بدون اولویت نسخه‌شده، قیمت غیرقطعی می‌شود.",
+    "R-02 شیت تاریخی «تغییر زمان» را در ستون پرداخت دارد؛ نرمال‌سازی مستقیم یک ماشین حالت ترکیبی و ناسازگار می‌سازد.",
+    "R-03 آخرین ظرفیت در درخواست‌های همزمان مستعد overbooking است؛ check-then-write بدون قید/تراکنش کافی نیست.",
+    "R-04 زمان ایران، تاریخ شمسی/میلادی، ساعت تابستانی تاریخی و بازهٔ نیمه‌باز می‌تواند موجودی و یادآورها را جابه‌جا کند.",
+    "R-05 callback پرداخت تکراری، خارج از ترتیب، با مبلغ متفاوت یا دیررس می‌تواند دوباره اثر بگذارد یا رزرو لغوشده را احیا کند.",
+    "R-06 احراز نقش بوعلی اگر صرفاً در UI یا claim قابل تغییر باشد تخفیف را افشا می‌کند؛ منبع احراز، انقضا و downgrade باید سمت سرور باشد.",
+    "R-07 تغییر/لغو می‌تواند ظرفیت، waitlist، بازپرداخت، slot تحویل و اعلان‌ها را ناسازگار کند مگر همه پیامدها idempotent و تراکنشی باشند.",
+    "R-08 promotion waitlist در رقابت چند مصرف‌کننده ممکن است دو نفر را برای یک ظرفیت ارتقا دهد.",
+    "R-09 تصویر handoff ممکن است فایل مخرب، داده شخصی، نشانی داخلی یا URL دائمی قابل حدس افشا کند.",
+    "R-10 متن قطعی سیاست لغو، بازپرداخت، ودیعه، خسارت و شرایط انجمن‌ها موجود نیست؛ hard-code کردن سیاست حقوقی ریسک محصولی دارد.",
+    "R-11 analytics ممکن است رزرو لغوشده، بازپرداخت، ودیعه یا مبلغ خسارت را درآمد حساب کند و شاخص گمراه‌کننده بسازد.",
+    "R-12 شناسهٔ validation_plan_id تیکت به صورت VAL ثبت شده ولی schema canonical شناسهٔ VPL می‌خواهد؛ lineage می‌تواند شکسته شود.",
+    "R-13 policy سن وابستگی فعلاً نصب را مسدود کرده است؛ bypass یا تغییر نسخه، زنجیره تأمین و قابلیت بازتولید را تضعیف می‌کند.",
+    "R-14 فعال‌سازی درگاه واقعی، اعلان بیرونی و انتشار عمومی بدون راز/قرارداد/مجوز معتبر نباید به‌عنوان تکمیل ادعا شود."
+  ],
+  "recommendations": [
+    "CR-01 برای tierها قاعدهٔ deterministic و نسخه‌شده تعریف شود؛ پیشنهاد فنی first-match بر اساس ترتیب منبع و آزمون صریح مقدار ۶ است، تا زمانی که مالک سیاست دیگری تصویب کند.",
+    "CR-02 reservation_status، payment_status، fulfillment_status و damage/deposit status جدا با transitionهای مجاز و audit event مدل شوند.",
+    "CR-03 ظرفیت و waitlist با transaction/unique constraint یا compare-and-swap و تست همزمانی کنترل شوند.",
+    "CR-04 زمان canonical به UTC ذخیره، timezone Asia/Tehran در نمایش/قانون اعمال و interval semantics مستند شود.",
+    "CR-05 payment intent/event با idempotency key، amount/currency binding، امضا، transition guard و reconciliation ذخیره شود.",
+    "CR-06 نقش بوعلی دارای evidence، issuer، expiry و audit باشد و قیمت نهایی فقط سمت سرور محاسبه شود.",
+    "CR-07 تغییر رزرو یک orchestration idempotent برای آزادسازی/رزرو ظرفیت، waitlist، پرداخت و اعلان داشته باشد.",
+    "CR-08 فایل‌ها allowlist نوع/اندازه، نام تصادفی، scan، metadata محدود، دسترسی مالک/مدیر و retention/delete داشته باشند.",
+    "CR-09 سیاست‌های تجاری configuration-driven با effective_at، version و snapshot روی رزرو باشند.",
+    "CR-10 تعریف metricهای gross/net/refund/deposit/damage و timezone گزارش مستند و با dataset مرجع آزموده شود.",
+    "CR-11 reference تیکت به VPL-20260823-001 از مسیر اصلاح کنترل‌شده همسان شود؛ تا آن زمان verification این mismatch را باز نگه دارد.",
+    "CR-12 فعال‌سازی بیرونی پشت configuration/secret gate و fail-closed بماند؛ adapterهای synthetic رفتار را اثبات کنند نه اتصال تولیدی را."
+  ],
+  "acceptanceCriteria": [
+    {
+      "statement": "تمام R-01 تا R-14 در معماری، کد، تست یا ریسک باقی‌مانده disposition صریح داشته باشند.",
+      "verification": "ماتریس risk-to-control-to-test-to-evidence در verification مستقل بدون ردیف خالی باشد."
+    },
+    {
+      "statement": "ریسک‌های overbooking، مجوز، پرداخت و فایل fail-closed و با تست منفی اثبات شوند.",
+      "verification": "سناریوهای VSC-001 تا VSC-006 نتایج منفی decisive و DB/audit read-back داشته باشند."
+    },
+    {
+      "statement": "هیچ policy حقوقی یا اتصال تولیدی بدون authority به‌عنوان تکمیل ثبت نشود.",
+      "verification": "config و deployment read-back نشان دهد provider/notification/public release بدون secret/approval غیرفعال است."
+    }
+  ],
+  "impacts": [
+    "architecture",
+    "frontend",
+    "backend",
+    "api",
+    "integration",
+    "database",
+    "storage",
+    "analytics",
+    "security",
+    "privacy",
+    "identity",
+    "observability",
+    "resilience",
+    "documentation"
+  ],
+  "constraints": [
+    "ممیزی دامنهٔ کامل را کاهش نمی‌دهد و حذف قابلیت را به‌عنوان کنترل ریسک پیشنهاد نمی‌کند.",
+    "پذیرش ریسک و تصمیم سیاست تجاری اختیار RB-08 نیست.",
+    "artifactهای قرارداد/اعتبارسنجی فقط از مسیر مالک و اصلاح کنترل‌شده تغییر می‌کنند.",
+    "verification باید توسط actor مستقل انجام شود."
+  ],
+  "nonFunctionalRequirements": [
+    {
+      "domain": "سازگاری",
+      "requirement": "هر transition، محاسبه قیمت و metric deterministic، نسخه‌شده و audit‌پذیر باشد.",
+      "verification": "property/unit tests و event read-back اجرا شود."
+    },
+    {
+      "domain": "امنیت",
+      "requirement": "identity، payment، file و admin boundaries fail-closed و server-enforced باشند.",
+      "verification": "negative authorization، tamper، replay و upload tests عبور کند."
+    },
+    {
+      "domain": "قابلیت بازیابی",
+      "requirement": "عملیات چندمرحله‌ای idempotent و قابل reconciliation/rollback باشند.",
+      "verification": "partial failure و retry scenarios بدون double effect اجرا شود."
+    }
+  ],
+  "evidence": [
+    "workbook/11-delivery-tickets.csv#TKT-20260823-001",
+    "workbook/12-validation-plans.csv#VPL-20260823-001",
+    "workbook/13-validation-scenarios.csv#VSC-20260823-001",
+    "رزرو و قیمت ها.xlsx#رزرو!A1:F36",
+    "رزرو و قیمت ها.xlsx#قیمت ها!A1:D26",
+    ".product-ops/runtime/approvals.json#APR-D7D4A4195A4F"
+  ],
+  "knownRisks": [
+    "R-10 و فعال‌سازی واقعی provider به authority/اطلاعات بیرونی وابسته‌اند.",
+    "R-12 هنوز در ticket canonical اصلاح نشده است.",
+    "هیچ کنترل مهندسی هنوز اجرا یا مستقل verify نشده است.",
+    "blocked dependency policy تا زمان طبیعی انتشار بسته حل نمی‌شود."
+  ],
+  "canonicalRecords": [],
+  "completedAt": "2026-08-23T14:03:58.559Z"
+}

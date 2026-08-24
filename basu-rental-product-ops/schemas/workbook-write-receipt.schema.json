@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workbook Write Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "manifestId",
+    "manifestSha256",
+    "targetFile",
+    "environment",
+    "planHash",
+    "beforeSha256",
+    "afterSha256",
+    "recordsChanged",
+    "fieldsChanged",
+    "fullReadbackMatch",
+    "secondReadMatch",
+    "replayWrites",
+    "backupFile",
+    "rollbackPlan",
+    "rolledBack",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "manifestId": { "type": "string", "minLength": 3 },
+    "manifestSha256": { "$ref": "#/$defs/sha256" },
+    "targetFile": {
+      "type": "string",
+      "pattern": "^workbook/(?!.*\\.\\.)[^/].*\\.csv$"
+    },
+    "environment": { "enum": ["local", "test", "staging", "production"] },
+    "planHash": { "$ref": "#/$defs/sha256" },
+    "beforeSha256": { "$ref": "#/$defs/sha256" },
+    "afterSha256": { "$ref": "#/$defs/sha256" },
+    "recordsChanged": { "type": "integer", "minimum": 1 },
+    "fieldsChanged": { "type": "integer", "minimum": 1 },
+    "fullReadbackMatch": { "const": true },
+    "secondReadMatch": { "const": true },
+    "replayWrites": { "const": 0 },
+    "backupFile": {
+      "type": "string",
+      "pattern": "^\\.product-ops/writes/(?!.*\\.\\.)[^/]+/before\\.csv$"
+    },
+    "rollbackPlan": { "type": "string", "minLength": 12 },
+    "rolledBack": { "type": "boolean" },
+    "rollbackReadbackMatch": { "const": true },
+    "rolledBackAt": { "type": "string", "format": "date-time" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

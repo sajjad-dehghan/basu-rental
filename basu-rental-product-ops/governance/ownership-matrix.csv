@@ -1,0 +1,16 @@
+artifact_type,semantic_owner_role,mechanical_writer_role,independent_verifier_role,human_approver_when_required,development_owned_fields,notes
+event,RB-01,RB-01,RB-12,<HUMAN_ROLE>,,Coordinator owns sequence but not specialist meaning
+idea,RB-02,RB-10,RB-12,<HUMAN_ROLE>,,Human approves product direction
+discovery,RB-03,RB-10,RB-12,<HUMAN_ROLE>,,Sources and uncertainty are mandatory
+decision,RB-02,RB-10,RB-12,<HUMAN_ROLE>,,Only human disposition authorizes direction
+topology_or_journey,RB-04,RB-10,RB-12,<HUMAN_ROLE>,,Changes require impact analysis
+issue,RB-05,RB-10,RB-12,<HUMAN_ROLE>,,Closure requires linked result or explicit disposition
+delivery_ticket,RB-06,RB-10,RB-12,<HUMAN_ROLE>,implementation_reference|development_status|development_notes,Product Operations must not author development-owned fields
+validation_plan,RB-07,RB-10,RB-12,<HUMAN_ROLE>,,Plan approval is distinct from execution
+risk_audit,RB-08,RB-10,RB-12,<HUMAN_ROLE>,,Risk acceptance remains human
+validation_run,RB-09,RB-10,RB-12,<HUMAN_ROLE>,,Executor cannot independently verify same run
+validation_result,RB-09,RB-10,RB-12,<HUMAN_ROLE>,,No result without executed run
+evidence_manifest,RB-09,RB-10,RB-12,<HUMAN_ROLE>,,Evidence must be reproducible and non-sensitive
+controlled_write_audit,RB-12,RB-10,RB-08,<HUMAN_ROLE>,,Independent control owner records writer manifests and receipts; the mechanical writer cannot own its own audit trail
+readiness,RB-11,RB-10,RB-12,<HUMAN_ROLE>,,Unmet gates prevent ready status
+release,RB-11,RB-10,RB-12,<HUMAN_ROLE>,deployment_reference|deployment_status,Human production authorization required

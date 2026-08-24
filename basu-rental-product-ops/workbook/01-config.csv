@@ -1,0 +1,28 @@
+config_key,config_value,description,locked
+catalog_version,1,Operating model catalog version,true
+project_key,<PROJECT_KEY>,Stable non-secret project key,false
+product_name,<PRODUCT_NAME>,Human-readable product name,false
+timezone,UTC,Canonical timestamp timezone,false
+canonical_repository,<REPOSITORY_REFERENCE>,Non-secret repository reference,false
+development_adapter,<ADAPTER_REFERENCE>,Development integration alias,false
+live_workbook_reference,<NON_SECRET_WORKBOOK_ALIAS>,Non-secret workbook alias,false
+id.event,EVT-{YYYYMMDD}-{NNN},Event identifier pattern,true
+id.idea,IDEA-{YYYYMMDD}-{NNN},Idea identifier pattern,true
+id.discovery,DSC-{YYYYMMDD}-{NNN},Discovery identifier pattern,true
+id.decision,DEC-{YYYYMMDD}-{NNN},Decision identifier pattern,true
+id.task,TASK-{ROLE_KEY}-{YYYYMMDD}-{NNN},Task identifier pattern,true
+id.issue,ISS-{YYYYMMDD}-{NNN},Issue identifier pattern,true
+id.ticket,TKT-{YYYYMMDD}-{NNN},Ticket identifier pattern,true
+id.validation_plan,VPL-{YYYYMMDD}-{NNN},Validation plan identifier pattern,true
+id.validation_scenario,VSC-{YYYYMMDD}-{NNN},Scenario identifier pattern,true
+id.validation_run,VRN-{YYYYMMDD}-{NNN},Run identifier pattern,true
+id.validation_result,VRS-{YYYYMMDD}-{NNN},Result identifier pattern,true
+id.evidence_manifest,EVD-{YYYYMMDD}-{NNN},Evidence manifest identifier pattern,true
+id.human_observation,HOB-{YYYYMMDD}-{NNN},Human observation identifier pattern,true
+id.qc_record,QCV-{YYYYMMDD}-{NNN},Independent QC identifier pattern,true
+id.readiness,RDY-{YYYYMMDD}-{NNN},Readiness identifier pattern,true
+id.release,REL-{YYYYMMDD}-{NNN},Release identifier pattern,true
+id.write_manifest,WFM-{YYYYMMDD}-{NNN},Write manifest identifier pattern,true
+id.write_receipt,WRC-{YYYYMMDD}-{NNN},Write receipt identifier pattern,true
+guardrail.producer_may_self_verify,false,Producer cannot independently verify own claim,true
+guardrail.secret_values_allowed,false,Secret values are forbidden in workbook and Git,true

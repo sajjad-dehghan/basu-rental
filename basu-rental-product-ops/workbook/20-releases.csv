@@ -1,0 +1,2 @@
+release_id,readiness_id,event_id,status,target_environment,ticket_ids,implementation_refs,human_authorization_id,rollback_reference,writer_receipt_ids,deployment_reference,development_deployment_status,health_check_refs,started_at,ended_at,residual_risks,follow_up_task_ids,owner_role,owner_actor_id
+<RELEASE_ID>,<READINESS_ID>,<EVENT_ID>,<statuses.release>,<ENVIRONMENT>,<ID_LIST>,<REFERENCE_LIST>,<HUMAN_AUTH_ID>,<REFERENCE>,<ID_LIST>,<DEVELOPMENT_OWNED>,<DEVELOPMENT_OWNED>,<REFERENCE_LIST>,<ISO-8601>,<ISO-8601>,<RISK_LIST>,<ID_LIST>,RB-11,<ACTOR_ID>

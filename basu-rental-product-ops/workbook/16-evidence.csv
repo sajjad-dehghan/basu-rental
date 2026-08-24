@@ -1,0 +1,2 @@
+evidence_item_id,evidence_manifest_id,event_id,run_id,result_id,status,claim_or_step_ids,artifact_type,canonical_path,capture_method,captured_at,environment_alias,media_type,byte_length,sha256,decisive,limitation,contains_sensitive_material,secret_scan_passed
+<EVIDENCE_ITEM_ID>,<EVIDENCE_MANIFEST_ID>,<EVENT_ID>,<RUN_ID>,<RESULT_ID>,<statuses.evidence_item>,<ID_LIST>,<TYPE>,<RELATIVE_PATH>,<METHOD>,<ISO-8601>,<NON_SECRET_ALIAS>,<MEDIA_TYPE>,<INTEGER>,<LOWERCASE_HEX>,<true|false>,<LIMITATION>,false,true

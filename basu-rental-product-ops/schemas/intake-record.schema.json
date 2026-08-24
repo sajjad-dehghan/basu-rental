@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product Operations Intake Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["intakeId", "eventId", "type", "title", "description", "source", "priority", "fingerprint", "status", "createdAt"],
+  "properties": {
+    "intakeId": { "type": "string", "pattern": "^INT-[0-9]{8}-[A-F0-9]{8}$" },
+    "eventId": { "type": "string", "pattern": "^EVT-[0-9]{8}-[0-9]{3}$" },
+    "type": { "enum": ["new_idea", "user_finding", "incident", "feedback", "request"] },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "minLength": 1 },
+    "targetUser": { "type": "string" },
+    "priority": { "enum": ["P0", "P1", "P2", "P3"] },
+    "fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "status": { "enum": ["proposed", "duplicate", "accepted", "rejected"] },
+    "duplicateOf": { "type": ["string", "null"] },
+    "autopilotAuthorized": { "type": "boolean" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

@@ -1,0 +1,2 @@
+qc_record_id,event_id,task_id,artifact_ids,producer_role,producer_actor_id,verifier_role,verifier_actor_id,disposition,claims_reproduced,canonical_revision,live_receipt_id,development_reference,human_disposition_id,evidence_refs,gap_or_failure,corrective_owner_role,corrective_task_id,verified_at
+<QC_ID>,<EVENT_ID>,<TASK_ID>,<ID_LIST>,<ROLE_KEY>,<ACTOR_ID>,RB-12,<DISTINCT_ACTOR_ID>,<statuses.qc>,<CLAIM_LIST>,<REVISION>,<RECEIPT_ID_OR_NONE>,<REFERENCE_OR_NONE>,<ID_OR_NONE>,<ID_LIST>,<DETAIL>,<ROLE_KEY_OR_NONE>,<TASK_ID_OR_NONE>,<ISO-8601>

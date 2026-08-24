@@ -1,0 +1,45 @@
+catalog_reference: ../config/operating-model.yaml
+default_entry_role: RB-01
+coordination_bus: taskboard_and_committed_handoffs
+
+routes:
+  - event_type: new_idea
+    first_owner: RB-02
+    required_downstream: [RB-03, RB-04, RB-06, RB-07, RB-09, RB-11, RB-12]
+  - event_type: user_finding
+    first_owner: RB-05
+    required_downstream: [RB-06, RB-07, RB-09, RB-11, RB-12]
+  - event_type: delivery_ready_issue
+    first_owner: RB-06
+    required_downstream: [RB-07, RB-13, RB-09, RB-11, RB-12]
+  - event_type: qa_retest
+    first_owner: RB-07
+    required_downstream: [RB-09, RB-12, RB-11]
+  - event_type: workbook_or_status_change
+    first_owner: RB-10
+    required_downstream: [RB-08, RB-12]
+  - event_type: release_transition
+    first_owner: RB-11
+    required_downstream: [RB-12]
+  - event_type: governance_or_role_change
+    first_owner: RB-01
+    human_gate: governance_or_role_lifecycle_change
+    required_downstream: [RB-08, RB-12]
+
+blocked_rule:
+  return_to: RB-01
+  required_fields: [blocked_reason, dependency_id, next_owner_role, unblock_condition]
+
+write_rule:
+  route_to: RB-10
+  requires: [owner_authorized_manifest, field_authority, old_value_preconditions, rollback_plan]
+
+verification_rule:
+  route_to: RB-12
+  requires_distinct_actor_from_producer: true
+  allowed_dispositions_catalog_path: statuses.qc
+
+human_gate_rule:
+  action: pause_and_prepare_exact_decision_request
+  approval_must_be_attributed: true
+  silence_means_approval: false

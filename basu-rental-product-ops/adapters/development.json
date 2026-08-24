@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "name": "development",
+  "type": "command",
+  "enabled": false,
+  "implementation": "command-runner",
+  "settings": {
+    "executable": "",
+    "arguments": [],
+    "workingDirectory": ".",
+    "timeoutMs": 1800000,
+    "allowedPaths": [
+      "src",
+      "tests"
+    ],
+    "environmentAllowlist": []
+  }
+}

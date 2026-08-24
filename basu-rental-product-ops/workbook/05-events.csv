@@ -1,0 +1,2 @@
+event_id,event_type,title,status,priority,risk,source_id,coordinator_role,coordinator_actor_id,semantic_owner_roles,writer_role,verifier_role,producer_actor_id,verifier_actor_id,human_gates,affected_systems,rollback_boundary,evidence_requirements,opened_at,closed_at,supersedes_id
+EVT-00000000-001,new_idea,First discovery event,draft,P2,low,,RB-01,actor-rb-01,RB-03,RB-10,RB-12,actor-rb-03,actor-rb-12,,git,,source references and limitations,,,

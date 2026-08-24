@@ -1,0 +1,115 @@
+status_family,status_value,display_order,terminal,definition
+role_lifecycle,proposed,1,false,Awaiting human-governed activation
+role_lifecycle,active,2,false,Authorized for assignment
+role_lifecycle,suspended,3,false,Temporarily unavailable
+role_lifecycle,retired,4,true,No longer assignable
+event,draft,1,false,Impact analysis not yet authorized
+event,authorized,2,false,Human gates satisfied for planned scope
+event,active,3,false,Owner work is underway
+event,blocked,4,false,Named dependency prevents progress
+event,verifying,5,false,Independent controls are running
+event,closed,6,true,All closure conditions are met
+event,cancelled,7,true,Stopped by explicit disposition
+event,superseded,8,true,Replaced by a newer event
+task,backlog,1,false,Not yet ready to start
+task,ready,2,false,Inputs and dependencies are available
+task,in_progress,3,false,Owner is actively working
+task,blocked,4,false,Named dependency prevents progress
+task,in_review,5,false,Output awaits review or independent control
+task,done,6,true,All done conditions are evidenced
+task,cancelled,7,true,Stopped by explicit disposition
+idea,inbox,1,false,Untriaged input
+idea,triage,2,false,Duplicate impact and routing review
+idea,discovery,3,false,Discovery is active
+idea,decided,4,true,Explicit disposition is linked
+idea,archived,5,true,Retained without active follow-through
+discovery,draft,1,false,Question and method are being prepared
+discovery,active,2,false,Evidence collection or synthesis is active
+discovery,blocked,3,false,Named dependency prevents completion
+discovery,complete,4,true,Findings and limitations are recorded
+discovery,superseded,5,true,Replaced by a later discovery record
+decision,draft,1,false,Brief is being prepared
+decision,pending_human,2,false,Explicit human disposition is required
+decision,approved,3,true,Human approved the selected option
+decision,rejected,4,true,Human rejected the proposal
+decision,deferred,5,true,Human deferred with conditions
+decision,superseded,6,true,Replaced by a later decision
+issue,open,1,false,Issue is accepted for analysis
+issue,needs_decision,2,false,Product direction is unresolved
+issue,ready_for_delivery,3,false,Delivery contract may be authored
+issue,in_delivery,4,false,Development work is active
+issue,needs_validation,5,false,Implementation awaits factual validation
+issue,validated,6,false,Required result is linked
+issue,closed,7,true,Closure evidence or disposition is linked
+issue,wont_fix,8,true,Explicit human disposition declines delivery
+ticket,draft,1,false,Delivery contract is incomplete
+ticket,ready,2,false,Approved contract and inputs are available
+ticket,in_progress,3,false,Development reports active work
+ticket,blocked,4,false,Named dependency prevents delivery
+ticket,implementation_complete,5,false,Development returned implementation evidence
+ticket,validation_failed,6,false,Executed validation found failure
+ticket,accepted,7,false,Validation and required human acceptance passed
+ticket,released,8,true,Linked release completed
+ticket,cancelled,9,true,Stopped by explicit disposition
+validation_plan,draft,1,false,Plan is being authored
+validation_plan,in_review,2,false,Plan awaits review
+validation_plan,approved,3,false,Plan meaning is approved
+validation_plan,run_ready,4,false,Data environment and evidence controls are ready
+validation_plan,blocked,5,false,Named dependency prevents execution
+validation_plan,complete,6,true,Required runs and dispositions are complete
+validation_plan,superseded,7,true,Replaced by a later plan
+validation_scenario,draft,1,false,Steps and outcomes are being authored
+validation_scenario,ready,2,false,Scenario may be executed
+validation_scenario,blocked,3,false,Named dependency prevents execution
+validation_scenario,retired,4,true,Scenario is no longer applicable
+validation_run,planned,1,false,Execution is scheduled
+validation_run,running,2,false,Execution is active
+validation_run,blocked,3,false,Execution stopped on a dependency
+validation_run,completed,4,true,Factual execution ended
+validation_run,aborted,5,true,Execution ended before completion
+validation_result,pass,1,true,Observed outcome met the fixed expectation
+validation_result,fail,2,true,Observed outcome did not meet expectation
+validation_result,inconclusive,3,true,Execution cannot support pass or fail
+validation_result,not_run,4,true,No execution occurred and reason is explicit
+qc,pass,1,true,Claims were independently reproduced
+qc,evidence_gap,2,true,Required evidence is missing or unreproducible
+qc,control_failure,3,true,Governed control did not operate as required
+qc,live_propagation_failure,4,true,Canonical and live state do not agree
+qc,human_decision_required,5,true,Only an explicit human disposition can continue
+human_observation,required,1,false,Human observation must be scheduled
+human_observation,scheduled,2,false,Observer and time are set
+human_observation,accepted,3,true,Human accepted observed behavior
+human_observation,rejected,4,true,Human rejected observed behavior
+human_observation,waived_by_human,5,true,Authorized human explicitly waived observation
+readiness,not_ready,1,false,One or more required gates are unmet
+readiness,conditionally_ready,2,false,Explicit conditions remain before release
+readiness,ready,3,false,All required gates are satisfied
+readiness,released,4,true,Linked release completed
+release,planned,1,false,Release scope and controls are prepared
+release,approved,2,false,Human authorization and readiness are linked
+release,in_progress,3,false,Release execution is active
+release,completed,4,true,Release and checks completed
+release,rolled_back,5,true,Rollback completed
+release,cancelled,6,true,Release stopped by explicit disposition
+write_manifest,draft,1,false,Manifest is being prepared
+write_manifest,authorized,2,false,Owner and required human authority approved scope
+write_manifest,applied,3,true,Bounded write was attempted and receipt exists
+write_manifest,failed,4,true,Write failed with factual recovery state
+write_manifest,rolled_back,5,true,Authorized changes were reversed
+write_receipt,pending_readback,1,false,Write occurred but full read-back is incomplete
+write_receipt,verified,2,false,Complete read-back matched
+write_receipt,mismatch,3,true,Expected and observed state differ
+write_receipt,replay_verified,4,true,Verified read-back and zero-write replay passed
+write_receipt,rollback_verified,5,true,Rollback was also reproduced
+evidence_item,expected,1,false,Artifact is required but not yet captured
+evidence_item,captured,2,false,Artifact exists and integrity data is recorded
+evidence_item,unavailable,3,true,Artifact could not be captured and reason is explicit
+evidence_item,invalidated,4,true,Artifact must no longer support a claim
+priority,P0,1,false,Immediate critical priority
+priority,P1,2,false,High priority
+priority,P2,3,false,Normal priority
+priority,P3,4,false,Low priority
+risk,low,1,false,Limited reversible impact
+risk,medium,2,false,Meaningful but controlled impact
+risk,high,3,false,Material impact requiring explicit controls
+risk,critical,4,false,Severe or irreversible potential impact

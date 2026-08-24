@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "CTR-20260823135109594",
+  "kind": "control_plane",
+  "dryRun": false,
+  "actions": [
+    {
+      "type": "promote_task",
+      "taskId": "BR-0007",
+      "status": "ready"
+    },
+    {
+      "type": "dispatch_task",
+      "taskId": "BR-0007",
+      "ownerRole": "RB-06",
+      "ownerActorId": "actor-rb-06",
+      "developmentExecution": false
+    }
+  ],
+  "advanced": 1,
+  "awaitingPerformer": 1,
+  "createdAt": "2026-08-23T13:51:09.594Z"
+}

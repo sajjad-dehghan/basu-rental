@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Development Agent Return",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "taskId", "status", "implementationReference", "changedComponents", "tests", "knownRisks", "completedAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "taskId": { "type": "string", "minLength": 3 },
+    "status": { "enum": ["implementation_complete", "blocked", "failed"] },
+    "implementationReference": { "type": "string" },
+    "changedComponents": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "tests": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "environmentRevision": { "type": "string" },
+    "knownRisks": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "notes": { "type": "string" },
+    "completedAt": { "type": "string", "format": "date-time" }
+  }
+}

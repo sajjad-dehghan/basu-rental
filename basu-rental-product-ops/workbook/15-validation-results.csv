@@ -1,0 +1,2 @@
+result_id,run_id,plan_id,scenario_id,event_id,ticket_id,disposition,expected,observed,difference,decisive_evidence_ids,producer_role,producer_actor_id,verifier_role,verifier_actor_id,qc_record_id,issue_status_implication,ticket_status_implication,corrective_task_ids,recorded_at
+<RESULT_ID>,<RUN_ID>,<PLAN_ID>,<SCENARIO_ID>,<EVENT_ID>,<TICKET_ID>,<statuses.validation_result>,<EXPECTED>,<OBSERVED>,<DIFFERENCE>,<ID_LIST>,RB-09,<ACTOR_ID>,RB-12,<DISTINCT_ACTOR_ID>,<QC_ID>,<IMPLICATION>,<IMPLICATION>,<ID_LIST>,<ISO-8601>

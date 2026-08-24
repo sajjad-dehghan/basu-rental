@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "name": "git",
+  "type": "local-git",
+  "enabled": false,
+  "implementation": "local-git",
+  "settings": {
+    "repositoryPath": ".",
+    "branchPrefix": "product-ops/",
+    "requireCleanWorktree": true
+  }
+}

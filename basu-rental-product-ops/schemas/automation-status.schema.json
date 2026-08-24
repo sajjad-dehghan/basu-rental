@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-product-operations-os.local/schemas/automation-status.schema.json",
+  "title": "Automation Status",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "updatedAt",
+    "mode",
+    "provider",
+    "status",
+    "codex",
+    "productCycle",
+    "developmentSystem",
+    "executorsEnabled",
+    "continuousOrchestrator",
+    "currentCapability",
+    "nextCapability"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "mode": { "enum": ["manual", "auto", "codex", "claude"] },
+    "provider": { "type": ["string", "null"], "enum": ["codex", "claude", null] },
+    "status": {
+      "enum": ["manual", "checking", "provider-ready", "executors-ready"]
+    },
+    "codex": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "installed",
+            "executableUsable",
+            "authenticated",
+            "authenticationMode",
+            "version",
+            "entitlementVerified",
+            "canAutomate",
+            "message"
+          ],
+          "properties": {
+            "status": { "enum": ["not-installed", "not-executable", "login-required", "ready"] },
+            "installed": { "type": "boolean" },
+            "executableUsable": { "type": "boolean" },
+            "authenticated": { "type": "boolean" },
+            "authenticationMode": {
+              "type": ["string", "null"],
+              "enum": ["chatgpt", "api-key", "access-token", "authenticated", null]
+            },
+            "version": { "type": ["string", "null"], "maxLength": 160 },
+            "entitlementVerified": { "const": false },
+            "canAutomate": { "type": "boolean" },
+            "message": { "type": "string", "minLength": 1, "maxLength": 500 }
+          }
+        }
+      ]
+    },
+    "claude": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "installed", "executableUsable", "authenticated", "authenticationMode", "version", "entitlementVerified", "canAutomate", "message"],
+          "properties": {
+            "status": { "enum": ["not-installed", "not-executable", "login-required", "ready"] },
+            "installed": { "type": "boolean" },
+            "executableUsable": { "type": "boolean" },
+            "authenticated": { "type": "boolean" },
+            "authenticationMode": {
+              "type": ["string", "null"],
+              "enum": ["claude-subscription", "api-key", "bedrock", "vertex", "foundry", "authenticated", null]
+            },
+            "version": { "type": ["string", "null"], "maxLength": 160 },
+            "entitlementVerified": { "const": false },
+            "canAutomate": { "type": "boolean" },
+            "message": { "type": "string", "minLength": 1, "maxLength": 500 }
+          }
+        }
+      ]
+    },
+    "productCycle": { "enum": ["initialized", "waiting-for-idea"] },
+    "developmentSystem": {
+      "enum": ["pending", "ready", "skipped-no-application", "skipped-existing-application"]
+    },
+    "executorsEnabled": { "type": "boolean" },
+    "continuousOrchestrator": { "type": "boolean" },
+    "currentCapability": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "nextCapability": { "type": "string", "minLength": 1, "maxLength": 1000 }
+  }
+}

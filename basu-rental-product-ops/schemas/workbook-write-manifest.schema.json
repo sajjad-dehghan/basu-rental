@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workbook Write Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "manifestId",
+    "eventId",
+    "status",
+    "semanticOwner",
+    "authorization",
+    "writer",
+    "target",
+    "scope",
+    "controls",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "manifestId": { "type": "string", "minLength": 3 },
+    "eventId": { "type": "string", "minLength": 3 },
+    "status": { "const": "authorized" },
+    "semanticOwner": { "$ref": "#/$defs/actorRole" },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ownerActorId",
+        "authorizedByActorId",
+        "authorizedAt",
+        "ownerConfirmed",
+        "humanProductionAuthorizationId"
+      ],
+      "properties": {
+        "ownerActorId": { "type": "string", "minLength": 2 },
+        "authorizedByActorId": { "type": "string", "minLength": 2 },
+        "authorizedAt": { "type": "string", "format": "date-time" },
+        "ownerConfirmed": { "const": true },
+        "humanProductionAuthorizationId": { "type": "string", "minLength": 2 },
+        "authorityEvidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "reference", "recordId", "sha256"],
+            "properties": {
+              "kind": { "enum": ["human_approval", "development_result"] },
+              "reference": { "type": "string", "pattern": "^(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" },
+              "recordId": { "type": "string", "minLength": 3 },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        }
+      }
+    },
+    "writer": { "$ref": "#/$defs/actorRole" },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["systemAlias", "environment", "file"],
+      "properties": {
+        "systemAlias": { "type": "string", "minLength": 1 },
+        "environment": {
+          "enum": ["local", "test", "staging", "production"]
+        },
+        "file": {
+          "type": "string",
+          "pattern": "^workbook/(?!.*\\.\\.)[^/].*\\.csv$"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sheet",
+        "keyFields",
+        "allowedFields",
+        "prohibitedFields",
+        "rows"
+      ],
+      "properties": {
+        "sheet": { "type": "string", "minLength": 1 },
+        "keyFields": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "allowedFields": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "prohibitedFields": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["key", "preconditions", "changes"],
+            "properties": {
+              "operation": { "enum": ["update", "insert", "rekey"] },
+              "key": { "$ref": "#/$defs/nonEmptyScalarObject" },
+              "preconditions": { "$ref": "#/$defs/nonEmptyScalarObject" },
+              "changes": { "$ref": "#/$defs/nonEmptyScalarObject" }
+            }
+          }
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dryRunRequired",
+        "smallestBoundedRange",
+        "fullRecordReadbackRequired",
+        "secondReadPath",
+        "replayMustWriteZero",
+        "rollbackPlan",
+        "refuseIfEnvironmentAmbiguous",
+        "refuseIfPreconditionMismatch",
+        "secretValuesForbidden"
+      ],
+      "properties": {
+        "dryRunRequired": { "const": true },
+        "smallestBoundedRange": { "type": "string", "minLength": 1 },
+        "fullRecordReadbackRequired": { "const": true },
+        "secondReadPath": { "type": "string", "minLength": 1 },
+        "replayMustWriteZero": { "const": true },
+        "rollbackPlan": { "type": "string", "minLength": 12 },
+        "refuseIfEnvironmentAmbiguous": { "const": true },
+        "refuseIfPreconditionMismatch": { "const": true },
+        "secretValuesForbidden": { "const": true }
+      }
+    },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "actorRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "actorId"],
+      "properties": {
+        "role": { "type": "string", "pattern": "^RB-[0-9]{2}$" },
+        "actorId": { "type": "string", "minLength": 2 }
+      }
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "nonEmptyScalarObject": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": ["string", "number", "integer", "boolean", "null"]
+      }
+    }
+  }
+}

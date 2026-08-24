@@ -1,0 +1,483 @@
+{
+  "schemaVersion": "1.0.0",
+  "cycleId": "EVT-20260823-001",
+  "linkedApplication": {
+    "root": "D:/Projects/BASU-Reservation/basu-rental-app"
+  },
+  "operationalArtifacts": null,
+  "project": {
+    "id": "basu-rental",
+    "name": "پلتفرم عمومی اجاره تجهیزات",
+    "vision": "پلتفرم عمومی اجاره انواع تجهیزات",
+    "targetUsers": [
+      "دانشجوها و انجمن‌های دانشگاهی، با تمرکز بر نسل دههٔ ۸۰ به بعد",
+      "عموم افرادی که برای رویدادها و مناسبت‌ها به تجهیزات اجاره‌ای نیاز دارند"
+    ],
+    "environments": [
+      "local",
+      "staging",
+      "production"
+    ],
+    "humanAuthorityActorId": "human-product-owner"
+  },
+  "task": {
+    "task_id": "BR-0008",
+    "event_id": "EVT-20260823-001",
+    "title": "Design validation",
+    "owner_role": "RB-07",
+    "owner_actor_id": "actor-rb-07",
+    "status": "ready",
+    "priority": "P1",
+    "dependency_ids": "BR-0007",
+    "blocked_reason": "",
+    "next_owner_role": "",
+    "unblock_condition": "",
+    "canonical_output_refs": "",
+    "evidence_refs": "",
+    "handoff_id": "",
+    "independent_verifier_role": "RB-12",
+    "verifier_actor_id": "actor-rb-12",
+    "human_gate": "",
+    "due_at": "",
+    "updated_at": "2026-08-23T13:56:15.104Z"
+  },
+  "role": {
+    "id": "RB-07",
+    "actorId": "actor-rb-07",
+    "name": "Validation Design",
+    "purpose": "Define plans, scenarios, data needs, expected outcomes, and evidence contracts.",
+    "responsibilities": [
+      "author_validation_plans",
+      "author_scenarios",
+      "declare_run_readiness"
+    ],
+    "prohibitedActions": [
+      "manufacture_results",
+      "execute_and_independently_verify_same_run",
+      "accept_product_risk"
+    ]
+  },
+  "intake": {
+    "intakeId": "INT-20260823-96EC199D",
+    "eventId": "EVT-20260823-001",
+    "type": "new_idea",
+    "title": "ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت",
+    "description": "تبدیل فرایند فعلی مبتنی بر اکسل به یک سایت فارسی مینیمال و مدرن برای انتخاب تجهیزات، تاریخ، ساعت، تعداد، محاسبه قیمت عمومی یا بوعلی، رزرو، هماهنگی تحویل و پرداخت کامل؛ همراه با پنل ادمین برای مدیریت موجودی، قیمت‌ها، تعطیلات، رزروها، پرداخت‌ها و ده قابلیت متمایز و کاربردی برای مشتری و مدیر.",
+    "source": "فایل اکسل «رزرو و قیمت ها.xlsx» و درخواست مستقیم مالک محصول در زمان راه‌اندازی",
+    "targetUser": "",
+    "priority": "P1",
+    "fingerprint": "96ec199d3af3f46ce8ef56b985a165eae668e483d9f793d84c74c28da76dda99",
+    "status": "accepted",
+    "duplicateOf": null,
+    "autopilotAuthorized": false,
+    "createdAt": "2026-08-23T12:48:13.252Z"
+  },
+  "cycleHistory": [],
+  "priorRuns": [],
+  "resultContract": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://open-product-operations-os.local/schemas/product-agent-run.schema.json",
+    "title": "Product Agent Run",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schemaVersion",
+      "taskId",
+      "eventId",
+      "roleId",
+      "producerActorId",
+      "status",
+      "summary",
+      "findings",
+      "recommendations",
+      "acceptanceCriteria",
+      "impacts",
+      "constraints",
+      "nonFunctionalRequirements",
+      "evidence",
+      "knownRisks",
+      "completedAt"
+    ],
+    "properties": {
+      "schemaVersion": {
+        "const": "1.0.0"
+      },
+      "taskId": {
+        "type": "string",
+        "minLength": 3
+      },
+      "eventId": {
+        "type": "string",
+        "minLength": 3
+      },
+      "roleId": {
+        "type": "string",
+        "pattern": "^RB-(?:0[1-9]|1[0-3])$"
+      },
+      "producerActorId": {
+        "type": "string",
+        "minLength": 2
+      },
+      "status": {
+        "enum": [
+          "completed",
+          "blocked",
+          "failed"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 4000
+      },
+      "findings": {
+        "$ref": "#/$defs/strings"
+      },
+      "recommendations": {
+        "$ref": "#/$defs/strings"
+      },
+      "acceptanceCriteria": {
+        "type": "array",
+        "maxItems": 30,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "statement",
+            "verification"
+          ],
+          "properties": {
+            "statement": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 1000
+            },
+            "verification": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 1000
+            }
+          }
+        }
+      },
+      "impacts": {
+        "type": "array",
+        "maxItems": 30,
+        "uniqueItems": true,
+        "items": {
+          "enum": [
+            "architecture",
+            "frontend",
+            "accessibility",
+            "backend",
+            "api",
+            "integration",
+            "mobile",
+            "desktop",
+            "database",
+            "storage",
+            "cache",
+            "messaging",
+            "search",
+            "data",
+            "ai",
+            "analytics",
+            "security",
+            "privacy",
+            "identity",
+            "compliance",
+            "network",
+            "infrastructure",
+            "devops",
+            "sre",
+            "observability",
+            "performance",
+            "resilience",
+            "cost",
+            "seo",
+            "documentation"
+          ]
+        }
+      },
+      "constraints": {
+        "$ref": "#/$defs/strings"
+      },
+      "nonFunctionalRequirements": {
+        "type": "array",
+        "maxItems": 30,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "domain",
+            "requirement",
+            "verification"
+          ],
+          "properties": {
+            "domain": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "requirement": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 1000
+            },
+            "verification": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 1000
+            }
+          }
+        }
+      },
+      "evidence": {
+        "$ref": "#/$defs/strings"
+      },
+      "knownRisks": {
+        "$ref": "#/$defs/strings"
+      },
+      "feedbackNote": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "One or two sentences on what this card taught, filed into the workspace feedback loop and reported to the product owner. Optional per card; the control surface says so when one is owed.",
+        "required": [
+          "learned"
+        ],
+        "properties": {
+          "learned": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 500,
+            "description": "What you learned. What surprised you, what turned out to be wrong, what this revealed about the product — not a summary of what you did."
+          },
+          "saw": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "What you actually observed that led to it, rather than what you infer from it."
+          }
+        }
+      },
+      "decisionProposal": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "A product-direction question prepared by the decision-brief role for the product owner. The control plane presents these exact options; it never chooses one.",
+        "required": [
+          "question",
+          "options"
+        ],
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 400
+          },
+          "context": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "options": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 10,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          "recommendedOption": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "recommendationRationale": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 1000
+          },
+          "optionImpacts": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            }
+          }
+        }
+      },
+      "canonicalRecords": {
+        "type": "array",
+        "maxItems": 200,
+        "description": "Rows this role is committing to the canonical workbook as part of finishing its card. A role may only write the tabs it owns, may only set real columns, and may never set a protected field.",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sheet",
+            "key",
+            "fields"
+          ],
+          "properties": {
+            "sheet": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60
+            },
+            "key": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "fields": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "maxLength": 4000
+              }
+            }
+          }
+        }
+      },
+      "writeBoundary": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "allowedPaths"
+        ],
+        "description": "Where this delivery needs to be able to write. Optional, and only meaningful from the role that authors the delivery contract. It may narrow the application's own policy and can never widen it.",
+        "properties": {
+          "allowedPaths": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      },
+      "completedAt": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "$defs": {
+      "strings": {
+        "type": "array",
+        "maxItems": 30,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    }
+  },
+  "policy": {
+    "preserveHumanProductAuthority": true,
+    "noDirectRepositoryWrites": true,
+    "noProductionActions": true,
+    "noCredentialMaterial": true,
+    "evidenceBeforeClaims": true,
+    "qualificationThreshold": "Ask the owner only when the answer changes a material product choice, risk acceptance, irreversible action, sensitive access, or final acceptance. Read canonical state first; mechanical choices are not human questions.",
+    "discoveryStopRule": "Stop when remaining uncertainty cannot change the next decision or safe reversible action. Record the unknown and a trigger for reopening instead of forcing completeness.",
+    "smallestCompleteOutcome": "Produce only the smallest complete result inside this role and task. Do not expand adjacent scope or create speculative artifacts.",
+    "retryBeforeRecordingAbsence": true
+  },
+  "reporting": {
+    "proportionalDeliveryRule": "Match analysis and evidence depth to current impact. Low-risk reversible work should stay focused; cross-boundary work needs integration and rollback proof; sensitive, production, high-risk, or irreversible work receives specialist gates and human authority. Scope, truthfulness, credentials, evidence, and independence never weaken.",
+    "complexityRule": "Recommend new process, abstraction, dependency, service, store, queue, extension point, gate, or artifact only when a present requirement or observed risk needs it. Check for no-build, repository reuse, standard or native capability, and installed capability before proposing a local build. Name the simpler alternative considered, why it is insufficient now, the ongoing cost, and the removal or expansion trigger. Hypothetical future reuse is not evidence.",
+    "absenceRule": "A source you could not reach is not a source that says nothing. Retry a failed retrieval at least once before recording anything as absent, and if it still fails, record the failure — what you tried and what it returned — rather than the absence.",
+    "canonicalRecordRule": "This role owns validation_plans, validation_scenarios. Put what you produced into canonicalRecords as rows on those tabs — one entry per row, with the tab's own key field in \"key\" and the rest in \"fields\". Writing a tab you do not own, a column that does not exist, a protected field, or an identifier that does not match the tab's pattern is refused, and the card does not complete.",
+    "ownedRecords": [
+      {
+        "sheet": "validation_plans",
+        "keyFields": [
+          "plan_id"
+        ],
+        "identifierPattern": "^VPL-[0-9]{8}-[0-9]{3}$",
+        "columns": [
+          "plan_id",
+          "event_id",
+          "ticket_id",
+          "status",
+          "risk",
+          "objective",
+          "claims",
+          "entry_criteria",
+          "exit_criteria",
+          "stop_conditions",
+          "scenario_ids",
+          "environment_alias",
+          "data_set",
+          "evidence_contract",
+          "human_gate",
+          "design_owner_role",
+          "design_owner_actor_id",
+          "execution_owner_role",
+          "verifier_role",
+          "verifier_actor_id",
+          "approved_at",
+          "supersedes_id"
+        ],
+        "statusField": "status",
+        "statusValues": [
+          "draft",
+          "in_review",
+          "approved",
+          "run_ready",
+          "blocked",
+          "complete",
+          "superseded"
+        ]
+      },
+      {
+        "sheet": "validation_scenarios",
+        "keyFields": [
+          "scenario_id"
+        ],
+        "identifierPattern": "^VSC-[0-9]{8}-[0-9]{3}$",
+        "columns": [
+          "scenario_id",
+          "plan_id",
+          "event_id",
+          "ticket_id",
+          "status",
+          "claim_or_ac_ids",
+          "preconditions",
+          "steps",
+          "expected_outcomes",
+          "evidence_required",
+          "edge_cases",
+          "pass_rule",
+          "fail_rule",
+          "stop_condition",
+          "owner_role",
+          "owner_actor_id",
+          "supersedes_id"
+        ],
+        "statusField": "status",
+        "statusValues": [
+          "draft",
+          "ready",
+          "blocked",
+          "retired"
+        ]
+      }
+    ]
+  }
+}

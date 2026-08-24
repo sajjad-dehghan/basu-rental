@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product Operations Runtime Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "kind", "dryRun", "actions", "createdAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "runId": { "type": "string", "minLength": 3 },
+    "kind": { "enum": ["control_plane", "provider_sync", "migration", "configuration"] },
+    "dryRun": { "type": "boolean" },
+    "actions": { "type": "array", "items": { "type": "object" } },
+    "advanced": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Actions that changed the board. Zero with a non-zero awaitingPerformer means the cycle routed work and moved nothing, and running it again will do the same."
+    },
+    "awaitingPerformer": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Cards found runnable and handed to nobody. A cycle dispatches; it never performs."
+    },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

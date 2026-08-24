@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "requests": [
+    {
+      "requestId": "APR-D7D4A4195A4F",
+      "taskId": "BR-0005",
+      "gate": "product_direction_or_priority",
+      "question": "برای ادامهٔ پلتفرم اجاره تجهیزات، کدام دامنه و شرط شروع را تأیید می‌کنید؟",
+      "context": "اکتشاف رومیزی مسیر اصلی مشتری و مدیر را روشن کرده، اما فایل اکسل منبع و قواعد واقعی اقلام، قیمت، ظرفیت، تعطیلات، تحویل، لغو و پرداخت در محیط فعلی موجود نیست. این تصمیم فقط جهت و دامنهٔ کار بعدی را تعیین می‌کند و مجوز انتشار تولیدی یا پرداخت واقعی نیست.",
+      "options": [
+        "شروع MVP محدود با داده و قواعد موقت",
+        "توقف تا دریافت فایل اکسل و قواعد واقعی",
+        "شروع دامنه کامل شامل ده قابلیت متمایز"
+      ],
+      "recommendedOption": "شروع MVP محدود با داده و قواعد موقت",
+      "recommendationRationale": "این گزینه سریع‌ترین مسیر برگشت‌پذیر برای ساخت یک جریان کامل و آزمودن معماری و تجربهٔ رزرو است، درحالی‌که قیمت‌ها و قواعد ناشناخته را واقعیت تلقی نمی‌کند. شرط آن، برچسب‌گذاری دادهٔ مصنوعی، عدم انتشار عمومی و بازبینی قرارداد تحویل پس از دریافت منبع اکسل است.",
+      "optionImpacts": {
+        "شروع MVP محدود با داده و قواعد موقت": "ساخت یک جریان کامل مشتری و پنل پایه آغاز می‌شود؛ داده‌ها مصنوعی و موقت‌اند، ده قابلیت جداگانه اولویت‌بندی می‌شوند و پیش از تحویل واقعی قواعد اکسل جایگزین می‌شوند.",
+        "توقف تا دریافت فایل اکسل و قواعد واقعی": "ریسک فرض نادرست کمتر می‌شود، اما ساخت و یادگیری رابط متوقف می‌ماند تا منبع معتبر ارائه و بررسی شود.",
+        "شروع دامنه کامل شامل ده قابلیت متمایز": "بیشترین دامنه را از ابتدا می‌پذیرد، اما بدون قواعد و اولویت معتبر احتمال بازکاری، تأخیر و ناتمام‌ماندن مسیر اصلی بالاست."
+      },
+      "evidenceRefs": [],
+      "risks": [],
+      "status": "approved",
+      "requestedAt": "2026-08-23T13:10:38.314Z",
+      "decidedAt": "2026-08-23T13:18:22.852Z",
+      "decidedByActorId": "human-product-owner",
+      "rationale": "نسخه نهایی رو شروع کنی به توسعه دادن، نه MVP، و صفر تا صدش رو کامل پیش برو تا به نقطه انتهایی برسی.",
+      "selectedOption": "شروع دامنه کامل شامل ده قابلیت متمایز",
+      "conditions": [
+        "نسخه نهایی رو شروع کنی به توسعه دادن، نه MVP",
+        "صفر تا صدش رو کامل پیش برو تا به نقطه انتهایی برسی"
+      ],
+      "attribution": "model_relayed"
+    },
+    {
+      "requestId": "APR-9215786D8B99",
+      "taskId": "BR-0010",
+      "gate": "development-export",
+      "question": "Authorize bounded development for BR-0010?",
+      "context": "What this delivers: ساخت پلتفرم عمومی اجاره تجهیزات با پنل مدیریت.\nThe delivery contract says: قرارداد تحویل نسخهٔ نهایی BASU Rental با دامنهٔ کامل، معیارهای پذیرش انتهابه‌انتها، مرز نوشتن و الزامات شواهد مستقل آماده شد؛ این قرارداد MVP نیست و ادعای پیاده‌سازی یا پذیرش نمی‌کند.\n30 acceptance criterion(s) travel with it (43 exist; the contract carries the first 30).\nValidation design: طرح اعتبارسنجی نسخهٔ نهایی و هشت سناریوی قابل بازتولید برای پوشش AC-01 تا AC-16 طراحی شد. اجرا و نتیجه‌سازی انجام نشده و plan تا آماده‌شدن build، migration و endpoint در وضعیت blocked باقی می‌ماند.\nApproving sends this contract to the engineering repository and lets implementation begin there. It does not authorise a production release, a destructive operation, or any write outside the contract's boundary — each of those is gated separately.\nRejecting leaves the product side intact and stops only the crossing.",
+      "options": [
+        "approved",
+        "rejected"
+      ],
+      "recommendedOption": "approved",
+      "recommendationRationale": "",
+      "optionImpacts": {},
+      "evidenceRefs": [],
+      "risks": [
+        "Production release and destructive operations remain separately gated."
+      ],
+      "status": "approved",
+      "requestedAt": "2026-08-23T14:05:24.587Z",
+      "decidedAt": "2026-08-23T14:05:50.435Z",
+      "decidedByActorId": "human-product-owner",
+      "rationale": "نسخه نهایی رو شروع کنی به توسعه دادن، نه MVP، و صفر تا صدش رو کامل پیش برو تا به نقطه انتهایی برسی.",
+      "selectedOption": null,
+      "conditions": [
+        "نسخه نهایی، نه MVP، توسعه داده شود.",
+        "دامنه کامل صفر تا صد تا نقطه انتهایی پیش برود."
+      ],
+      "attribution": "model_relayed"
+    }
+  ]
+}

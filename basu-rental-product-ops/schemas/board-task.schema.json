@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product Operations Board Task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "taskId",
+    "title",
+    "owner",
+    "status",
+    "route",
+    "dependsOn",
+    "evidence",
+    "updatedAt"
+  ],
+  "properties": {
+    "taskId": {
+      "type": "string",
+      "minLength": 3
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 2
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "route": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dependsOn": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "updatedAt": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    }
+  }
+}

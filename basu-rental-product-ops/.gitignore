@@ -1,0 +1,5 @@
+# Control-plane scratch state, not product history.
+.product-ops/runtime/locks/
+.product-ops/runtime/metrics.json
+
+node_modules/

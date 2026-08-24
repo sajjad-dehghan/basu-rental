@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifestId": "WFM-APR-D7D4A4195A4F-decision-projection",
+  "manifestSha256": "8df9356436eeb8af3804bec54d06aed7b31fd4feedb7056214d5bee7e8214961",
+  "targetFile": "workbook/09-decision-log.csv",
+  "environment": "local",
+  "planHash": "66594c6c6246af4e2a96f8d4a177040010a7e2247550ac2020a55580d41b0895",
+  "beforeSha256": "9370bdbb7137424bfb8bf57fbdfc3b007e83a7afaad07ae8887699df8c835537",
+  "afterSha256": "c27e4f15731e593fe41c40fc2d60b4aaa1afbc9a36fddac384902b5a0e7a1462",
+  "recordsChanged": 1,
+  "fieldsChanged": 7,
+  "fullReadbackMatch": true,
+  "secondReadMatch": true,
+  "replayWrites": 0,
+  "backupFile": ".product-ops/writes/WFM-APR-D7D4A4195A4F-decision-projection/before.csv",
+  "rollbackPlan": "Restore the content-addressed pre-write CSV backup after verifying its recorded digest.",
+  "rolledBack": false,
+  "createdAt": "2026-08-23T13:41:15.129Z"
+}

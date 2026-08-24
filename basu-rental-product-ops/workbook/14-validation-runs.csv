@@ -1,0 +1,2 @@
+run_id,plan_id,scenario_id,event_id,ticket_id,status,executor_role,executor_actor_id,environment_alias,implementation_reference,data_set,started_at,ended_at,actual_observation,evidence_manifest_id,blocked_reason,cleanup_state,result_id,known_limitations
+<RUN_ID>,<PLAN_ID>,<SCENARIO_ID>,<EVENT_ID>,<TICKET_ID>,<statuses.validation_run>,RB-09,<ACTOR_ID>,<NON_SECRET_ALIAS>,<REFERENCE>,<SYNTHETIC_DATASET>,<ISO-8601>,<ISO-8601>,<OBSERVATION>,<EVIDENCE_MANIFEST_ID>,,<CLEANUP>,<RESULT_ID_OR_NONE>,<LIMITATIONS>

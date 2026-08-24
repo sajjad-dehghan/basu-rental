@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-product-operations-os.local/schemas/automation-link.schema.json",
+  "title": "Automation Link",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "applicationRelativePath", "provider", "productExecutorsEnabled", "engineeringExecutorsEnabled", "autoStart", "autoApproveInitialIdea", "createdAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "applicationRelativePath": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "provider": { "enum": ["codex", "claude"] },
+    "productExecutorsEnabled": { "type": "boolean" },
+    "engineeringExecutorsEnabled": { "type": "boolean" },
+    "autoStart": { "type": "boolean" },
+    "autoApproveInitialIdea": { "type": "boolean" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

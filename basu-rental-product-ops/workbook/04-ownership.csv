@@ -1,0 +1,2 @@
+artifact_type,semantic_owner_role,mechanical_writer_role,independent_verifier_role,human_approver_when_required,development_owned_fields,notes
+<ARTIFACT_TYPE>,<ROLE_KEY>,RB-10,RB-12,<HUMAN_ROLE>,<PIPE_SEPARATED_FIELDS>,<BOUNDARY_NOTE>

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product Operations Handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoffId",
+    "taskId",
+    "from",
+    "to",
+    "summary",
+    "artifacts",
+    "evidence",
+    "risks",
+    "nextAction",
+    "createdAt"
+  ],
+  "properties": {
+    "handoffId": {
+      "type": "string",
+      "minLength": 3
+    },
+    "taskId": {
+      "type": "string",
+      "minLength": 3
+    },
+    "from": {
+      "type": "string",
+      "minLength": 2
+    },
+    "to": {
+      "type": "string",
+      "minLength": 2
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "nextAction": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

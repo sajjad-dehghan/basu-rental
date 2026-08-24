@@ -1,0 +1,2 @@
+readiness_id,event_id,ticket_ids,status,target_environment,required_gate_ids,satisfied_gate_ids,blocking_ids,residual_risks,human_risk_acceptance_id,rollback_reference,release_id,owner_role,owner_actor_id,producer_actor_id,verifier_actor_id,qc_record_id,assessed_at
+<READINESS_ID>,<EVENT_ID>,<ID_LIST>,<statuses.readiness>,<ENVIRONMENT>,<ID_LIST>,<ID_LIST>,<ID_LIST>,<RISK_LIST>,<ID_OR_NONE>,<REFERENCE>,<RELEASE_ID_OR_NONE>,RB-11,<ACTOR_ID>,<ACTOR_ID>,<DISTINCT_ACTOR_ID>,<QC_ID>,<ISO-8601>
