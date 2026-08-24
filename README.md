@@ -6,7 +6,7 @@
 
 سامانه‌ای فارسی، راست‌به‌چپ و واکنش‌گرا برای رزرو تجهیزات، محاسبه شفاف قیمت، مدیریت تحویل و پیگیری کامل درخواست‌ها.
 
-این پروژه با استفاده از معماری عملیاتی و چرخه توسعه شواهدمحور **[Open Product Operations OS](https://github.com/sedwna/open-product-operations-os)** طراحی و توسعه داده شده است.
+این پروژه با استفاده از معماری عملیاتی و چرخه توسعه شواهدمحور **[Open Product Operations OS](https://github.com/sedwna/open-product-operations-os)** طراحی و توسعه داده شده است. تصمیم‌ها، قراردادهای تحویل و شواهد تیم محصول در **[`basu-rental-product-ops/`](basu-rental-product-ops/README.md)** همراه همین مخزن نگهداری می‌شوند.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
@@ -92,6 +92,21 @@ sequenceDiagram
     end
 ```
 
+## فضای کاری تیم محصول
+
+پوشه [`basu-rental-product-ops/`](basu-rental-product-ops/README.md) نسخه اختصاصی Product Operations این پروژه است؛ یعنی فقط قالب عمومی معماری نیست و تاریخچه واقعی تصمیم‌ها، نقش‌ها، taskboard، delivery contractها، برنامه اعتبارسنجی و lineage همین سامانه را در خود دارد.
+
+| برای فهمیدن… | از اینجا شروع کنید |
+| --- | --- |
+| چرا محصول با این محدوده ساخته شده است | [`workbook/09-decision-log.csv`](basu-rental-product-ops/workbook/09-decision-log.csv) |
+| توسعه دقیقاً چه چیزی را باید تحویل دهد | [`workbook/11-delivery-tickets.csv`](basu-rental-product-ops/workbook/11-delivery-tickets.csv) |
+| هر قابلیت چگونه تایید می‌شود | [`workbook/12-validation-plans.csv`](basu-rental-product-ops/workbook/12-validation-plans.csv) |
+| مسئول هر تصمیم یا فعالیت چه کسی است | [`governance/ownership-matrix.csv`](basu-rental-product-ops/governance/ownership-matrix.csv) |
+| وضعیت و توالی کارها چیست | [`taskboard/tasks.csv`](basu-rental-product-ops/taskboard/tasks.csv) |
+| ارتباط تصمیم، تحویل و شاهد کجاست | [`workbook/23-lineage.csv`](basu-rental-product-ops/workbook/23-lineage.csv) |
+
+برای ادامه توسعه، ابتدا [راهنمای Product Operations پروژه](basu-rental-product-ops/README.md) را بخوانید و تغییر جدید را از مسیر event → decision → delivery contract → implementation → validation عبور دهید. کد به‌تنهایی منبع حقیقت محصول نیست و فایل‌های محصول نیز نباید ادعای تکمیل فنی بدون شاهد داشته باشند.
+
 ## معماری
 
 ```mermaid
@@ -160,6 +175,7 @@ app/
 db/                          # پیکربندی Drizzle/D1
 drizzle/                     # migrationهای نسخه‌بندی‌شده
 docs/                        # معماری، امنیت، عملیات و برنامه تلگرام
+basu-rental-product-ops/     # تصمیم‌ها، قراردادها و شواهد تیم محصول
 public/                      # دارایی‌های عمومی
 tests/                       # تست‌های خودکار
 ```
