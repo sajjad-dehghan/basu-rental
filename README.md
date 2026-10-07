@@ -1,3 +1,45 @@
+<!-- visual-showroom:start -->
+<p align="center">
+  <img src="docs/showroom/readme-banner.svg" alt="BASU Rental — repository cover" width="100%">
+</p>
+
+<p align="center">
+  <strong>BASU Rental</strong><br>
+  TOOLS &amp; INTERFACES
+</p>
+
+<p align="center">
+  <a href="https://sajjad-dehghan-personal-site.prisoner-sedwna.workers.dev/projects/basu-rental"><strong>Explore the showroom ↗</strong></a> ·
+  <a href="https://basu-rental.welinkupgroup.chatgpt.site"><strong>Try the browser edition ↗</strong></a> ·
+  <a href="#implementation--original-documentation">Setup &amp; implementation ↓</a>
+</p>
+
+Equipment booking for the Bu-Ali Sina University Computer Association: tiered pricing, a live receipt, delivery tracking and an admin panel with a Jalali calendar. Built with the Open Product Operations OS.
+
+## Visual tour
+
+[![Actual booking and live receipt UI · local run, no reservation submitted](docs/showroom/readme-view-1.jpg)](https://sajjad-dehghan-personal-site.prisoner-sedwna.workers.dev/projects/basu-rental)
+
+<p align="center">
+  <a href="https://sajjad-dehghan-personal-site.prisoner-sedwna.workers.dev/projects/basu-rental"><img src="docs/showroom/readme-view-2.png" alt="Admin calendar · repository capture" width="48%"></a>
+  <a href="https://sajjad-dehghan-personal-site.prisoner-sedwna.workers.dev/projects/basu-rental"><img src="docs/showroom/readme-view-3.jpg" alt="Rental homepage" width="48%"></a>
+  <a href="https://sajjad-dehghan-personal-site.prisoner-sedwna.workers.dev/projects/basu-rental"><img src="docs/showroom/readme-view-4.jpg" alt="Equipment catalogue and prices" width="48%"></a>
+</p>
+
+1. Actual booking and live receipt UI · local run, no reservation submitted
+2. Admin calendar · repository capture
+3. Rental homepage
+4. Equipment catalogue and prices
+
+Real captures or owner-supplied images, not generated product mockups. Demo/local data and edition boundaries are documented below.
+
+## Implementation & original documentation
+
+The existing run instructions, architecture, limitations and credits are preserved below.
+
+---
+<!-- visual-showroom:end -->
+
 <div align="center">
 
 ## گالری اجرای واقعی
