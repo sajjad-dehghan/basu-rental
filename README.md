@@ -1,5 +1,19 @@
 <div align="center">
 
+## گالری اجرای واقعی
+
+![صفحهٔ اصلی](docs/showroom/basu-home.jpg)
+![کاتالوگ و قیمت تجهیزات](docs/showroom/basu-catalogue.jpg)
+![جزئیات یک تجهیز](docs/showroom/basu-equipment.jpg)
+
+ثبت محلی ۷ اکتبر ۲۰۲۶، بدون رزرو یا پرداخت. [شو‌روم بخش‌بندی‌شده](https://sajjad-dehghan-personal-site.prisoner-sedwna.workers.dev/fa/projects/basu-rental).
+
+<!-- Actual product screenshot selected for the portfolio; not the Telegram concept mockup. -->
+
+![رابط واقعی رزرو و فاکتور زنده](docs/assets/readme/booking-local-v2.jpg)
+
+تصویر بالا در ۷ اکتبر ۲۰۲۶ از اجرای واقعی محلی مسیر `/book` ثبت شد؛ عنوان کامل صفحه، انتخاب پنج لباس و فاکتور زنده دیده می‌شوند. هیچ رزرو، پرداخت یا اعلان واقعی ثبت نشد. نصب با `pnpm@10 install --frozen-lockfile` موفق شد و قفل وابستگی‌ها تغییر نکرد. تصویر قبلی `booking-live-receipt.png` نیز حفظ شده است.
+
 <img src="public/og.png" alt="انجمن کامپیوتر دانشگاه بوعلی سینا" width="760" />
 
 # سامانه رزرو تجهیزات انجمن کامپیوتر دانشگاه بوعلی سینا
